@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Dra. Mariana Lourenço</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F5EDE3;--cream2:#EDE0D4;--cream3:#FAF6F2;
+  --rose:#A0636A;--rose-mid:#C4908E;--rose-lt:#DDB8B0;--rose-bg:#F2E4E1;
+  --rose-dark:#7A3D44;
+  --ink:#3A2E2C;--ink-mid:#6B5855;--ink-lt:#9A8582;
+  --white:#FFFFFF;--border:rgba(160,99,106,0.18);--shadow:0 2px 16px rgba(58,46,44,0.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;}
+
+/* PAGES */
+.page{display:none;min-height:100vh;flex-direction:column;}
+.page.active{display:flex;animation:fadeUp .25s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* LANG */
+.lang-badge{position:fixed;top:14px;right:16px;z-index:999;display:flex;background:rgba(255,255,255,0.92);backdrop-filter:blur(6px);border:1px solid var(--border);border-radius:20px;padding:3px;}
+.lang-btn{background:none;border:none;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--ink-lt);cursor:pointer;padding:5px 11px;border-radius:16px;transition:all .2s;}
+.lang-btn.on{background:var(--rose);color:#fff;}
+
+/* HEADER */
+.page-header{display:flex;align-items:center;gap:12px;padding:52px 20px 16px;background:var(--cream3);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.back-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:var(--ink);flex-shrink:0;}
+.home-btn{margin-left:auto;width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--ink);flex-shrink:0;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--ink);}
+.page-body{flex:1;padding:22px 20px 48px;max-width:520px;width:100%;margin:0 auto;}
+
+/* HOME */
+#page-home{background:var(--cream3);align-items:center;}
+.home-hero{width:100%;background:linear-gradient(160deg,var(--cream) 0%,var(--cream2) 100%);padding:44px 24px 22px;display:flex;flex-direction:column;align-items:center;gap:10px;position:relative;overflow:hidden;}
+.home-hero::after{content:'';position:absolute;bottom:-20px;right:-20px;width:140px;height:140px;opacity:.07;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Cpath d='M50 5 Q80 30 75 80 Q50 115 25 80 Q20 30 50 5Z' fill='%23A0636A'/%3E%3C/svg%3E") no-repeat center/contain;}
+.photo-ring{width:82px;height:82px;border-radius:50%;overflow:hidden;border:3px solid var(--rose-lt);box-shadow:0 4px 20px rgba(160,99,106,0.2);flex-shrink:0;z-index:1;}
+.photo-ring img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:var(--ink);text-align:center;z-index:1;}
+.hero-specs{font-size:11.5px;letter-spacing:.05em;color:var(--ink-mid);text-align:center;z-index:1;line-height:1.6;}
+.hero-bio{font-size:12.5px;line-height:1.75;color:var(--ink-mid);text-align:center;max-width:340px;z-index:1;}
+.hero-quote{font-family:'Cormorant Garamond',serif;font-size:14.5px;font-style:italic;line-height:1.75;color:#7A4A50;text-align:center;max-width:320px;z-index:1;}
+
+
+.linkedin-link{display:inline-flex;align-items:center;gap:7px;z-index:1;padding:7px 14px;border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--ink-mid);text-decoration:none;background:var(--white);}
+.linkedin-link svg{width:14px;height:14px;fill:#0A66C2;}
+.home-actions{width:100%;max-width:480px;padding:16px 20px 32px;display:flex;flex-direction:column;gap:12px;}
+
+/* BUTTONS */
+.btn-rose{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 20px;border:none;border-radius:30px;background:var(--rose);color:#fff;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+.btn-outline{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 20px;border:1.5px solid var(--rose);border-radius:30px;background:transparent;color:var(--rose);font-family:'Jost',sans-serif;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+
+/* CLINIC CARDS */
+.clinic-card{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--white);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);}
+.clinic-logo{width:44px;height:44px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;font-size:8px;border:1px solid var(--border);}
+.clinic-logo img{width:100%;height:100%;object-fit:contain;padding:3px;}
+.clinic-name{font-size:14px;font-weight:500;}
+.clinic-city{font-size:12px;color:var(--rose-mid);margin-top:2px;}
+.clinic-arrow{margin-left:auto;color:var(--rose-lt);font-size:18px;}
+
+/* GATE */
+.gate-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:40px 24px;}
+.gate-icon{font-size:48px;}
+.gate-title{font-family:'Cormorant Garamond',serif;font-size:24px;text-align:center;}
+.gate-sub{font-size:13px;color:var(--ink-lt);text-align:center;line-height:1.7;max-width:280px;}
+.pw-wrap{position:relative;width:100%;max-width:300px;}
+.pw-input{width:100%;padding:14px 44px 14px 20px;border:1.5px solid var(--border);border-radius:30px;font-family:'Jost',sans-serif;font-size:15px;letter-spacing:.15em;text-align:center;background:var(--white);color:var(--ink);outline:none;}
+.pw-input:focus{border-color:var(--rose);}
+.pw-eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;opacity:.5;}
+.err{font-size:12px;color:#b0363f;display:none;text-align:center;}
+.gate-note{font-size:11px;color:var(--ink-lt);text-align:center;line-height:1.6;max-width:260px;}
+
+/* AUTH TABS */
+.auth-wrap{flex:1;padding:28px 20px 48px;max-width:480px;width:100%;margin:0 auto;}
+.auth-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:24px;}
+.auth-tab{flex:1;padding:11px;background:none;border:none;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;color:var(--ink-lt);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;}
+.auth-tab.on{color:var(--rose);border-bottom-color:var(--rose);}
+.auth-panel{display:none;}
+.auth-panel.on{display:block;}
+
+/* FORM */
+.fg{margin-bottom:14px;}
+.fl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:6px;display:block;}
+.fi{width:100%;padding:12px 15px;border:1.5px solid var(--border);border-radius:12px;font-family:'Jost',sans-serif;font-size:14px;background:var(--white);color:var(--ink);outline:none;}
+.fi:focus{border-color:var(--rose);}
+.check-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+.check-pill{display:flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid var(--border);border-radius:20px;cursor:pointer;font-size:13px;background:var(--white);}
+.check-pill input{accent-color:var(--rose);}
+.check-pill:has(input:checked){background:var(--rose-bg);border-color:var(--rose-lt);}
+.rgpd-box{background:var(--rose-bg);border:1px solid var(--rose-lt);border-radius:12px;padding:13px;font-size:12px;line-height:1.7;color:var(--ink-mid);margin-bottom:12px;}
+.consent-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;margin-bottom:10px;}
+.consent-row input{accent-color:var(--rose);margin-top:3px;flex-shrink:0;}
+.consent-row span{font-size:13px;line-height:1.5;color:var(--ink-mid);}
+.auth-alt{font-size:12px;color:var(--ink-lt);text-align:center;margin-top:12px;}
+.auth-alt a{color:var(--rose);cursor:pointer;text-decoration:underline;}
+.auth-err{font-size:12px;color:#b0363f;display:none;padding:10px;background:#fdf0f0;border-radius:8px;margin-bottom:10px;}
+.field-legend{font-size:11px;color:var(--ink-lt);margin-bottom:16px;}
+
+/* SPINNER */
+.spinner-overlay{display:none;position:fixed;inset:0;background:rgba(250,246,242,.85);z-index:9999;align-items:center;justify-content:center;}
+.spinner-overlay.on{display:flex;}
+.spinner{width:34px;height:34px;border:3px solid var(--rose-lt);border-top-color:var(--rose);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* PATIENT MENU */
+.menu-row{display:flex;align-items:center;gap:14px;padding:15px 16px;background:var(--white);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;cursor:pointer;box-shadow:var(--shadow);color:var(--ink);}
+.menu-icon{width:44px;height:44px;border-radius:12px;background:var(--rose-bg);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.menu-label{font-size:14px;font-weight:500;}
+.menu-sub{font-size:12px;color:var(--ink-lt);margin-top:2px;}
+.menu-arrow{margin-left:auto;color:var(--rose-lt);font-size:20px;}
+.menu-row-dark{background:var(--rose-dark);border-color:var(--rose-dark);}
+.menu-row-dark .menu-icon{background:rgba(255,255,255,0.15);}
+.menu-row-dark .menu-label{color:#fff;}
+.menu-row-dark .menu-sub{color:rgba(255,255,255,0.7);}
+.menu-row-dark .menu-arrow{color:rgba(255,255,255,0.5);}
+
+/* AREA PAGES — SUB-TABS */
+.sub-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:20px;}
+.sub-tab{flex:1;padding:11px 6px;background:none;border:none;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;color:var(--ink-lt);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;}
+.sub-tab.on{color:var(--rose);border-bottom-color:var(--rose);}
+.sub-panel{display:none;}
+.sub-panel.on{display:block;}
+
+/* FAQ */
+.faq-card{background:var(--white);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow);}
+.faq-q{width:100%;padding:15px 17px;background:none;border:none;font-family:'Jost',sans-serif;font-size:13.5px;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;}
+.faq-ch{color:var(--rose-mid);font-size:12px;flex-shrink:0;transition:transform .25s;}
+.faq-ch.open{transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;font-size:13px;line-height:1.75;color:var(--ink-mid);padding:0 17px;}
+.faq-a.open{max-height:500px;padding:0 17px 15px;}
+
+/* REFERENCE CARDS */
+.ref-card{display:flex;align-items:center;gap:14px;padding:15px 16px;background:var(--white);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;cursor:pointer;box-shadow:var(--shadow);}
+.ref-icon{width:44px;height:44px;border-radius:12px;background:var(--rose-bg);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.ref-label{font-size:14px;font-weight:500;color:var(--ink);}
+.ref-sub{font-size:12px;color:var(--ink-lt);margin-top:2px;}
+.ref-arrow{margin-left:auto;color:var(--rose-lt);font-size:20px;}
+
+.prof-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow);}
+.prof-name{font-size:14px;font-weight:500;color:var(--ink);}
+.prof-local{font-size:12px;color:var(--ink-lt);margin-top:3px;line-height:1.5;}
+
+.ref-placeholder{background:var(--rose-bg);border:1px solid var(--rose-lt);border-radius:12px;padding:16px;font-size:13px;color:var(--ink-mid);line-height:1.7;margin-bottom:16px;}
+
+/* CONTACT */
+.contact-warning{background:var(--rose-bg);border:1px solid var(--rose-lt);border-radius:14px;padding:16px;font-size:13px;line-height:1.75;color:var(--ink-mid);margin-bottom:18px;}
+.contact-warning strong{color:var(--rose);font-weight:500;}
+.contact-big{display:flex;align-items:center;gap:14px;padding:17px 20px;border-radius:14px;margin-bottom:12px;text-decoration:none;color:#fff;font-size:14px;font-weight:500;cursor:pointer;border:none;width:100%;text-align:left;}
+.bg-email{background:var(--rose);}
+.bg-wa{background:#25D366;}
+.contact-big-icon{font-size:22px;flex-shrink:0;}
+.contact-detail{font-size:11px;opacity:.82;font-weight:300;margin-top:2px;}
+
+/* SECTION LABEL */
+.section-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:14px;}
+.note-text{font-size:12px;color:var(--ink-lt);line-height:1.65;margin-top:8px;}
+
+/* SUCCESS */
+.success-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px 24px;text-align:center;}
+.success-icon{font-size:52px;}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:28px;}
+.success-sub{font-size:14px;color:var(--ink-lt);line-height:1.65;max-width:280px;}
+
+/* EMAIL BOTTOM SHEET */
+.sheet-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:3000;align-items:flex-end;justify-content:center;}
+.sheet-overlay.on{display:flex;}
+.sheet-box{background:var(--cream3);border-radius:20px 20px 0 0;width:100%;max-width:520px;padding:20px 20px 36px;}
+.sheet-handle{width:36px;height:4px;background:var(--rose-lt);border-radius:2px;margin:0 auto 18px;}
+.sheet-title{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink);margin-bottom:16px;text-align:center;}
+.sheet-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--white);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;text-decoration:none;color:var(--ink);}
+.sheet-item-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.sheet-item-label{font-size:14px;font-weight:500;}
+.sheet-item-sub{font-size:11px;color:var(--ink-lt);}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<div class="spinner-overlay" id="spinner"><div class="spinner"></div></div>
+
+<div class="lang-badge">
+  <button class="lang-btn on" onclick="setLang('pt')">PT</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<!-- ══ HOME ══════════════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="home-hero">
+    <div class="photo-ring"><img src="data:image/jpeg;base64,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" alt="Dra. Mariana Lourenço"></div>
+    <div class="hero-name">Mariana Lourenço</div>
+    <div style="font-size:11px;letter-spacing:.15em;color:var(--ink-lt);opacity:.7;margin-top:-4px;">OM 63637</div>
+    <div class="hero-specs" data-pt="Ginecologia | Obstetrícia | Medicina da Reprodução" data-en="Gynaecology | Obstetrics | Reproductive Medicine">Ginecologia | Obstetrícia | Medicina da Reprodução</div>
+    <div class="hero-bio" data-pt="Especialista em Ginecologia e Obstetrícia, com experiência em ginecologia geral, cirurgia ginecológica minimamente invasiva, medicina da reprodução, planeamento familiar e acompanhamento da gravidez." data-en="Specialist in Gynaecology and Obstetrics, with experience in general gynaecology, minimally invasive gynaecological surgery, reproductive medicine, family planning and pregnancy follow-up.">Especialista em Ginecologia e Obstetrícia, com experiência em ginecologia geral, cirurgia ginecológica minimamente invasiva, medicina da reprodução, planeamento familiar e acompanhamento da gravidez.</div>
+    <div class="hero-quote" data-pt="&ldquo;Acredito num acompanhamento próximo, disponível e personalizado, criando uma relação de confiança com cada mulher ao longo das diferentes etapas da sua vida.&rdquo;" data-en="&ldquo;I believe in close, available and personalised care, building a relationship of trust with each woman throughout the different stages of her life.&rdquo;">&ldquo;Acredito num acompanhamento próximo, disponível e personalizado, criando uma relação de confiança com cada mulher ao longo das diferentes etapas da sua vida.&rdquo;</div>
+    <a href="https://www.linkedin.com/in/mariana-lourenço-b57b1755" target="_blank" class="linkedin-link" style="font-size:11px;padding:6px 12px;">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Ver perfil no LinkedIn
+    </a>
+  </div>
+  <div class="home-actions">
+    <button class="btn-rose" onclick="go('page-appointment')" data-pt="🗓 Marcar Consulta" data-en="🗓 Book Appointment">🗓 Marcar Consulta</button>
+    <button class="btn-outline" onclick="go('page-gate')" data-pt="🔒 Área Reservada a Pacientes" data-en="🔒 Patient Area">🔒 Área Reservada a Pacientes</button>
+  </div>
+</div>
+
+<!-- ══ APPOINTMENT ════════════════════════════════════════════ -->
+<div id="page-appointment" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title" data-pt="Marcar Consulta" data-en="Book Appointment">Marcar Consulta</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="sub-tabs">
+      <button class="sub-tab on" onclick="subTab(this,'appt-presencial')" data-pt="Consulta Presencial" data-en="In-person Appointment">Consulta Presencial</button>
+      <button class="sub-tab" onclick="subTab(this,'appt-teleconsulta')" data-pt="Teleconsulta" data-en="Teleconsultation">Teleconsulta</button>
+    </div>
+    <div id="appt-presencial" class="sub-panel on">
+    <div class="section-label" data-pt="Escolha a instituição" data-en="Choose institution">Escolha a instituição</div>
+    <a href="https://www.lusiadas.pt/hospitais-clinicas/hospital-lusiadas-lisboa" target="_blank" class="clinic-card">
+      <div class="clinic-logo" style="background:#f0f2f7;"><img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:contain;padding:4px;"></div>
+      <div><div class="clinic-name">Lusíadas Lisboa</div><div class="clinic-city" data-pt="Ginecologia · Obstetrícia" data-en="Gynaecology · Obstetrics" data-pt="Ginecologia · Obstetrícia" data-en="Gynaecology · Obstetrics">Ginecologia · Obstetrícia</div></div>
+      <div class="clinic-arrow">›</div>
+    </a>
+    <a href="https://avaclinic.pt" target="_blank" class="clinic-card">
+      <div class="clinic-logo" style="background:#f5f7f5;"><img src="data:image/png;base64,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" style="width:100%;height:100%;object-fit:contain;padding:4px;"></div>
+      <div><div class="clinic-name">AVA Clinic</div><div class="clinic-city" data-pt="Medicina da Reprodução" data-en="Reproductive Medicine">Medicina da Reprodução</div></div>
+      <div class="clinic-arrow">›</div>
+    </a>
+    <a href="https://centro-medico.pt" target="_blank" class="clinic-card">
+      <div class="clinic-logo" style="background:#f5f9ff;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAYAAAA5ZDbSAAABWGlDQ1BJQ0MgUHJvZmlsZQAAeJx9kLFLw1AQxr9WpaB1EB0cHDKJQ5SSCro4tBVEcQhVweqUvqapkMZHkiIFN/+Bgv+BCs5uFoc6OjgIopPo5uSk4KLleS+JpCJ6j+N+fO+74zggOW5wbvcDqDu+W1zKK5ulLSX1jAS9IAzm8Zyur0r+rj/j/T703k7LWb///43Biukxqp+UGcZdH0ioxPqezyXvE4+5tBRxS7IV8onkcsjngWe9WCC+JlZYzagQvxCr5R7d6uG63WDRDnL7tOlsrMk5lBNYxA48cNgw0IQCHdk//LOBv4BdcjfhUp+FGnzqyZEiJ5jEy3DAMAOVWEOGUpN3ju53F91PjbWDJ2ChI4S4iLWVDnA2Rydrx9rUPDAyBFy1ueEagdRHmaxWgddTYLgEjN5Qz7ZXzWrh9uk8MPAoxNskkDoEui0hPo6E6B5T8wNw6XwBA6diE8HYWhMAAEELSURBVHic7b13mCbXdd75O/dW1Zc6x+mePMAAM8iBBEmQBBgARpESRSotJUpaWom2vKu1ZT/rtVeOK692tba0smVJli2RS4oilxSzKEYBIAGQRCBAZGDy9HRP5/DFqrr37B+3vu4eYAZokANwjWfO8zRmMF11q+qeG855z3vOFVVVNkmWZTjnuCD/7Yq1liiKEBGkq2BVJcsyvPc/7Pe7IOdBRIQ4joOCVZU0TfHeIyI/7He7IOdRDECe56jqBeW+BMV47y/suS9hMXme/7Df4YK8gGIuGFUvbTE/7Be4IC+sXFDwS1wuKPglLhcU/BKXCwp+icsFBb/E5YKCXxTxgCAIqCFEd7oxHgk/4oq/b4gAKiCqqApeQdHuHVuSCwp+UcSCerw6VBxGLCIW1OK9R1VRjdCnKdmjkEOuYMVQsRBLROrA6QZ+IXqWRxYSvYBfdUHWRfE4EFDtUG8ew7s1qpUdxHYCBQQDGhFmexCjgkMxBk6sdji91qBWteztrYIqaoJy9Vmm8wUFv0giGLJ8iqeO/2dWGt9DcER2mD07fpyxvnfiyBDs+vUKeARjLZ9++BR/+d1F6r5MLDk376nw/ldNUqO7ZJ9bwxeW6BdBFMVIxMnTn2Fh9XZEWiA5newoTx37c9Za30NIQMNcBlCvJMZx76kV/vRbCyy7PoxGOC3zyYdafPqheaxoEb8/9xp9QcEvuCiGiNzPslx/gNiWi5mqJFEN59dYaTyCMWEh36wsYyz3z6yQaS+JBY/Da0Y5LvGto8us5k103Wg7u1xQ8IsgCojEGBOjaDCaRcLy6pXYVAkz165f32VSVSTGuxzRENK1xqIosVWsSbqtn/PZFxT8goug5BgZYKT/RvLc47zDq6eT1akkOxmsXUXuG3RnrwDGGjKv3LCrh8Fqg1bL4RU6uYJr8fpLRumzCWG8nFuN0mq1nm2GX5DzJOpzfN5mavGjzCx/A9WUWukido++i97adXiTYylmOACC9x5jHfdNtfnwPXOcWs3pLVnecqCXt10xQk2UbF29Z5/FFxT8gosiWFQ7qApGDB03i1dHYvsxphenLYQYI4YzFOWV3AlxrNS9strKKMeGvhIYByIV1LjCDz67Gi8o+AUXCS6PpoiPiaIIxOF8B9QjeKyp4LWM0yaCKXZVpWwtuVXaHYPXFrGNSIzFeMgF0kwxAliD6NkJkxf84BdIVBxogpCiClYScp3n9PJdLK4+QiedxqsjIqacjNDfezXDPTegdghjIMNw59Qa3z6yxPFVaKVhbg9UMi7dVuFVu4bZM2jJcrB6bkPrwgx+wcQCDtUMQZlf/QpTpz9Po3UYbzoYbLCkvQb/V0v0lHexb8dPcjp/GR+6e477p5VmnmOiBKMx6j1KjpWUwSq8af8AP3HNOKUIcIq1zzS2Lij4BREFAghhBI7Pf5iTMx/FeEVsHNwkTIAbEVCHNZ6UNo8uvoqvnvg55ltVaiUboEgcGBeCD2rxalCvtNM2L99j+Y3X7GQ4ETART1+lLyzRL5D4IhgwtfBxTkx/kNjWUAOqHlGP8y08ghhPOSqx6Aa488SruG/m9ThToxp7nM/CLM89HWcxNseKElsBHD3lCncdyqlFM/zDm3cQ4REvqNkALy8o+AUQ1QBIrDUf5vjMJ7FSxmuKkQhchlKi2rOfshlkudXiqyd6eHDhFSxlB5BIiLuIllrSvM32vphdfZamtxxeaLPaykjiEp6Mvp4ydzxV5/LJWX78sklanZTYbGDaFxT8AokBZhe+jPeLxLYH1OBcRrm0i72T76Wv51piqbGSt5mP2zyx3CBdy6gkFm8tHQfluM4vXtvLLZdOMBALOcKp1Q4f/M4cdx3NiJMEsSlEZf7m4RVu3jtKfyJhhBVr9QUk6zxKkcaHYGl3TrNcfwgjEaphyTZRhf17/i5DA29GqJCqodf08q4DI/yrd4zy5kstRlPSToMDgxn/6xv38tPX7GYgFlSVCGXfQMRvvG4HV04aslTRPCKJYWrF8djcKrERNieMXpjB51FEBFWPNZBmc2TZavBTJcCTY32voq96Jc41ERMF5Nl76ilMlCJ+47W7eNMldeqtnIOTVUbKMZ12irEGKwYVaGXKUEl4xxVDPDwzA4TYcNspJxc6RLssKRupSBcUfB6lO3NUFacNPE1METlS9fSWDoDGIBtBfTVgUyWPI2wp5pq9Q3QjUGmaYUwHRVCxgCcyBq/Czr4KtcTQ8J5YFacl5lbSIvi/4Rc/bwWrKLJOIehiLlLwhM5kGwWRMx64qaX135zt6mfK5mee63eccY2c8ynP3mb4Hs+ZO5ie8/qztSuFn9u9R8SR+5UiQN9tO+yXJjY0Dp9m9tP3Uj0wSWlkgKXbHmTghoP03ryfyGXFvkrhYkHdedqpINaAeAxKKbGB5rNJtqxgLYg/4sNHZz7HIiA+7DEGrDdgPEYijHqcAE7xeETO7Jbg/wmxEbzI+nUYIRI58zW9xxcwvJjCy/QWo55AcSnCbLLRejfGIkZRVbzXQGA7QwkGjBZ0uA0FCq7gUCleFTGBFyMKDojEIrJhyKy3WNg3ihBHA8S2h8ytABGCZbnxINv9CtAL6hCxOIEo88z8n59Dv/ok7ZEqHSvYxTrTX3iA8h/+MvEV25DUARbvMzS2fOfoKm2UslG8GIymjA8NB37X96PgIAEnjSIhJiL1jtwrxgqJ8Vi1ZAUy48VgcSSJwRMXzDBFi04RBa+OzFmM99gInJTweRtvonUAXQEVIY4t3oPPPZHJiZMYR4RIF2w3xfVBUSKCd0KaOyIrlGIJA637JSqIQOaFzHlEDBS/VzWoiSgb8JqRqsEpxAIlMSiGLM/Piv2GdhylZCeV0l46jW9jSbC2xGrjQY7P/AW7x96PL2aj9UruPbrWoae/jIktNnP4wQHaWUbaSamqoBK+rZpY/vbwMp95bIUkifAimCyjv7fEwW0xPs8Doe/5KlicQcmI4ojTqxl3HVvkyfmcuZZStjDRE3PVZA8v21GjJJD7jDrCN59aYG5NsDbBkG9wiNQz2ivcsHeYEp5PPjTNcgN++toJapKTYzChxgQtp3zk/pNE1vKeKyc43TLce+Q0zdzgJAKvgQ0hYE2Yi845DoyWuH57jZl6xl1HV2k7ixFFMIh4+quGK7f1MdHjyXNBxODUEBto5B1uO9nk0ZkW86uOzAs9FWXfaMSrdgywu79MmjsQwTxN0aoea2uMDLyGpfr9YHJAiEyZ6dlPkkR9TIz9d3if4tVgKjHb/s6bOPXP/oLBjidLIpqrdXp/+fUMXLUbbXfwJqIcC989Xef3vjFFmvYSRykqOc0s5zW7q+zr7yPLcowJg32LCpbCzM+IreUrTy7xZ9+Z4dRamXaaEiGo5Hhieh5d4sZdVX7pxu1M1oQj03V+/2+n6fgynTzDOYsxBkFxqgyUcv7kpytEkfCx+9Y4WY+Q5DT//bXb8Jki1hIbz5G5Oh++Z4UkUW65ZJT7jy/wW38zQ7VURl1OnFiSKCLPPZ3cgRraWca12w1/+NOX8KVH5/jjbzcoxdBJXdhPxFGqWHZWl3j/q4d4zZ5e0lRJbM6hVc9/uGOKR6Y6NDNBjQkz06XEpsRf9db5yet7eefBUTLniY3BiFmP5YoYnE8Z7r+R00vfZKX+HSIbjCtjEo5MfwQb9TM++FZyySBVem+9lP6Vt7P0bz6HXWpSfs/LGfvVW8HleGuxVnhyuc3vfv00jXqNuNLBaQK5Y7gW846rB7EevJGwfWx9BgfSdcla7plt8gffnGEtjdk74Ljp4n52D9XIfcbDx5vcPlXni080sXqcf/7WveQ+wtge+svCq/b10BfFYRHUAMON9ycMlYXljiVKqgzXDJ95aJXLtvXzqu0VOqkSG0PmLbGtUIoyOlnGdbv7+fWblFwNkbU8sdDhgRNtxgcNN+4boCzQcTkHxkokErHmIpJSzL6hiGsnKxgMmWY8PN3iiXn4o28ss2M4ZnelwmLq+N3bT/H4KaG3bHjz5b1cua1KKRKOr2TcdniFIwvCH9+1SF+lyuv3VsLst0/rNRWM6WP/9l/i0aPLtNPDiElQ48GnHJ76r8TREAO9LyNXRVspE+9+ObrUpv3kSbb/5jtQlFw9FmWxlfPvb5/m9GpMVDE4fLA5fIdfffUEVwwnpFmGRAls4nZtaYk24ugY4TMPrrDSqrBnIOM3b9nFFaNl8hysCLdc5LnqyWX+5O5pStbiFTAGj8cAP3HNOPv7I1xh0CiCV4WszWInB03J1OJdiQ9+a5r9b9nDQOLwxmCK3hM1ZN6zu5bwK68cJVMhjsp87P7T3PlknUtGS/ydl2+jFjucA5cbMDnWQJ46xnt7+MBNk5isg9iYb02t8Ttfmmau6bjvaJ1Lr+7lKw/P8/h0Sm8p4udfMcy7LhvCSgTeY/G8dl+N3/7aHIfm4LMPzvCyXXupydO9BMUYQdVQKV/EpTs/wCPHfpssX8LEYKngfJ0np/4jl+36J/TWLiV3HtfJ2fZzryQ3hlxybJ5iopiWy/h3tx/lsZmEai0jT5NAInBrvP9VY9y0r4dORzBR1/rfRNzbwvwlMnBytcMTc03EOG65dIDLxsqsNnPyTOnknjTz3Ly3l99718X80msnUVWM+hANMUKeZaR5RtZpkWdN0jQl76SgFlGDegEMVSKeXHB86P5pcmsRF9wywQfXA4s6S6MjtNuKS3Ny5/FicA6yNKOZQjt1ZHmGLdoXHLlmNJspzQ7U2x32D0UM9kbkOSw2hI5VvjfVxOUxB7cJb790gE4np5NmtFJlOfXsGyjxY5f3YIzn8KLy1HybUlQM1jO61SACXtvUei5j/65fw9gqLhdUc6wxpJ3TPHb89+lkJ7Bi8JLhcVjNg0ciEYjyJ3fPcc8xqJQgS0O7nazFu68e5kcvG0TTYOhuUHeej4IVrDUsrDnqHaVWEg6O1/CpJ7EWY4MrYo0hF8NINaHHKKI22LMqiFrWOhmLKcx1IhZaQgcL2E0OTUQSweW7DGUT8eVH2tz21CqxLZFpYd12dzkBYwzGgDUeUcEEmjiYiEgC5dTaqLAoPQ5LZJWeakQliemvlJlvKMvNFLUR/RWl3lbmmjmI58ptPZRNElw+Y4gjiK3FpYZLxqoMlAyNjmFqMUOMf5prrOudLBLjPQz1vYa9k+8POAIKXoijmHb6FI8d+/dkbhYrBoksEIWUlkj48IOn+dIjyyTlEt6Hfm5nbW49WOZnrx/BO48UYcLwRH/GarIlI0uAtRQ6PmawpAyULeo9GIsX1oEPi+A8wa+VsA8hkObCv/3aLGUszjjy1HHjvphfe+WuojsEa4Ss0eJtlw1TwfPlJ3M+ev88V22rUbKK8920q2eCDJvTuMzTHe7uhwrMrzg+8cACmqc4sdx5Yo21Vom+cpvrd9RotVIaucFYz3DVYoyu91UX0gFPrZRQSSKccaR5F7Q4V46BIGLJXIOxgVtJ80WOnvogsbWgSmJjVuv389TUf+LArl9HdAjnU5JE+Oyjy3z0nga2MgC+hRpLu+O5cbflV2/cQeQgxyLGca65uqU9WFXBOfAufKpRfAFGmG5natdr3dTRAmqU3Bh8rjRwWCO0nCf1Xey2Oyszciy9EvELr5zgofkjHJmHD90zx60HRjAFMKJn0d4GvqQ8rTIjAF6VUiKcXFV+92vzVGIHpow4pZR0eO91vewfqnBiJUc1WKEqZhMRvQuACE7AqEKmGDw4DZ0r/izKXe9BjMSoGnaN/zRZtsSpuc8SRxUgJ7Y1Fpbv4FjUx67JX6WcxNx2dI3/cvdpYqmiZIip0cgaXDUu/A+v3kOvN2TGYKSr3LOja8+pYCk6rVI2xEZIM6XREUy/C51RLI4iDiVHfBnU4cgxqqgXanGbf/yGbezqL5N7h+Lpq9iwmhhBxKNqEUlpO8fevgrvvXqMP/zmLN843iZjgSg2OBRRJeBJm/N4CnADU+hCNmDKgmSeOtgxZHjDgV7uO9Jivq3sHIVff9UkV4xW8N5TKsVUSp580bDWcmEfVFcQ4ULmnzWGetqkpZ5IoBQnoDn6rLudAjEiSp579ky8jzSvM7f0NZKoBChxVOLk/BepJhPM8g7+w50LZFQR6xC1pFmHvb3Kb9w8yWDVkLnwfN/FL8+h4C2ECwWnymjV0lP21FPD4fk1bGTInOJ86G+fCwZLJhmZ8Tgfh2KYolgiBmqW8aowWk0Yr5aJvJD5HC3Q0y6MaIzBO3jLgV5u2l2l1TJ862SdFIMRX4DuT4cIu0i4dmN2G4OzmIVZlrOtZvmHN2/nfTf0YVyHhWXl5EoTo0LHC9UkZ7wC3hgenW/T0kBQz9SRoWQ+wxg4PtdiNc+pxMLEkGK84dnI5xtKLnxU7eOi7b/EUN915C4DERSHtYapuY/xmfs/yvxaTBSDVcF7w2C1yW+8foS9/VV8nq8DOqEnzl0K6zneyiAi5N6ws6/CjkFDlkd89dASs82MvpKQmJwkUpJyzrHVjH/+N0f4g9unAw+4sAydBgZCVIqJYyFOhEolplJKiFBMyGxeV5YxApnnZ185zJ6BjE6njDGC9WDUFK8dPkq7AHRXsZv2zA1Fg1oAR6OlvHnfIO+4pp/FdsZ/uHOV206uULKWqsRcua1CyXrum2pw+7EGveWYijVUROgrlTjdyfnMk8ukacyuAcu+oR7aDoycu5PPVHIExmPtIBdv//tUK/vIfQchQdSQaptXj36V6ye+TivzdHwZKwt84ObtXLGtn06WYWzyrCmjm+U5lujCLlMltoa3XzrIw6dmeHKhyv/xpTluPdjPSL9FvXBkLuWzjy/yxCnHwdGMrLjdUMaJ52+eWGA4MUXBU/B4euKIV+zpx1uwEgIJXZcyd8r2Wsz7bhzhd740g5Mq2A3FrmfhiSJiiAq9q3az6RXFICqoOGK1SIFd587z3qvHODqXcu8xx3+5+zSjtQqXDye8cf84X33qOEfnhT+9e46TS3WunBggsnBqtc2XHl/ikRmLaMrbDg4wUrJ0nBJxrkXyTCksF5zPSeIJLtn563zv8P9Gns0QRRW8GqrlJd558WeZqM7ywNxVvOua67l5spd26rEmwot7lv3++1CwMUKee27aPczJl6/yV9/tcOfJmLumpqnGhsw50tSSWMN1Owx/58Zt1GyE0Qa5z2i3Lf/1jhVUHWIIxpIo3rX5vXcaLpnoodV2pB2PqqBYbGxwGbx21wgPXZ3x0buWiaueHMfmWJNocO3rHUfeSfF4nMSgwSAUjckVWpnD5SmGCGeUXnH88ivG+a3lKR6f8fz192Y58LpdDFdz/v7Nw/y722Y4thjxJ3e2SaJjWKO0nUWdoa+s/NwNvdx6yTCZ+vXlcktSaMYai1dHtXyAg7v/Rw5P/TGN1hHAk/oIdJUbt3+Hn7j2UiaGBuikYCNTBLC2qt4tWtGCICYYVe+7ejdXblvjjsNrnJy3rLqcRBIGa4ardpS5ec8QgyVodnL2DJf5uWtqTDc9kY2C1akWRHHOUbE97B6pUkmENx1MWGgIk4NxoQjBi8WnbX7m8iEa9Tqlkme0p0Tmgu8tIqR5zrUTEW+4xHL1jipVK+B9CG+K4HyLV+3uZ2quwc0X91IiJSNEpi4aMvzajYN87uF5btzbh6rHZZYrRgf5N29NuPPwKt87lbHYErLc01OJ2T1sec2uHq7e3heKuG6Kjm112ez2qhGLV09f9Rou3/PPmF26nXrrSZy0qZb2M9JzI73V/bjcYaKw+jxfeV68aEHx3hBZhzE2uDtOEAMVG2GMJ88y1LMeYYmjCBV/ZqxchdgKTh2dNJhZcWQQF+FpIxJBUbPCi2KcYAVyBFEfShcUS516RcQjpjCyPMUsLVC0ws5XibEKGY4Q8BPSXDC2A1LCqsNp4c9qGJCR9WQeUm9w3pMYoRRFeJ/hHEgRteli+1tX8IbVGyDbMKCNJEAnfJmUwAuZS4mMDdvPVpvf/KStKljXg+Lgtcvg6LojITgudJcQX4zsLgFsA4rwTokl5/ByDkbZ3V8JAweDiLLBgth4La+s76lmc8URLbgXQrEkmzMs6nVXaR0JK4y4ACQV7+fXv89K18/2RWJ1GBym8PlVtcDSg83w/XT4ufvXr7vcoc88ItG6Bx6q7Tz/dn+AzIZCedL1Ojde9VzincNGnqN15X/5qycYLOf8zjsPUo7LoVSQOcfusokG+oxfbRp6zzaBNqNdz0eebo2/8HJ+n7h12mx3FG96EVmnwOimn/Bf/zRESRGMgflOzv/9t9PM1ku8+sB2rI02DZQzW1r/kXO8pgBF/aizdUV4j/Cj3Z/n/lBU/frPuvv2nPedL5FNPz+4PIeRVUD8CniHtYJ6j/MGY5/2AuqD36uOWCPEQCfPMNbg1BOppVyyPHqkwdT8Iv/oTft52yU18syRk5MTIeqJihzaLvSnCupzMmwYUKZwgRR8rkSRYkRIvRApOFGMBGhUcMRxRGQLlkfucQ5yQq0qY8I+7gHvwuIcmYy48LkEyL3HecF7wZhA7ZHCC/hvQZ5jiS4U7JUM5an5Ov3lmMmeGKTLGgyihYFi8RxbzVjudLhspEaE0hFYbLRo+RJreYdGy7F7sEqeK7mHgaphwApelJVUWGlp6EwUa4RqYhhKIsoWmq6AH3NFJeX4akozF/aP1AJ9VBQjgQGx2Mg4vNJkpZmTeahVYHdPjZ19ScDPfABVvAcjihrH8dUG02uw0vREIvRWYPdgidGeKsblRSEc831YzT8ceU43ySuUYnhgqslvffEUe4fL/NabJhmMC65uwTp0ConmzPmI3/76IU4tOf7N2/Zw/a4e7j22zO99fZ6mh0QdKmUyP4/EhrydcelIzj+9dT+Zt/zrLz/BiSWLtbaguEBfVdjdY7j5kjFu3FlGXI7YCvMp/OuvTrHUyPi3P7KPA6NV0txjyPjco0t87pE6x5Zz2q0UfExUiRirzPKKPTV+5rptjMQSaESRY76p/MUDp/n20Yz5ekorB7ynUhK2D0S8fl8P77pynLLxqPhN2fj//57JWwoXWqPMN3Jyn/D46ZzPPbLML75sjDQvFjI14HJMbPjM/TMcWqiQWGGxkYKUmV72nFqDvkoJjTJUlZIxoEJkhLhSwSSG1SXHkSWP8yUqJSEGvPccn8t56rTlziPHeM81g/zsdaOUTUa741hulOnkMUudQG0pI3zke/P8+T0r5C5hrFZi9/YaceSZW25ydD7mrx7ImF48zj940y6GY8di0/Gvvn6Mh08Z4sizfShh+0AZ5xynFjscWbAcWqgz3fD8vddMUvIu0LrWzbtusCP8VdftiWD9rnOaCeSFjav9unUcWjr/A2ZLSFaI9AZH20ZVvvT4Gq+/ZIBdvWU0dzgEYyxPLjf58uMrIVXSNzFmMHxUFJbvkarjn7x5Bz2RrNNL1Sk9JaFqPDORp2xiVpzj775mlOsmemm0WxxfUj7+wDyPnrZ87MFFLh4rccu+UTJJiSJQF7rMWLh/psHH71tFpMxNOzN+8cZtjPcnhd+rfPXQMn/+rVnun/GcWm4wOdnHJ74zx0NTMFgS3nPtAG8/MEJvHL5+oZXz0e+e5EtPRHz54VWuGDf8yKXbaOd5QOUQpIhVd6mwgVNdkBF8FP7NKw6PUSEyBi0ijWoCx1pUX5B9fctWtDdKjiWODHNN+OSD8wgZKaGYprXKJ7+7wmxTSKwSqqpusrs1kOL7K4bRxDBYUoYTw0ilRNmUQGPCehCw7cG4xGi5xLZyiZt29fIbr59kx4CS+ip/+9QKHddtM0CSAYIW7j62wmpH2dbX4edv3Mme3jJRbjG5UjbCjx7s4x/fuoN/+LoJLh2qMbXW4a5jHayFG/YlvPeqcfqsw6mgKoxUIn7hhj1cOuzpEHPboSZNXyBKAkZzvAoqQi6Kk4w4UpKSIfch08CjZJpTtmVaRMy2PEvOQxJjJcd7j5Mwo8+3bI0XXbg8xlu8piSJ5fanGtx8cYerRqpEAt+ZavCNQ22qpYLVJ1KQ3LsoloAPycuh1EBAk5zzOB/w7s2hPqcedeHe5Y5nd2/Cay7q4fH5NY7NW5aaOSW74fwbgdQLR06nZJpzcLiHnf0xzdxRMhYlxmtGp2O5YXsvkXqcGh6bS1lpdIhsiZt211CgowmRUQxKlnt6SzEv313h3pN1Tq0YFto5E+VAxUEiGj7jz+6eYbGeU4k9ucDVk7288dIxEp+DWpzCBx84wYPH1yiLkGrEYM3w7pePsbca4bxDTJcRef5kawqWQHdzzjPeH9FjDY8e93zqwdNccfMu6sbw8QeWWOtkXL6twlrbMjXv1pcH9SDiqWcJf/StBUpig5vjU27a18/VY5UA/eHw4tcz8lRChkQpAkPMzp4ysVlmLYXVLKccG/BhT7MW2ikstzxiYsZ7y5RthHNpMdA01MWIBJd7MoVKLCy2U5re0p84xnsrIEJk3Dq6ZowhwrBjuIfErtFKHY1OG1OOiyx+S+pjHpte5adu2MtEr+XkcovP3DfDscUGv3LjTnDKn35ziqNrLX7+FXsY6ymRug6ff2iB3/3CIf7ZOw6wLRGc+nPhOS+wggEVS25yBo3lbVfUODWb8a1jKfeebtNxwv3THQZqnh+7YpC/+vYi3mxyI1QwAquZ4TP3LOED6EirkxK5DtdN7MHlXSyqMDTWJ3O3EUcpibES4TSwTAS7MesVnFecicBnRFGBfm2GSruENylMGgPeR7jcYEqKjeymSFU35BiaKYnBCOTe4N1GycHClKKcWC4ZTdjdY7hiuMSVE738L599giNLOQbHvbMr/NsfOcDOqtBxBqsRf/+1O/kXX2rxN4/M8YuvnCRvOeTp+MIPKFteopUUCMzD63fUeO3+Jp96OOcj958mcwlpmnLTgQFetr3Mh7xHjcP6wpY0ikcYTBy/cNMYSaR4ckQN1+6q4dQSSYZuVjAFBYcuoqQ0M4eqIzYWI0VR7GKNDmUTINKAI4cAQZev1N3fCv6DD6ls4hWLC8EIjclyD+o228SFEh0tt5EaYykyHbpBfhHEG7I0J/UR7dSxrS9m73DCU6ebRCXYP1xjW63EWisnioXUx9Ryz8v2jHHHI7PkOUVGwg9DwYW5b1RCQS4P77hsgLsONXlqXkA6TPQlvPNgH/jAQ7auYFcSAH6vUEuUH7mqhz5TwUuYx5p5cpehNiIUKSh2Zw3ZgN4r6gRiz/GVNTKvVJKcnhjaruuSBEJtObH0VAMxbq6ek/scCk511wXJnZLYQAV2XhnpMVTKynI7Y2a5zUWD5QB82NDZ3jvUK8cX62ROqSZKT5Ui0LGZ7FZkL0pgZRqF/nLEcpZTk4TeaoXA8w2KjGwHJWaoFJH6nNQZ4h+WFa1I4B2Jx9qENIdLR2u8+YqQXpJ3HLdeVuOi0QpZXqRbSoAAUSlWyVB7sZNCO++QZg6XZmix16orCHUasGdjwpJoBaoVw+OrGXcdbSFi2TtqGa5G5E7WcWoHJBb2jfdQFcMjpxqcXGtTs5CpIHmIt9USy/fmmvzld+dYbKZMDMaMVA25h68dXUNREsnJ1eAVypEwlzq+caQBErFjUBgsJ2TumcaQYjEKxiueiJYqvcZjvafTThGfFhi94lygrzSzDrFAZBW8fUabP6hs2U0yhVsvYjE2wueedxwc47qdcO0ueOfBMcgFsSGPtns9hFXUSAgzHm8q0/WMk2uOqbWc46ttljOIJUeKfTUSz+lmzrG1DseWW3zx0CL/11emOL5sKEfKrZeMYK1BTMCrQyzVgBNet7OHWqnFqYbyn+6c5Ym1JhmGlslpuJxPPz7Pb3/lFP/+9hnuPbXERG8Pr76ohjrh3qNt/vTuaaZTh2pOinKsofzB7Sc5uWCIopRbDgxQlQi/vltvLP3WOIwosYWW95xcTNkx0s/OwRLHlhs0nKFkFa8OqwYbCY9MtxjtL5PE8EKgYls2srLc433BpFSH98pwGf7pm3cixFTFh+Z8h8zl5F7DHijB+PEoc42Ef/n5Exjni4w9weXKcCXlt966FzGGdpbjbMQf3TmPyDyaOVbaHmctfZHyM9f38fLx3oII78lzR+4d3mfkLufgSMR7XjbM/3P3LHcfK/HE0jQ7q3PEJc9K3XN4WUjbltdcXOHgxAjNVsq7Lxvj0PxxvnVU+MuHOtxxdIqx3pjcw8xKi9m1GEPGO68d5NU7h0l9OEchGGzB4HNeaOWwkgnLbc9ffPcoFatcNJwQAb2lmP985yne/4oJarHFScpfP9Hi7kNz/IM3HYSOe0FK4myBFw3OOyYGYKDUYawmVCNFJTAuetWGawgdXokM4wNCs9NitNfic8/eoYiLBlM6ucGLRY0t6jd6spLBGCX3wkBVuHJbzOGlNom15D4mqgiTQ459gyVef/EgV20r43IQL/SWIrb35iw0YKgn0N5yDz99xQij1YQvPLTIsaWch1cVNYZYYHdvzquu7uXHrpxkOBFS7xiwhn9w03Y+NTTLNw83mGvC9IpDjKMaWQ6OK7dc2s9bLxvFuBysDeuTKqHaZIdKWfjjO09RiRydNGWyt8wHbtpLRTxIsJj/6K5T/Mu/foqRaonVLGet0eEXb9zN5WMl8jwHE3O+/eAtBfy99+R4Ti626a1EDNcS6JoYhR8RoNbgVsw0HI20zZ6BSnFVxmpHaPmizAPhnhCAcpQjQ1/iMWpYUaXZyDA2Bg1pGdUYquWYRHPyLCc3VSyK0OFUI6eVO/b01wi5jBbRjJK1LGWeqdUW9ZbDSURPZBnvMYzWYrwXvAbqkfcG8R6sMN/uMFfPaHcC+FKpGLb1JAyXLWkWyO/GmA2+iPc4n7OUOpqZYCUiiTxjvWV8AOsxBNqSw3NoMWWt0aYUx+wcLjGU5GQ+xkhMOGPl/FrRW2d0+BB7VaekGsJsQihjq5uYfopgvQOruNygEnJZEwq3FBcI8Uhh4YYxm4dk18KwskA4uDoknwcQwCIFv1kQYrxziCXk5mQWH1EYOYaQCBPKTUQSQpHiHakXOrkEpMoGZ13FB1TKBaQtMqEhg8d5JfXBQLOi657BhphQA0scVgCNUHU4Xwy2yGAVcg9GHaXIBJaqeLI8xKGtjYLHLQ7R87tOb13BKkWurxT+XxFFWid8b/pwDSiQxeNFsWrX3aINr6JoQ0xwYwTAIRpv4nEVHqnIpgIqXT85EAw2kNBu6lehhAJlUXUFB2sjudKwoahubEcBKfhZIRciZEiuR4EKBsvGd2rRkmA1DKeNHugSFnSddSLqw/ZUADOiIWXHS7fySfAI5Cy5VT+I/IDVZp+NP/TsTvsGCrT5mg1wYaOKeejI9VjcM9opmI2bAxvrrTxzNjzXOUObQ3nr76O6idxwru/Sp/25RdrN+cc2zpDvoxDaRicWhYqKeRNO95L1DzvbW/siNCoFU/GZg6KbPdhd9oUQ1UHzAumxZ7yGrFd1C888s033jEo4sj56zjYgN//rhkLljMEV8o033xOYmaZgQYalRtWF7Qh4VvP4BVQuPC8FF2pUCjZDhvcNnO8UoESCMbV1R35jOQ1/eu8KFbSAMt6bMDGlO2s96j1RweQIdBotQnEaIjI+B1zwsSUscRSpK91Wuk9XPPgo/Fm0vTn/wGsU7uuWd6KLTDkgR7VUXBkU7Jwr4MkUQ1w8w4EqxiahRLBbQsmL+hwlItsTSj9pVjxrMxT74siWocpwVKJFyFmuf4PZ5dtptmfI3CKRtURmjP6+KxnreyPl0iRON8ZtNx9prfUgh0/8OePDNzIx8uN4b4OS1mdek+PTn6XZeSrMBvVFIkREtXQxw0OvphRvw2UrHJ/9OGl6MhDEpQhOFIc7qlqUHBv1snP8vZTjSVRSTp7+CMurj7Bv989RTi4p2LiFXSCGXJc5euKDpNk0F+/6AHG0k7Cn51hTZmnt6xyd/gSTo7cyPvR21BusdSw3vsncwp0024dxtANjJRqkp3wpIwOvoVY9gPMOKwnwzFNGX0jZooJdcWJIxsn5D3N85lNkbg6hRGwHSX2K4wSLa/ewsHA3+7f/Gj09l+E1KFDJEDVMz3+elcZ95H6R4YFXktid6/ubwZBmK5ya/xS5n8f7UH53PXvA1Jir38FlO/8R6oWZha+TdWYIUXeHMXHghrkcnCkOq6gxNvA6qvEuWukjTM19nk42RWVuhH3b94cZSJjlgsGnLRZX7qedHyI+Pcb+HR/AOcGSkOaHOHrqI6zUH6RUmmRs8M1AxtGZjzM1+ym8WwYpEUUVVD2NxgmW1u5nZvnrXLz9lxjpv6UY6PJi6vfZFNzdp0xIrTAwu/RVjk1/DNQz3PsKJkbeTDmZRPGsNZ9kevHzrNTv4/DpD3FF7Z8TKqF6Ilui0XyMldWHqZZq5Pk8Cyv3MDmyGy3YEcHYzBBjEU3Yte1dVCu7UO/pZNNML3+FlbVHOD77MfZN/j0u2/ebdNJZIpuQ5tMcn/krnE/ZNf4j9Jb3k/smsRmnp7wf9Snzy3fjWKCcDLOwdg8T6SyVZBeQrVeJjZMhto/fxNHZGeaXv8JQ9VJG+n8EpcmxmY/QaB+mp+cido68GWtqnFr8BCfn/l+Megb6Xs7kyFtI4hFUodE+wvTcX9PqHOHQyT+lkuykVr0E77SgK704y/SzKLg7zDxChHdrzC5+Da8teqtXcemef0zJ7iTXNsYY+qrX0VvZx5GZv6S/ejX4cLiPatgf51duJ3fzxHEZ5zssrNzOWP+bkKhCd1+SwrlyPqe/9zpG+28iyzOMyXA+5Xjzk6ysPUae1xnsfTlooPi00yc4Pv1pnHcM9N3AUM8ryb0rYsQtMjfH/OpdAYgRyPMllta+QW30p/Aavi9UxInYNvJuVhuHWVy7i6OzH6O/70pWlh5lbulOFGVi+Efp67uWNJthdvEreN+mr3YFB3b9T0TRjqJagWGw53p6K3t4+NDvkGUzTC9+gYvK+wj+feWF1uu6bMGrDvUl2p1pGu1jGEkYH7qRxO4k83UgFOxMfZNq+Vqu2Pcv2Dn+M2DCvqoCaXaKxZVvI0QMD7yMJB5ltfEEa80HEJL1XJxu4E+M4HxGludkro73llqyMzhEPsVrHe9znOuQuxbOtaGwzp2m5D7HuRaeQMVZrt9HvX6USmknwwM3oN6xsPxNXL7C5voWgmCll70Tv0AS76DZOcETJ36fE/Mfw/kG48OvZ3L4rahamq1TNJvHsRIzMfw24mgHzrdQdaA5WZ7SW72Skb4bQD315iFyt4i+yBWct6RgEUPHLeB8HStlesoXhZFvpAAYTGHsOLzacGaQAHhia1leu5d66xhJMsSOkZ+iv+cgebbK4uo3MNIJgAKh4LWKomqwVonjiCSuodphufk9xHriuIaxlUC0F5CnEfCDY1VYrBqj2mJ+6Zs4X6e3djU7xt9FEg9Srz/FSv1hrIk2KrWL4DWnXN7Drm0/haGX5bXHaHaOUatezO7x9wGVECRx83ifEtkalWQXXrNwJgOGkMkOUKG3thcVSyefJXdLiNlqqvj5keccTgFqFrzPUa9YUyKyfUWuapEaqhkGi4pdBwlCqik4rTO7eBe51hnoewu1yuUM9Z9gbvGbLKzcx8TIISrlA4WhI6BgxDI1+3kWlh4BOrTSKdbqj+DVMtB/HYkdCaWHIUCNbDB3uqaDV09kPPXWYyw3HySJBxnpfyU95asY6r2KU7NfZnb5Ngb7r0a1XOyLgjERzmdsG3wTq/X7mFu+DTDsHn8XpWQ3metQApxbQ6WDMSPEcSWkvJKzAc4AeKKogpCEnOWuWfMsB1mdb3nuGazdmK7QLWO0uZRRwE4LvxMDmhdJXoqYiNX2d1lrP04pGqC3Mkm9dZJSUqFaGaKdzbK4cjfGuIIUYNb97Pnluzh5+kPMLHyOpdX7MSRs6387E4PvKlJVpUC7/Lo5KKIbKJgKmIz5pW/SSRepVSaJ4phG+wjVynZsErNU/y6N9lNFqcSNb4pMQic7SqN1qFhdhMXVh1FtFQO72H7UFDWGgqGo6zhygF+DXREhZBgfLIwCTH/R5LnDhRKgOmNiRCI8TXK/VsyawvmnC3x4RCwhXzjHCswufgPn1ogiy5FTf4n6TyAmC+X8bMLi2l2MDd1KHE12n4hXx+5t7wE1nFr8EpaMndvewo6R95F1Ocmw4f+eBZUSsbQ6U8yv3o01Ca32DA8/+a8DIV0Ea6pk+QJzS/fQM3llwZDUAqRa4/Cp/0q9eYxyPIbXNrNLX6OnvI/tIz+OqiOKBjESk2VN0rROHHtUM0QSIARIjCqdbB6Pg8hiTbnosx9Qa89DtlRGSfFUknFi24fzbVZaD2OMLVIsA/tBNZR5yNwJ8nwZKxFp5xRLKw+HcoBSxsY1TGwxtoa1/RgT0WgcZ7XxIMaGo1XDPugZ7H0ZF2//NQZ7r8fnbabn72K19SSmKAzWfbezS0hAW165m2ZrGhNVkKiHyJaJ4xI2qmGoEJuI5bVvkbpp0BjvBBMZphY/z/zKPdioh4t3v59tI28BnzE1+wnqrYcQlFIyRhL3kbs1Fuv3rh/+HNJUi1XM11lqfBc1UI4nSaKB9SIxL5ZsyaTz3lFKdtBT28vcyjQz83/LUOUV9NQuKaJBFu9TFlbu4vCpP6GUjHPVRf+UxbU7ydxJ4mQbB3Z+gFK8HzUukPdIeXLq91lavpe5lW8wMvg6gomUIYDTDK8J+8Z+mU57hrXWozx5/D9ycO8/IYknCIiVhrQPhBCTK0o8iMHpEosr38bSYbB6E3t3/DxFthNGYuqNx3j82O/RaB9nefm7jA1tBxuzuHYbJ+Y+geLZNnwrAz1voFa6nOXVB1htPcHh6T/lwO7/mXJpNz2Vi+mkc8yu3EZv7QoGeq8PdSN9AIVOL3yRlfqjoIaBvuuIbF8gAr6IskWb3QMVdoy8i+XVx2h3jvLYid9hZPB6kmgcdRHN9BDzK7fR7sxTLe/EuTVml+7COxjouZze2quL5SkuMOeE0YHXs7z6PZYbj7DWeoSSHUfVhjAkMd4oSXkb+3b+Mo8c+d9ZbTzOoRP/hQN7fxNjqsG98nHwnws8WsmwxrDYfITV5pMYO8D40KupJvtxvrNePrG/r5f+/suYW7qNuaW7GRl8PVk2z4lTHyNrr9Lfeyk7R38Sl0MSj7Jn4ud4+Mi/Y23tUabmPs2eyV9hcvTHWW49SatznKdO/AEjg6+kbHeDNFhtHWFp5Tuk+TJ9tWuYGHorXovjYF9E2WKVHYOS0lu7ikt2/SpHpj9Ks/UkxxpPBuNKAlkuSXrZNvhO9m5/H61slXrrODZKGB96QwBLyBFykJzM5wz2vIxKsofV1ndpNKepDOxAveJ9jhEQLE479FevYNfYT3Jo6g9ZbXybTnqcauVygkuSgTXkTslcKxQyMdBqHaeVnWR44Eb6eq4l963C+vJFBcUao/23cHrxDuqtp3B+jUbrOMurj5Ek/eyeeC9RNIlzHZwKg32vZPvYLRw79efMLX2H7ePvpr/nGvbv/DWOTX2EdvsIJ6Y/gvdFbNc6IgYZ7H8FF0/+EjbqL1acmDMt7RdWnlc8WDXFSEInO8Xi6rdotk+R+zaRiUmiAfqqB+nvvRyvFTyrnJ6/AyOesaE3YEytqEdZBOuLeMxK/X5WG48zNngLSTTA/NKXSfM620bego0GwAcXTaTN9MKXMESMD78xtFd0ktcOpxe+inNNJkdvwUYDdNrHObXwdQb7L6e/em3x7I1ITjiJZY3Z5S8QSQ8jg2/EuQbTC1+gVB5htO8twc8u4FpRyN0c0wtfoBzvZmTwtSHr3wppdpzltYdpdk7gtIn6iCiq0l/dz0DPVYj0BzdQIl6IBLNnk61X2Vk/9ClHJFQcx3TCn5hiaXUo4d9UCbWsMHifgcRnic1q0YlRsTd5THGw4oaFHkjz4QjW0EGqjnCEow+ukTfrZR+cFv50AdBsBPg3h+k0hPW8ITZxiGT7YLgZG1gaoTzTpth2KGEfON8EzjSSg1KEBy1GHKrhCIQQzjR458LKca46Iy+wfB+MjrC8+E3oT/DdZdMM2YjxSqD7P0trunFLty6Cdm+RM68sKDVdxW8ozLCegySwcThzDt00E57eXkgc69KDpPCFQ4zXFGHMaNO13cdpAQ1085i6MGtRekkp7jXr/bNldscLIM+Lk9WNCW8sM93akZtpKs94BBsdv+nSZ1wmm1gaTyv+fca9m/6nuGXzuUlnPmB95JzjwU9/77OwPM54thb2SPc5XYBkMzK1+cS0s/DVzvzoYL9sKkd1vnfm54F8KyoOQ1hK0bPNimeB4J7rzZ/2e3mW3225zed84HPNqrMBKV0ajsKmQyDPfKEtzNbiknAKTUDFzkhoO0+y5exCh2UttYjmOImxBQZ8zn7a/O/rGOw52l9f2YsLn63vn97uudp7tnf7vt+vuPjMM/LObBPO/I6nvxOsG5hdq75qDSU8zpz/5IYtVNlRypHhq4fm+YM75hEr5M5gyXnm7N0sZ+7H576Os1xzNnm2kXS29p5rhupZrnuuEbNVefqIefr94f+NCJ085Q0Hq/z6q/ZiXAZyfsOJW0hdEZxXhmsx12yPUEqIOlSSTcbTVtbKZ5siz+ea7nVdebbrt3rd85HnGjTPfe/6QgCkWcQlgzXw4IkLjvT5ky2nrogJR+gY7Ro3m82gc1uJoYS9Pud1XWMlGOJno9Seed2mJ9BdDkXOvOpMn/O5Ldn14XqWyR++9dkAio33eKZZ8mz3KVaFPNdwLN15tra3dvKZMUUJw+AKeNlk7wkF17lAcLqqWd+GuqoqPFLdqJyqbFZK9/jXwo88QyFPt8D0jH/qKkTW/8Km+zYvk5u4UJu3+00r6tk2mvVSEOsf9kw5G6F+/ZQB0U2/L3qkeJ7B44wFG61nVpxP2bKbFJwkKfzazaee6Lof7DUnKo61W09KUy08oG4Pbux7AsXxPBqO5ykOnw5HqQaHBKUYUN27Nv+3IJwXGfyqZx5vo5tG0EbXnpm3EJ6tGwVPddM3ASqFY6SmGIDdI5jDFab7SciZ5Q01UI8MSscrVgxGuykzxX2bW3qB3OQt86KddxirJBIVMVlZH/HOFJl6eE4ttqmULAPVOAA4VvB5OATaSDev1uFVQG2ox4zDmyigR6FUaNEBYapbsaGQWKEIIxnh0OVQPUANWDzS7cAiHzkxoWB4XiwZkWjI8ttUnxw2Ojp8arG4awRkxarD+kA1ArlSkPUkZHOogEZ4E843zIiwkrPUdHTyNuM9oZo8EspgCOAkBy3oO8UA2Zwuc75kayUcfIAE623heKOJx5I7xWuON4o4Bz6jmSqPL57GkeLJaTjPXDMlEyEiI3PKUrPDXFtJPSAOh2e55VlqtcIhWi4kgWYSEs2zHOZaKXXvMMbjXUY3IzCczOnIvGGhmbOS5yw1ctouxYswtdZmMXVgMjI8ix3PatshxuK9x2soyb85Y9BDcY6iKwZwOFrAibKUemaaKY2sTajMLjgScg+5TRHv8WqJiuzKR0+fYrGZFXMhRwUyr3S8w7sILx6PC9kg2gVOzq885xIdHqscWmjxrRPzGOtJ8PzYlTs5tNDiq49M8yuv2893Ty6z2kq55ZLt3PHEFD2VXr47u4B4i8tz3nLFGPecWGG2kTFWUq7d2c/OgQEeOFXnruMz9MUxA7WYN+4f48++eZxX79vGFTtKfPTBYzQ7DoznZTsnuWKsykfuOcHuoQqv3DsCTllsZtxxeJ4jK47t/cKVk4M8eHwOsQmracqV24YYKiXcdmiOwapBrOXtB0fpOPjgd07wk9fsZKRqi5XDs5ZlfORbh3nXtfvCGU+R4ejSCl985BTDPWX2DZS5aNsQH77rCD95ww7KRHz8oSO886pdjFVr3HVsgdl6m+G+iJJJmF1c5qaLxumpVrjtiWmGemKuHB/lz77zOFdsH+faiV5y7xBjzruRtQVOFkSRZbrRpOUz3n5gJy/bNQ7ecWylxaKDk6spuSbUc4tEsJjlLGSORJT3XDnBJduq3H5knswL1+0Z5ZYDOxgs9YFaGu2cAyP9vPWq3Tw1u8wTq3XWfIsjq8vkxtBsKrdcuoP9o6M8enyVlnOcbjtOLHdwXnAq9Jdjbr1skomq8OYrJphdaVCp1PjZ6yd55+WTPDq/xInlFheNlfiJ63az0u5wdHGV+UaH5Y7j8OlVjIBmQhQJx5cbLDvD0aW14jhYYTnLGOrr5Uev3sEVOwY5tNBhMXccWawTJTFPznruO1kHq3z5sWmWO5Z2R2lkwmonAhMO9lruGISYuXaDxY4wtVoHCEXXON8L9HMouFuJvZmm3LBjiP1DvXzo208ys9ZgsW15an6JayZGuPfYCknsSQqXKBZBTE5kI3JxXDzcizpD5g23P3qSu49OY8lRzYmimAdPrvGZhw5x5eQQT51scfHOIU6sNJlvdTAWPnzPFN8+OserLx7mzkPzbO/voZ7nPDXfoRQZLIZYI0pRRJwlrKSOK0Z6yTJlvJwwGJdZzZXYRESR59KRfuaahvtPLnP9nmEeml2mmYbzGVJV7j28zFW7B3n0VJNWpnjjKdkejszX+dS9R1loZzw0Nc+1u4d4cKpJI3dcs2OYmZUOn35gmomeCtv7SohYrAWJCaWXXVBiKbF8+8Qqe0f6OLG2xvG1JokxgXL8Yiq4UDNWDFMrLa7e0c+7X76fB08scv+JBbK2BWkzvbTG1GqHjstALPVMiIr9JrKWw0srxN6TWMNNB3Zyw74ROjacnuJcm92jJd52cBcHJwY4PL+ENA15GvPAqQ59seX6XT3UyoY4Eh6b7eAdiDc8PreI1xDA1yic36SSMRBHPLLQIE6EmbZnqdOhxyqp82ROOLrYYiVNmVpqQdah7jxPLKxRrsYcn6uz3HLEeYflZocj83WsFfIsZ89ojXdeu4+Fumd2tYV1jmZrjUdmV6hVhcvGe3js1DzXXzRCu93EaTjTM89c2MeNwWvGbMtxZLaOz3OivMQjMy2MdYSDRV5sP1jD0a/LrZS/feI0PaWEiaERnE/50et2cvFQjduenKXtPbNpzp/d/RQ45eLRYY6ervOJB46hXrn1wHYemFrmnkMzHJ2C6yYHGBwrEZcMEyZhvFbiO0fnuGbnALce3MHxpTW+ffQ0pVLE9RNVhuMKX3x8hovGSrxl/xgrqefLjx1jKXP0GQPq6C95ctfmmh2DfPbROT5y3xSrnZzLx/sZKSd8/dAs09/OGOmP6Ys8ExcP88q9Yzx8bImnlhaQHaOcWK7z2gOj3Li3n8mBBqdX63gdITGe4dhTSyIWVlZ508FRrt8zygMDJZ5Y6DCQCPvH+rlk9BLm6h1qJUccK70xHBXLZ793lL0DVcZ6aqysNrhsvMStB3Zweq3DHYdmaKTDlJ7lmNjvV7aIZClJpCw1PfXchyImzhOZwLZwEhGrkokwW28z3lMhEU/HeVouVGuNgZbmdFIhE6HHCGUjtEVAHbFYcoVITPcUBdoIOE9ETmQT1ryjLOFwrUDhDVtIJA7UkqknljAgvYPTzTaVOGGoHJPmKU214D19FSXLQjEVS04mCT7LMUZRLc5y8IGBkeEoG0PuPZlaSsVx9zEKLsXbCt7rei2wxIZzltR71OTEGtECOllGbCLKtsiVthExoYxwqo5Ew7F155sYsCUFa1GBzhgJydC5R003YdoiZHhsKHpiIFNCjo5EWAmFRlBFjSWSwIRMfYilWs2KQ6ZjMAVbo1BeiJMWznZRjFJccaaoUYwXDEJmPZEvDuMoAAQVQ1QQ7LwPaJKYgJap68IsmwEUwZNjNBx6bQpmRiCHBeKCqg3l/ItaBma9iPdmFEtREbwGhse6r18cfxdKIxqQ8O4+FLxDcDgx5z2a9PwYHcV5wQFp8gUquBm+6WLCG9jfpuOpAp2lQKW6iFUXxemeUoZSFDI1682KKloE173RAngowNLiCDspFBvQpIBlm24FoELRpsC4BQ0nqgUci1DlK8JoKIrSVX2opbqBigcUK1pH0dYPq1JTHKWn67VFRA3egAmjd5PxVByauX6/KbrWrZ+kfj7leR5tdzYkVtnYN54eBHg6MrMZF34+z3j68859/8YTNq7bQMg30OBnb3/zO+o5/v7c8vyufmHkeQUfz94t51LJ2T7vuT/3uUfb1iJCm/+mmxT0/NuXZ/nd82vphyE/HKrfBXnR5IKCX+JyQcEvcbmg4Je4XFDwS1yMtS9uxvkFeXHFRNGLW/Xlgry4YkSEOO6W8L0gLzUxANZaLszkl54YY/j/AD6CF5Sr1R67AAAAAElFTkSuQmCC" style="width:100%;height:100%;object-fit:contain;padding:3px;"></div>
+      <div><div class="clinic-name">Centro Médico do Cartaxo</div><div class="clinic-city" data-pt="Ginecologia · Obstetrícia" data-en="Gynaecology · Obstetrics" data-pt="Ginecologia · Obstetrícia" data-en="Gynaecology · Obstetrics">Ginecologia · Obstetrícia</div></div>
+      <div class="clinic-arrow">›</div>
+    </a>
+    <a href="https://share.google/mqnewqnzEFyXWww7K" target="_blank" class="clinic-card">
+      <div class="clinic-logo" style="background:#56B2E3;padding:0;overflow:hidden;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj4KICA8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzU2QjJFMyIvPgogIDx0ZXh0IHg9IjYwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLEFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjciIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IiNGRkQ2MDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkNDQzwvdGV4dD4KICA8dGV4dCB4PSI2MCIgeT0iNzYiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45MikiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkNMw41OSUNBIENFTlRSQUw8L3RleHQ+CiAgPHRleHQgeD0iNjAiIHk9Ijg5IiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuOTIpIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5ETyBDQVJSRUdBRE88L3RleHQ+Cjwvc3ZnPg==" style="width:100%;height:100%;object-fit:contain;"></div>
+      <div><div class="clinic-name">Clínica Central do Carregado</div><div class="clinic-city" data-pt="Ginecologia" data-en="Gynaecology">Ginecologia</div></div>
+      <div class="clinic-arrow">›</div>
+    </a>
+    <p class="note-text" data-pt="Clique na instituição para aceder ao site de marcação." data-en="Click on the institution to access the booking site.">Clique na instituição para aceder ao site de marcação.</p>
+    </div>
+
+    <div id="appt-teleconsulta" class="sub-panel">
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;gap:16px;">
+        <div style="font-size:48px;">🔜</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--ink);" data-pt="Disponível brevemente" data-en="Coming soon">Disponível brevemente</div>
+        <div style="font-size:13px;color:var(--ink-lt);line-height:1.7;max-width:280px;" data-pt="A teleconsulta por esta via estará disponível em breve. Para qualquer necessidade de consulta utilize, por favor, os contactos disponíveis na sua área de paciente." data-en="Teleconsultation via this channel will be available soon. For any consultation needs, please use the contacts available in your patient area.">A teleconsulta por esta via estará disponível em breve. Para qualquer necessidade de consulta utilize, por favor, os contactos disponíveis na sua área de paciente.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GATE ═══════════════════════════════════════════════════ -->
+<div id="page-gate" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title" data-pt="Área Reservada" data-en="Patient Area">Área Reservada</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="gate-wrap">
+    <div class="gate-icon">🔒</div>
+    <div class="gate-title" data-pt="Acesso exclusivo a pacientes" data-en="Exclusive patient access">Acesso exclusivo a pacientes</div>
+    <div class="gate-sub" data-pt="Introduza a palavra-passe recebida na consulta." data-en="Enter the password provided at your appointment.">Introduza a palavra-passe recebida na consulta.</div>
+    <div class="pw-wrap">
+      <input type="password" class="pw-input" id="gate-pw" placeholder="••••••••">
+      <button class="pw-eye" onclick="toggleVis('gate-pw')">👁</button>
+    </div>
+    <div class="err" id="gate-err">Palavra-passe incorrecta.</div>
+    <button class="btn-rose" style="max-width:260px;" onclick="checkGate()" data-pt="Aceder" data-en="Enter">Aceder</button>
+    <div class="gate-note" data-pt="Ao aceder confirma que é paciente e aceita os termos de utilização e política de privacidade." data-en="By entering you confirm you are a patient and accept the terms of use and privacy policy." data-pt="Ao aceder confirma que é paciente e aceita os termos de utilização e política de privacidade." data-en="By entering you confirm you are a patient and accept the terms of use and privacy policy.">Ao aceder confirma que é paciente e aceita os termos de utilização e política de privacidade.</div>
+  </div>
+</div>
+
+<!-- ══ AUTH ═══════════════════════════════════════════════════ -->
+<div id="page-auth" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title" data-pt="A minha área" data-en="My area">A minha área</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="auth-wrap">
+    <div class="auth-tabs">
+      <button class="auth-tab on" id="tab-login" onclick="switchTab('login')" data-pt="Já tenho conta" data-en="I have an account">Já tenho conta</button>
+      <button class="auth-tab" id="tab-reg" onclick="switchTab('reg')" data-pt="Primeira vez" data-en="First time">Primeira vez</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="auth-panel on" id="panel-login">
+      <div class="auth-err" id="login-err"></div>
+      <div class="fg">
+        <label class="fl">E-mail</label>
+        <input type="email" class="fi" id="l-email" placeholder="maria@email.com">
+      </div>
+      <div class="fg" style="position:relative;">
+        <label class="fl">Palavra-passe</label>
+        <div style="position:relative;">
+          <input type="password" class="fi" id="l-pw" placeholder="••••••••" style="padding-right:44px;">
+          <button class="pw-eye" onclick="toggleVis('l-pw')">👁</button>
+        </div>
+      </div>
+      <button class="btn-rose" id="btn-login" style="margin-top:8px;" onclick="doLogin()">Entrar</button>
+      <div style="text-align:center;margin-top:10px;"><a onclick="showResetPw()" style="font-size:12px;color:var(--rose);cursor:pointer;">Esqueci a palavra-passe · Forgot password</a></div>
+      <div class="auth-alt" data-pt="Ainda não tem conta? Registe-se aqui" data-en="No account yet? Register here">Ainda não tem conta? <a onclick="switchTab('reg')">Registe-se aqui</a></div>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="auth-panel" id="panel-reg">
+      <div class="auth-err" id="reg-err"></div>
+      <p style="font-size:13px;color:var(--ink-mid);margin-bottom:4px;line-height:1.65;" data-pt="Preencha os seus dados para criar a sua área pessoal." data-en="Fill in your details to create your personal area." data-pt="Preencha os seus dados para criar a sua área pessoal." data-en="Fill in your details to create your personal area.">Preencha os seus dados para criar a sua área pessoal.</p>
+      <p class="field-legend" data-pt="* Campo obrigatório" data-en="* Required field" data-pt="* Campo obrigatório" data-en="* Required field">* Campo obrigatório</p>
+      <div class="fg"><label class="fl">Nome completo *</label><input type="text" class="fi" id="r-name" placeholder="Maria Silva"></div>
+      <div class="fg"><label class="fl">Data de nascimento *</label><input type="date" class="fi" id="r-dob"></div>
+      <div class="fg"><label class="fl">E-mail *</label><input type="email" class="fi" id="r-email" placeholder="maria@email.com"></div>
+      <div class="fg"><label class="fl">Contacto telefónico</label><input type="tel" class="fi" id="r-phone" placeholder="+351 9XX XXX XXX"></div>
+      <div class="fg">
+        <label class="fl">Palavra-passe (mín. 6 caracteres) *</label>
+        <div style="position:relative;">
+          <input type="password" class="fi" id="r-pw" placeholder="••••••••" style="padding-right:44px;">
+          <button class="pw-eye" onclick="toggleVis('r-pw')">👁</button>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">Instituição onde foi consultada *</label>
+        <div class="check-group">
+          <label class="check-pill"><input type="checkbox" value="Lusíadas Lisboa"> Lusíadas Lisboa</label>
+          <label class="check-pill"><input type="checkbox" value="AVA Clinic"> AVA Clinic</label>
+          <label class="check-pill"><input type="checkbox" value="C.M. Cartaxo"> C.M. Cartaxo</label>
+          <label class="check-pill"><input type="checkbox" value="Cl. Carregado"> Cl. Carregado</label>
+          <label class="check-pill"><input type="checkbox" value="Outra"> Outra</label>
+        </div>
+      </div>
+      <div class="rgpd-box">
+        <strong data-pt="Protecção de Dados (RGPD)" data-en="Data Protection (GDPR)">Protecção de Dados (RGPD)</strong><br>
+        Os seus dados são recolhidos para fins de acompanhamento clínico e comunicações de saúde. Pode exercer os direitos de acesso, rectificação ou eliminação em qualquer momento através de consulta@marianalourenco.pt. Os dados não são partilhados com terceiros.
+      </div>
+      <div class="consent-row">
+        <input type="checkbox" id="r-consent">
+        <span>Autorizo o tratamento dos meus dados pessoais para os fins acima descritos.</span>
+      </div>
+      <button class="btn-rose" id="btn-register" onclick="doRegister()" data-pt="Criar conta" data-en="Create account">Criar conta</button>
+      <div class="auth-alt" data-pt="Já tem conta? Entre aqui" data-en="Already have an account? Sign in here">Já tem conta? <a onclick="switchTab('login')">Entre aqui</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PATIENT MENU ═══════════════════════════════════════════ -->
+<div id="page-patient" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="logout()">‹</button>
+    <div class="page-title">Olá!</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink);margin-bottom:4px;" id="patient-greeting">Bem-vinda</div>
+    <div style="font-size:13px;color:var(--ink-mid);margin-bottom:22px;" data-pt="Bem-vinda à sua área de acompanhamento." data-en="Welcome to your personal area." data-pt="Bem-vinda à sua área de acompanhamento." data-en="Welcome to your personal area.">Bem-vinda à sua área de acompanhamento.</div>
+
+    <div class="menu-row menu-row-dark" onclick="go('page-contact')">
+      <div class="menu-icon">📞</div>
+      <div><div class="menu-label" data-pt="Contacte-me" data-en="Contact me">Contacte-me</div><div class="menu-sub" data-pt="E-mail · WhatsApp" data-en="E-mail · WhatsApp">E-mail · WhatsApp</div></div>
+      <div class="menu-arrow">›</div>
+    </div>
+    <div class="menu-row" onclick="go('page-obstetricia')">
+      <div class="menu-icon">🤰</div>
+      <div><div class="menu-label" data-pt="Obstetrícia" data-en="Obstetrics">Obstetrícia</div><div class="menu-sub" data-pt="FAQ · Referências úteis" data-en="FAQ · Useful references">FAQ · Referências úteis</div></div>
+      <div class="menu-arrow">›</div>
+    </div>
+    <div class="menu-row" onclick="go('page-ginecologia')">
+      <div class="menu-icon" style="padding:8px;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPCEtLSBUYWJsZSBiYXNlL2xlZ3MgLS0+CiAgPHJlY3QgeD0iOCIgeT0iMzYiIHdpZHRoPSI0IiBoZWlnaHQ9IjgiIHJ4PSIyIiBmaWxsPSIjQTA2MzZBIi8+CiAgPHJlY3QgeD0iMzYiIHk9IjM2IiB3aWR0aD0iNCIgaGVpZ2h0PSI4IiByeD0iMiIgZmlsbD0iI0EwNjM2QSIvPgogIDwhLS0gVGFibGUgdG9wIHN1cmZhY2UgLS0+CiAgPHJlY3QgeD0iNiIgeT0iMjYiIHdpZHRoPSIzNiIgaGVpZ2h0PSIxMCIgcng9IjMiIGZpbGw9IiNDNDkwOEUiLz4KICA8IS0tIEJhY2sgcmVzdCAocmVjbGluZWQpIC0tPgogIDxyZWN0IHg9IjYiIHk9IjE4IiB3aWR0aD0iMjAiIGhlaWdodD0iOSIgcng9IjMiIGZpbGw9IiNBMDYzNkEiLz4KICA8IS0tIFN0aXJydXBzIGFybXMgLS0+CiAgPGxpbmUgeDE9IjM0IiB5MT0iMzAiIHgyPSI0MiIgeTI9IjIyIiBzdHJva2U9IiNBMDYzNkEiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8bGluZSB4MT0iMzQiIHkxPSIzMCIgeDI9IjI2IiB5Mj0iMjIiIHN0cm9rZT0iI0EwNjM2QSIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gU3RpcnJ1cCBmb290IHJlc3RzIC0tPgogIDxyZWN0IHg9IjM5IiB5PSIxOSIgd2lkdGg9IjYiIGhlaWdodD0iMyIgcng9IjEuNSIgZmlsbD0iIzdBM0Q0NCIgdHJhbnNmb3JtPSJyb3RhdGUoLTM1IDQyIDIwKSIvPgogIDxyZWN0IHg9IjIyIiB5PSIxOSIgd2lkdGg9IjYiIGhlaWdodD0iMyIgcng9IjEuNSIgZmlsbD0iIzdBM0Q0NCIgdHJhbnNmb3JtPSJyb3RhdGUoMzUgMjUgMjApIi8+CiAgPCEtLSBQYXRpZW50IHNpbGhvdWV0dGUgKGhlYWQpIC0tPgogIDxjaXJjbGUgY3g9IjE0IiBjeT0iMTUiIHI9IjQiIGZpbGw9IiNEREI4QjAiLz4KPC9zdmc+" style="width:28px;height:28px;"></div>
+      <div><div class="menu-label" data-pt="Ginecologia" data-en="Gynaecology" data-pt="Ginecologia" data-en="Gynaecology">Ginecologia</div><div class="menu-sub" data-pt="FAQ · Referências úteis" data-en="FAQ · Useful references">FAQ · Referências úteis</div></div>
+      <div class="menu-arrow">›</div>
+    </div>
+    <div class="menu-row" onclick="go('page-reproducao')">
+      <div class="menu-icon">🧬</div>
+      <div><div class="menu-label" data-pt="Medicina da Reprodução" data-en="Reproductive Medicine">Medicina da Reprodução</div><div class="menu-sub" data-pt="FAQ · Referências úteis" data-en="FAQ · Useful references">FAQ · Referências úteis</div></div>
+      <div class="menu-arrow">›</div>
+    </div>
+    <div onclick="go('page-register')" style="margin-top:16px;display:flex;align-items:center;gap:10px;padding:11px 16px;border:1px dashed var(--rose-lt);border-radius:12px;cursor:pointer;">
+      <div style="font-size:17px;">📋</div>
+      <div>
+        <div style="font-size:13px;font-weight:400;color:var(--ink-lt);" data-pt="Os meus dados de registo" data-en="My registration data">Os meus dados de registo</div>
+        <div style="font-size:11px;color:var(--ink-lt);opacity:.7;margin-top:1px;" data-pt="RGPD · privacidade" data-en="GDPR · privacy">RGPD · privacidade</div>
+      </div>
+      <div style="margin-left:auto;color:var(--rose-lt);font-size:15px;">›</div>
+    </div>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="logout()" data-pt="Sair" data-en="Sign out">Sair</button></div>
+  </div>
+</div>
+
+<!-- ══ CONTACT ════════════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title" data-pt="Contacte-me" data-en="Contact me">Contacte-me</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="contact-warning">
+      <strong data-pt="ℹ️ Informação importante" data-en="ℹ️ Important information">ℹ️ Informação importante</strong><br>
+      A via preferencial de contacto é o <strong>e-mail</strong>. O WhatsApp deverá ser reservado para situações de maior relevância ou que necessitem de uma resposta mais urgente.<br><br>
+      Responderei com a maior brevidade possível, agradecendo desde já a sua compreensão caso não me seja possível responder de imediato.<br><br>
+      Se a sua questão não for urgente, poderá também aguardar pela próxima consulta. Em caso de situação urgente ou necessidade de avaliação médica imediata, deverá dirigir-se ao Serviço de Urgência do hospital mais próximo.
+    </div>
+    <button class="contact-big bg-email" onclick="prepareEmailLinks();document.getElementById('email-sheet').classList.add('on')">
+      <span class="contact-big-icon">✉️</span>
+      <div><div data-pt="Enviar E-mail" data-en="Send E-mail" data-pt="Enviar E-mail" data-en="Send E-mail">Enviar E-mail</div><div class="contact-detail">consulta@marianalourenco.pt</div></div>
+    </button>
+    <a href="https://wa.me/351914779655" target="_blank" class="contact-big bg-wa">
+      <span class="contact-big-icon">💬</span>
+      <div><div data-pt="WhatsApp" data-en="WhatsApp">WhatsApp</div><div class="contact-detail">+351 914 779 655</div></div>
+    </a>
+  </div>
+</div>
+
+<!-- EMAIL SHEET -->
+<div class="sheet-overlay" id="email-sheet" onclick="if(event.target===this)this.classList.remove('on')">
+  <div class="sheet-box">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" data-pt="Escolha como enviar" data-en="How would you like to send?" data-pt="Escolha como enviar" data-en="How would you like to send?">Escolha como enviar</div>
+    <div id="copy-email-btn" class="sheet-item" onclick="copyEmail()" style="cursor:pointer;margin-bottom:10px;">
+      <div class="sheet-item-icon" style="background:#F0F7F0;font-size:18px;">📋</div>
+      <div>
+        <div class="sheet-item-label" data-pt="Copiar endereço de email" data-en="Copy email address">Copiar endereço de email</div>
+        <div class="sheet-item-sub" id="copy-email-sub" data-pt="Para colar no seu programa de email" data-en="Paste into your email client">Para colar no seu programa de email</div>
+      </div>
+    </div>
+    <a id="mail-apple" href="mailto:consulta@marianalourenco.pt" class="sheet-item" onclick="document.getElementById('email-sheet').classList.remove('on')">
+      <div class="sheet-item-icon" style="background:#F2E4E1;">📱</div>
+      <div><div class="sheet-item-label" data-pt="Apple Mail" data-en="Apple Mail">Apple Mail</div><div class="sheet-item-sub" data-pt="Abre a app Mail do iPhone" data-en="Opens iPhone Mail app" data-pt="Abre a app Mail do iPhone" data-en="Opens iPhone Mail app">Abre a app Mail do iPhone</div></div>
+    </a>
+    <a id="mail-gmail" href="googlegmail://co?to=consulta@marianalourenco.pt" class="sheet-item" onclick="document.getElementById('email-sheet').classList.remove('on')">
+      <div class="sheet-item-icon" style="background:#FEF0EE;font-weight:900;font-size:16px;color:#EA4335;">G</div>
+      <div><div class="sheet-item-label" data-pt="Gmail" data-en="Gmail">Gmail</div><div class="sheet-item-sub" data-pt="Abre a app Gmail (se instalada)" data-en="Opens Gmail app (if installed)" data-pt="Abre a app Gmail (se instalada)" data-en="Opens Gmail app (if installed)">Abre a app Gmail (se instalada)</div></div>
+    </a>
+    <a id="mail-outlook" href="ms-outlook://compose?to=consulta@marianalourenco.pt" class="sheet-item" onclick="document.getElementById('email-sheet').classList.remove('on')">
+      <div class="sheet-item-icon" style="background:#EEF4FE;">📧</div>
+      <div><div class="sheet-item-label" data-pt="Outlook" data-en="Outlook">Outlook</div><div class="sheet-item-sub" data-pt="Abre a app Outlook (se instalada)" data-en="Opens Outlook app (if installed)" data-pt="Abre a app Outlook (se instalada)" data-en="Opens Outlook app (if installed)">Abre a app Outlook (se instalada)</div></div>
+    </a>
+    <button onclick="document.getElementById('email-sheet').classList.remove('on')" class="btn-outline" style="margin-top:8px;" data-pt="Cancelar" data-en="Cancel">Cancelar</button>
+  </div>
+</div>
+
+<!-- ══ REGISTER ═══════════════════════════════════════════════ -->
+<div id="page-register" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title" data-pt="Registo" data-en="Registration">Registo</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div id="reg-page-form">
+    <div class="page-body">
+      <p style="font-size:13px;color:var(--ink-mid);margin-bottom:4px;">Os seus dados já se encontram registados.</p>
+      <p style="font-size:12px;color:var(--ink-lt);margin-bottom:20px;">Para actualizar ou eliminar os seus dados contacte consulta@marianalourenco.pt</p>
+      <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ OBSTETRÍCIA ════════════════════════════════════════════ -->
+<div id="page-obstetricia" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title" data-pt="🤰 Obstetrícia" data-en="🤰 Obstetrics">🤰 Obstetrícia</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="sub-tabs">
+      <button class="sub-tab on" onclick="subTab(this,'obs-faq')" data-pt="Perguntas Frequentes" data-en="Frequently Asked Questions">Perguntas Frequentes</button>
+      <button class="sub-tab" onclick="subTab(this,'obs-refs')" data-pt="Referências Úteis" data-en="Useful References">Referências Úteis</button>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <div id="obs-faq" class="sub-panel on">
+
+      <!-- Calculadora de semanas -->
+      <div style="background:var(--rose-bg);border:1px solid var(--rose-lt);border-radius:14px;padding:16px 16px 18px;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="font-size:18px;">🗓</span>
+          <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);font-weight:500;">Calculadora de Semanas de Gestação</span>
+        </div>
+        <label style="font-size:13px;color:var(--ink-mid);display:block;margin-bottom:8px;">Data do 1.º dia da última menstruação:</label>
+        <input type="date" id="lmp-date" oninput="calcWeeks()"
+          style="width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Jost',sans-serif;font-size:14px;background:var(--white);color:var(--ink);outline:none;-webkit-appearance:none;appearance:none;margin-bottom:0;">
+        <div id="weeks-result" style="display:none;margin-top:12px;background:var(--white);border-radius:10px;padding:14px 16px;text-align:center;border:1px solid var(--border);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--rose);" id="weeks-num"></div>
+          <div style="font-size:12px;color:var(--ink-lt);margin-top:6px;line-height:1.6;" id="weeks-dpp"></div>
+        </div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)">
+          <span data-pt="Tenho um teste de gravidez positivo. E agora?" data-en="I'm pregnant — what now?">Tenho um teste de gravidez positivo. E agora?</span>
+          <span class="faq-ch">▾</span>
+        </button>
+        <div class="faq-a" data-pt="Antes de mais, parabéns pelo seu teste positivo! Deve marcar uma consulta de confirmação da gravidez idealmente entre as 6–10 semanas de gestação, a partir do primeiro dia da última menstruação. Na consulta agendada será feita uma ecografia para confirmar a localização e viabilidade da gravidez. Inicie desde já ácido fólico (400 mcg/dia), evite álcool, tabaco e medicamentos sem prescrição médica." data-en="First of all, congratulations on your positive test! You should book a pregnancy confirmation appointment ideally between 6–10 weeks of gestation. An ultrasound will be performed to confirm the location and viability of the pregnancy. Start folic acid (400 mcg/day) now, and avoid alcohol, tobacco and medications without medical prescription.">Antes de mais, parabéns pelo seu teste positivo! Deve marcar uma consulta de confirmação da gravidez idealmente entre as 6–10 semanas de gestação, a partir do primeiro dia da última menstruação. Na consulta agendada será feita uma ecografia para confirmar a localização e viabilidade da gravidez. Inicie desde já ácido fólico (400 mcg/dia), evite álcool, tabaco e medicamentos sem prescrição médica.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)">
+          <span data-pt="O que devo levar à primeira consulta de obstetrícia?" data-en="What should I bring to my first obstetrics appointment?">O que devo levar à primeira consulta de obstetrícia?</span>
+          <span class="faq-ch">▾</span>
+        </button>
+        <div class="faq-a" data-pt="Cartão de cidadão, boletim de vacinas, análises e exames recentes (se tiver), lista de medicamentos habituais e data do último período menstrual." data-en="Citizen's card, vaccination record, recent blood tests and exams (if available), list of regular medications and date of last menstrual period.">Cartão de cidadão, boletim de vacinas, análises e exames recentes (se tiver), lista de medicamentos habituais e data do último período menstrual.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)">
+          <span data-pt="Que suplementos devo tomar e durante quanto tempo?" data-en="What supplements should I take and for how long?">Que suplementos devo tomar e durante quanto tempo?</span>
+          <span class="faq-ch">▾</span>
+        </button>
+        <div class="faq-a" data-pt="As necessidades de suplementação durante a gravidez variam de mulher para mulher e dependem de vários factores, como antecedentes clínicos, alimentação, análises e fase da gravidez. De uma forma geral, o ácido fólico é recomendado na fase pré-concecional e início da gravidez, podendo também existir indicação para suplementação de ferro, iodo, vitamina D ou outros suplementos em situações específicas. A suplementação deve ser sempre adaptada individualmente — em consulta poderemos esclarecer quais os suplementos mais adequados para si, em que dose e durante quanto tempo." data-en="Supplementation needs during pregnancy vary from woman to woman and depend on various factors such as clinical history, diet, blood tests and stage of pregnancy. In general, folic acid is recommended pre-conception and in early pregnancy. Iron, iodine, vitamin D or other supplements may also be indicated in specific situations. Supplementation should always be individually adapted — we can clarify which supplements are most appropriate for you at your appointment.">As necessidades de suplementação durante a gravidez variam de mulher para mulher e dependem de vários factores, como antecedentes clínicos, alimentação, análises e fase da gravidez. De uma forma geral, o ácido fólico é recomendado na fase pré-concecional e início da gravidez, podendo também existir indicação para suplementação de ferro, iodo, vitamina D ou outros suplementos em situações específicas. A suplementação deve ser sempre adaptada individualmente — em consulta poderemos esclarecer quais os suplementos mais adequados para si, em que dose e durante quanto tempo.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>Na gravidez posso viajar de avião?</span><span class="faq-ch">&#9662;</span></button>
+        <div class="faq-a">Sim, na maioria das situações é possível viajar de avião durante a gravidez, sobretudo quando esta decorre sem complicações. Ainda assim, é essencial avaliar cada caso individualmente e discutir previamente a viagem com o seu médico assistente.<br><br>Em fases mais avançadas da gestação, algumas companhias aéreas podem exigir uma declaração médica que confirme a idade gestacional e a ausência de contraindicações para viajar. As políticas variam entre companhias, sendo frequente existirem restrições ou pedidos de documentação a partir das 28&#8211;32 semanas de gravidez.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>Estou grávida, posso pintar o cabelo?</span><span class="faq-ch">&#9662;</span></button>
+        <div class="faq-a">De forma geral, pintar o cabelo durante a gravidez é considerado seguro, sobretudo após o primeiro trimestre. Ainda assim, recomenda-se preferência por locais bem ventilados e evitar exposições prolongadas a produtos químicos.<br><br>Sempre que possível, poderão ser privilegiadas técnicas com menor contacto directo com o couro cabeludo.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)">
+          <span data-pt="Posso fazer exercício físico durante a gravidez?</span>?" data-en="Can I exercise during pregnancy?">Posso fazer exercício físico durante a gravidez?</span>?</span>
+          <span class="faq-ch">▾</span>
+        </button>
+        <div class="faq-a" data-pt="Na maioria das gravidezes, a prática de exercício físico é recomendada e pode trazer benefícios para o bem-estar materno e evolução da gravidez. No entanto, o tipo, intensidade e frequência do exercício devem ser adaptados a cada grávida, tendo em conta antecedentes clínicos, hábitos prévios e eventuais contraindicações obstétricas. Em consulta poderemos orientar quais as actividades mais adequadas para si." data-en="In most pregnancies, physical exercise is recommended and can bring benefits for maternal well-being and pregnancy progress. However, the type, intensity and frequency of exercise should be adapted to each pregnant woman, taking into account clinical history, previous habits and any obstetric contraindications. We can advise which activities are most suitable for you at your appointment.">Na maioria das gravidezes, a prática de exercício físico é recomendada e pode trazer benefícios para o bem-estar materno e evolução da gravidez. No entanto, o tipo, intensidade e frequência do exercício devem ser adaptados a cada grávida, tendo em conta antecedentes clínicos, hábitos prévios e eventuais contraindicações obstétricas. Em consulta poderemos orientar quais as actividades mais adequadas para si.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)">
+          <span data-pt="Como se prepara o plano de parto?" data-en="How do I prepare a birth plan?">Como se prepara o plano de parto?</span>
+          <span class="faq-ch">▾</span>
+        </button>
+        <div class="faq-a" data-pt="O plano de parto é um documento onde a grávida pode expressar as suas preferências relativamente ao trabalho de parto, parto e cuidados ao recém-nascido. Pode incluir temas como métodos de alívio da dor, presença de acompanhante, contacto pele a pele, amamentação ou outras preferências pessoais. É importante compreender que o parto é um processo dinâmico e que algumas decisões poderão ter de ser ajustadas de acordo com a evolução clínica e segurança materno-fetal. Em consulta poderemos discutir as suas expectativas e ajudá-la a preparar um plano de parto informado e realista." data-en="A birth plan is a document where the pregnant woman can express her preferences regarding labour, birth and newborn care. It can include topics such as pain relief methods, presence of a birth partner, skin-to-skin contact, breastfeeding or other personal preferences. It is important to understand that birth is a dynamic process and some decisions may need to be adjusted according to clinical progress and maternal-foetal safety.">O plano de parto é um documento onde a grávida pode expressar as suas preferências relativamente ao trabalho de parto, parto e cuidados ao recém-nascido. Pode incluir temas como métodos de alívio da dor, presença de acompanhante, contacto pele a pele, amamentação ou outras preferências pessoais. É importante compreender que o parto é um processo dinâmico e que algumas decisões poderão ter de ser ajustadas de acordo com a evolução clínica e segurança materno-fetal. Em consulta poderemos discutir as suas expectativas e ajudá-la a preparar um plano de parto informado e realista.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)">
+          <span data-pt="Quais os sinais de início de trabalho de parto?" data-en="What are the signs of labour?">Quais os sinais de início de trabalho de parto?</span>
+          <span class="faq-ch">▾</span>
+        </button>
+        <div class="faq-a" data-pt="Os sinais de início de trabalho de parto podem variar entre grávidas. Os mais relevantes incluem contracções regulares e progressivamente mais intensas, podendo haver rotura de membranas antes ou após o início do trabalho de parto. Nem sempre é fácil distinguir o verdadeiro trabalho de parto das contracções de preparação, sobretudo numa primeira gravidez. Em caso de dúvida, sintomas persistentes ou qualquer situação fora do habitual, deve procurar aconselhamento médico." data-en="Signs of labour onset can vary between pregnant women. The most relevant include regular and progressively more intense contractions, and there may be rupture of membranes before or after the onset of labour. It is not always easy to distinguish true labour from preparatory contractions, especially in a first pregnancy. If in doubt, with persistent symptoms or anything unusual, seek medical advice.">Os sinais de início de trabalho de parto podem variar entre grávidas. Os mais relevantes incluem contracções regulares e progressivamente mais intensas, podendo haver rotura de membranas antes ou após o início do trabalho de parto. Nem sempre é fácil distinguir o verdadeiro trabalho de parto das contracções de preparação, sobretudo numa primeira gravidez. Em caso de dúvida, sintomas persistentes ou qualquer situação fora do habitual, deve procurar aconselhamento médico.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)">
+          <span data-pt="Quais os sinais de alarme que me devem levar ao Serviço de Urgência?" data-en="What warning signs should take me to the Emergency Department?">Quais os sinais de alarme que me devem levar ao Serviço de Urgência?</span>
+          <span class="faq-ch">▾</span>
+        </button>
+        <div class="faq-a" data-pt="Durante a gravidez, existem alguns sinais que justificam observação médica urgente. Deve recorrer ao Serviço de Urgência se apresentar: hemorragia vaginal; dor abdominal intensa ou contracções regulares e frequentes; diminuição dos movimentos do bebé; perda de líquido pela vagina; febre persistente; náuseas e vómitos intensos e persistentes. Em caso de dúvida, é preferível ser observada — muitas situações acabam por não ser graves, mas é importante excluir complicações atempadamente." data-en="During pregnancy, there are some signs that warrant urgent medical observation. Go to the Emergency Department if you experience: vaginal bleeding; intense abdominal pain or regular and frequent contractions; decreased foetal movements; fluid loss from the vagina; persistent fever; intense and persistent nausea and vomiting. If in doubt, it is better to be seen — many situations turn out not to be serious, but it is important to rule out complications in time.">Durante a gravidez, existem alguns sinais que justificam observação médica urgente. Deve recorrer ao Serviço de Urgência se apresentar: hemorragia vaginal; dor abdominal intensa ou contracções regulares e frequentes; diminuição dos movimentos do bebé; perda de líquido pela vagina; febre persistente; náuseas e vómitos intensos e persistentes. Em caso de dúvida, é preferível ser observada — muitas situações acabam por não ser graves, mas é importante excluir complicações atempadamente.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)">
+          <span data-pt="O que devo levar para a maternidade?" data-en="What should I bring to the maternity hospital?">O que devo levar para a maternidade?</span>
+          <span class="faq-ch">▾</span>
+        </button>
+        <div class="faq-a">A lista do que deve levar para a maternidade pode variar ligeiramente entre instituições. Pode consultar uma lista prática e actualizada no site do <a href="https://www.lusiadas.pt/blog/gravidez-maternidade/parto/mala-maternidade-que-levar" target="_blank" style="color:var(--rose);text-decoration:underline;">Hospital Lusíadas</a>. Em caso de dúvida, poderemos discutir em consulta o que faz mais sentido para si e para o seu bebé.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)">
+          <span data-pt="Quando devo agendar a consulta pós-parto?" data-en="When should I book my postnatal appointment?">Quando devo agendar a consulta pós-parto?</span>
+          <span class="faq-ch">▾</span>
+        </button>
+        <div class="faq-a" data-pt="A consulta pós-parto é habitualmente agendada entre as 6 e as 8 semanas após o parto. No entanto, poderá ser necessário um acompanhamento mais precoce em situações específicas com necessidade de vigilância adicional. Após o seu parto definiremos o timing que melhor se ajusta ao seu caso." data-en="The postnatal appointment is usually scheduled between 6 and 8 weeks after delivery. However, earlier follow-up may be necessary in specific situations requiring additional monitoring. After your birth we will define the timing that best suits your case.">A consulta pós-parto é habitualmente agendada entre as 6 e as 8 semanas após o parto. No entanto, poderá ser necessário um acompanhamento mais precoce em situações específicas com necessidade de vigilância adicional. Após o seu parto definiremos o timing que melhor se ajusta ao seu caso.</div>
+      </div>
+
+      <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+    </div>
+
+    <!-- ── REFERÊNCIAS ÚTEIS ── -->
+    <div id="obs-refs" class="sub-panel">
+
+      <!-- Ecografia Obstétrica -->
+      <div class="ref-card" onclick="go('page-ref-ecoobs')">
+        <div class="ref-icon" style="padding:8px;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIxMiIgcj0iOCIgZmlsbD0iI0REQjhCMCIvPgogIDxlbGxpcHNlIGN4PSIyMSIgY3k9IjExIiByeD0iMS41IiByeT0iMS41IiBmaWxsPSIjN0EzRDQ0Ii8+CiAgPGVsbGlwc2UgY3g9IjI3IiBjeT0iMTEiIHJ4PSIxLjUiIHJ5PSIxLjUiIGZpbGw9IiM3QTNENDQiLz4KICA8cGF0aCBkPSJNMjEgMTUgUTI0IDE3IDI3IDE1IiBzdHJva2U9IiM3QTNENDQiIHN0cm9rZS13aWR0aD0iMS4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNMTYgMjAgUTE2IDI4IDI0IDMwIFEzMiAyOCAzMiAyMCBRMzAgMTggMjQgMTggUTE4IDE4IDE2IDIwWiIgZmlsbD0iI0M0OTA4RSIvPgogIDxwYXRoIGQ9Ik0xNiAyMSBRMTAgMTkgOSAyNSBRMTAgMjkgMTYgMjciIGZpbGw9IiNEREI4QjAiLz4KICA8cGF0aCBkPSJNMzIgMjEgUTM4IDE5IDM5IDI1IFEzOCAyOSAzMiAyNyIgZmlsbD0iI0REQjhCMCIvPgogIDxwYXRoIGQ9Ik0xOSAzMCBRMTggMzYgMjAgMzgiIHN0cm9rZT0iI0M0OTA4RSIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0yOSAzMCBRMzAgMzYgMjggMzgiIHN0cm9rZT0iI0M0OTA4RSIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogIDxlbGxpcHNlIGN4PSIyMCIgY3k9IjM5IiByeD0iMyIgcnk9IjIiIGZpbGw9IiNEREI4QjAiLz4KICA8ZWxsaXBzZSBjeD0iMjgiIGN5PSIzOSIgcng9IjMiIHJ5PSIyIiBmaWxsPSIjRERCOEIwIi8+Cjwvc3ZnPg==" style="width:28px;height:28px;"></div>
+        <div><div class="ref-label" data-pt="Ecografia Obstétrica" data-en="Obstetric Ultrasound">Ecografia Obstétrica</div><div class="ref-sub" data-pt="Ver profissionais recomendados" data-en="View recommended professionals">Ver profissionais recomendados</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+
+      <!-- Análises -->
+      <div class="ref-card" onclick="go('page-ref-analin')">
+        <div class="ref-icon">🧪</div>
+        <div><div class="ref-label" data-pt="Análises na Gravidez" data-en="Pregnancy Blood Tests">Análises na Gravidez</div><div class="ref-sub" data-pt="Ver laboratórios recomendados" data-en="View recommended laboratories">Ver laboratórios recomendados</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+
+      <!-- Apoio Amamentação -->
+      <div class="ref-card" onclick="go('page-ref-amamenta')">
+        <div class="ref-icon">🤱</div>
+        <div><div class="ref-label" data-pt="Apoio na Amamentação" data-en="Breastfeeding Support">Apoio na Amamentação</div><div class="ref-sub" data-pt="Ver profissionais recomendados" data-en="View recommended professionals">Ver profissionais recomendados</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+
+      <!-- Fisioterapia pós-parto -->
+      <div class="ref-card" onclick="go('page-ref-fisio')">
+        <div class="ref-icon">🏃‍♀️</div>
+        <div><div class="ref-label" data-pt="Fisioterapia no Pós-Parto" data-en="Postnatal Physiotherapy">Fisioterapia no Pós-Parto</div><div class="ref-sub" data-pt="Ver profissionais recomendados" data-en="View recommended professionals">Ver profissionais recomendados</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+
+      <div class="ref-card" onclick="go('page-ref-pediatra')">
+        <div class="ref-icon">👶</div>
+        <div><div class="ref-label" data-pt="Pediatra para o meu bebé" data-en="Paediatrician for my baby">Pediatra para o meu bebé</div><div class="ref-sub" data-pt="Ver profissionais recomendados" data-en="View recommended professionals">Ver profissionais recomendados</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+
+      <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REF: PEDIATRA ════════════════════════════════════════ -->
+<div id="page-ref-pediatra" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">👶 Pediatra para o meu bebé</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">A escolha do pediatra é uma decisão importante, uma vez que será idealmente o profissional que acompanhará o crescimento e desenvolvimento do seu bebé ao longo da infância e adolescência.<br><br>Mais do que procurar apenas diferenciação técnica, é importante encontrar um profissional de excelência com quem a família se identifique e se sinta confortável, criando uma relação de confiança ao longo dos anos.<br><br>Alguns pediatras gostam inclusivamente de realizar uma consulta ainda durante a gravidez, permitindo esclarecer dúvidas dos futuros pais e preparar o período pós-parto e os primeiros cuidados ao recém-nascido.<br><br>Estas são algumas das minhas referências:</p>
+    <div class="prof-card"><div class="prof-name">Dra. Carolina Oliveira Gonçalves</div><div class="prof-local">Clínica Belong</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Ana Margarida Queiroz</div><div class="prof-local">Hospital Lusíadas de Lisboa</div></div>
+    <div class="prof-card"><div class="prof-name">Dr. Pedro Mendes</div><div class="prof-local">Hospital Lusíadas de Lisboa</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Mafalda Casinhas</div><div class="prof-local">Clínica Abrisaúde</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Ana Fernandes</div><div class="prof-local">Hospital CUF Tejo</div></div>
+    <p style="font-size:11px;color:var(--ink-lt);margin-top:14px;font-style:italic;">* Os locais de exercício destes profissionais podem sofrer alterações ao longo do tempo.</p>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ REF: ECOGRAFIA OBSTÉTRICA ═════════════════════════════ -->
+<div id="page-ref-ecoobs" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIxMiIgcj0iOCIgZmlsbD0iI0REQjhCMCIvPgogIDxlbGxpcHNlIGN4PSIyMSIgY3k9IjExIiByeD0iMS41IiByeT0iMS41IiBmaWxsPSIjN0EzRDQ0Ii8+CiAgPGVsbGlwc2UgY3g9IjI3IiBjeT0iMTEiIHJ4PSIxLjUiIHJ5PSIxLjUiIGZpbGw9IiM3QTNENDQiLz4KICA8cGF0aCBkPSJNMjEgMTUgUTI0IDE3IDI3IDE1IiBzdHJva2U9IiM3QTNENDQiIHN0cm9rZS13aWR0aD0iMS4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNMTYgMjAgUTE2IDI4IDI0IDMwIFEzMiAyOCAzMiAyMCBRMzAgMTggMjQgMTggUTE4IDE4IDE2IDIwWiIgZmlsbD0iI0M0OTA4RSIvPgogIDxwYXRoIGQ9Ik0xNiAyMSBRMTAgMTkgOSAyNSBRMTAgMjkgMTYgMjciIGZpbGw9IiNEREI4QjAiLz4KICA8cGF0aCBkPSJNMzIgMjEgUTM4IDE5IDM5IDI1IFEzOCAyOSAzMiAyNyIgZmlsbD0iI0REQjhCMCIvPgogIDxwYXRoIGQ9Ik0xOSAzMCBRMTggMzYgMjAgMzgiIHN0cm9rZT0iI0M0OTA4RSIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0yOSAzMCBRMzAgMzYgMjggMzgiIHN0cm9rZT0iI0M0OTA4RSIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogIDxlbGxpcHNlIGN4PSIyMCIgY3k9IjM5IiByeD0iMyIgcnk9IjIiIGZpbGw9IiNEREI4QjAiLz4KICA8ZWxsaXBzZSBjeD0iMjgiIGN5PSIzOSIgcng9IjMiIHJ5PSIyIiBmaWxsPSIjRERCOEIwIi8+Cjwvc3ZnPg==" style="width:22px;height:22px;vertical-align:middle;margin-right:6px;"> Ecografia Obstétrica</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">A realização das ecografias obstétricas por profissionais experientes é fundamental para uma adequada avaliação da gravidez. Estes são alguns dos profissionais em quem confio:</p>
+    <div class="prof-card"><div class="prof-name">Dra. Maria João Palma</div><div class="prof-local">Hospital Lusíadas Lisboa · GoClinic</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Joana Curado</div><div class="prof-local">Hospital Lusíadas Lisboa</div></div>
+    <div class="prof-card"><div class="prof-name">Dr. Álvaro Cohen</div><div class="prof-local">MedMulher · Maternidade Alfredo da Costa</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Cláudia Rijo</div><div class="prof-local">MedMulher · Centro Médico do Cartaxo · Maternidade Alfredo da Costa</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Ana Carocha</div><div class="prof-local">MedMulher · Maternidade Alfredo da Costa</div></div>
+    <div class="prof-card"><div class="prof-name">Dr. Jader Cruz</div><div class="prof-local">MedMulher · Centro Médico do Cartaxo · Maternidade Alfredo da Costa</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Mariline D'Oliveira</div><div class="prof-local">Centro Médico do Cartaxo · Hospital da Luz de Vila Franca de Xira</div></div>
+    <div class="prof-card"><div class="prof-name">Dr. Bruno Carrilho</div><div class="prof-local">Hospital da Luz de Lisboa · Maternidade Alfredo da Costa</div></div>
+    <p style="font-size:11px;color:var(--ink-lt);margin-top:14px;font-style:italic;">* Os locais de exercício destes profissionais podem sofrer alterações ao longo do tempo.</p>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ REF: ANÁLISES GRAVIDEZ ════════════════════════════════ -->
+<div id="page-ref-analin" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🧪 Análises na Gravidez</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">As análises durante a gravidez podem ser realizadas em qualquer laboratório ou centro certificado, nomeadamente os centros de colheita da <strong>Joaquim Chaves Saúde</strong> ou <strong>Germano de Sousa</strong>. Poderá também realizá-las nos locais onde dou consulta:</p>
+    <div class="prof-card"><div class="prof-name">Hospital Lusíadas Lisboa</div><div class="prof-local"><a href="https://www.lusiadas.pt" target="_blank" style="color:var(--rose);">lusiadas.pt</a></div></div>
+    <div class="prof-card"><div class="prof-name">Centro Médico do Cartaxo</div><div class="prof-local"><a href="https://centro-medico.pt" target="_blank" style="color:var(--rose);">centro-medico.pt</a></div></div>
+    <div class="prof-card"><div class="prof-name">AVA Clinic</div><div class="prof-local"><a href="https://avaclinic.pt" target="_blank" style="color:var(--rose);">avaclinic.pt</a></div></div>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ REF: AMAMENTAÇÃO ══════════════════════════════════════ -->
+<div id="page-ref-amamenta" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🤱 Apoio na Amamentação</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">O período de amamentação pode ser muito desafiante e, em alguns casos, poderá ser necessário apoio especializado por profissionais certificados e habilitados na área da amamentação.<br><br>A preparação pode começar ainda durante a gravidez, ajudando os futuros pais a compreender melhor o processo, expectativas e possíveis dificuldades, permitindo uma adaptação mais tranquila após o nascimento do bebé.<br><br>Sempre que necessário, poderá beneficiar de acompanhamento individualizado e esclarecimento de dúvidas ao longo desta fase.<br><br>Alguns dos profissionais e instituições em quem tenho confiança:</p>
+    <div class="prof-card">
+      <div class="prof-name">Enfermeira Irina Barros</div>
+      <div class="prof-local"><a href="https://www.instagram.com/be.a.ba.do.1.mes/" target="_blank" style="color:var(--rose);">@be.a.ba.do.1.mes</a></div>
+    </div>
+    <div class="prof-card">
+      <div class="prof-name">Enfermeira Vera Neto</div>
+      <div class="prof-local">Centro do Bebé</div>
+    </div>
+    <div class="prof-card">
+      <div class="prof-name">Centro Pré e Pós-Parto</div>
+      <div class="prof-local"><a href="https://preeposparto.com/clinica/avaliacao-do-perineo-no-pos-parto/" target="_blank" style="color:var(--rose);">Ver no Google</a></div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-mid);margin-top:14px;line-height:1.75;">Em consulta poderemos discutir as opções de apoio e profissionais mais adequados a cada situação, porque cada experiência de amamentação é única.</p>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ REF: FISIOTERAPIA PÓS-PARTO ══════════════════════════ -->
+<div id="page-ref-fisio" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🏃‍♀️ Fisioterapia no Pós-Parto</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">A fisioterapia no pós-parto pode ter um papel muito importante na recuperação física da mulher, ajudando na reabilitação do pavimento pélvico, recuperação abdominal, postura, gestão da dor e regresso gradual à actividade física.<br><br>Mesmo quando o pós-parto decorre sem complicações, muitas mulheres beneficiam de uma avaliação especializada nesta fase. Em algumas situações — como dor persistente, sensação de peso pélvico, perdas urinárias ou lacerações perineais mais extensas — o acompanhamento pode ser particularmente importante.<br><br>A abordagem nesta fase deve ser individualizada e adaptada a cada mulher e tipo de parto.<br><br>Recomendo os seguintes profissionais:</p>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Isabel Ramos de Almeida</div><div class="prof-local">Hospital Lusíadas de Lisboa</div></div>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Patrícia Fernandes da Mota</div><div class="prof-local">Centro Médico do Cartaxo · Eleva.care</div></div>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Joana da Ponte</div><div class="prof-local">Clínica Longeva · Upclinc · Clínica Cligenus</div></div>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Madalena Coelho</div><div class="prof-local">Eleva.care</div></div>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Laira Ramos</div><div class="prof-local">Períneo</div></div>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Jorge Santos</div><div class="prof-local">Domicílios · <a href="tel:+351965268403" style="color:var(--rose);">+351 965 268 403</a></div></div>
+    <p style="font-size:11px;color:var(--ink-lt);margin-top:14px;font-style:italic;">* Os locais de exercício destes profissionais podem sofrer alterações ao longo do tempo.</p>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ GINECOLOGIA ════════════════════════════════════════════ -->
+<div id="page-ginecologia" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title" data-pt="Ginecologia" data-en="Gynaecology" data-en="🩺 Gynaecology">Ginecologia</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="sub-tabs">
+      <button class="sub-tab on" onclick="subTab(this,'gin-faq')" data-pt="Perguntas Frequentes" data-en="Frequently Asked Questions">Perguntas Frequentes</button>
+      <button class="sub-tab" onclick="subTab(this,'gin-refs')" data-pt="Referências Úteis" data-en="Useful References">Referências Úteis</button>
+    </div>
+    <div id="gin-faq" class="sub-panel on">
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>Com que idade devo iniciar as consultas de ginecologia?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">A primeira consulta de ginecologia pode acontecer em diferentes fases da vida, dependendo das necessidades de cada jovem ou mulher. De uma forma geral, é recomendada na adolescência, especialmente após o início da menstruação, em caso de dúvidas sobre o ciclo menstrual, presença de sintomas, necessidade de aconselhamento contraceptivo ou início da vida sexual.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>O que devo levar à consulta de ginecologia?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Sempre que possível, é útil trazer exames anteriores relevantes, análises, relatórios, lista de medicação habitual e informação sobre antecedentes pessoais ou familiares importantes. Caso tenha um registo dos seus ciclos menstruais, sintomas ou métodos contraceptivos utilizados, essa informação também poderá ser útil para a avaliação.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>Qual o método contraceptivo mais indicado para mim?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Não existe um método contraceptivo ideal para todas as mulheres. A escolha deve ter em conta vários factores, como idade, antecedentes médicos, estilo de vida, preferências pessoais, tolerância e objectivos reprodutivos. Existem diferentes opções disponíveis, incluindo métodos hormonais, não hormonais, de longa duração ou definitivos. Em consulta poderemos discutir as vantagens, limitações e adequação de cada método, de forma a encontrar a opção mais indicada para si.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>Tenho dores menstruais intensas, é normal?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Alguma sensação de desconforto menstrual pode ser frequente, mas dores menstruais intensas, incapacitantes ou que interfiram com a qualidade de vida nunca devem ser desvalorizadas. Em alguns casos, poderão estar associadas a condições ginecológicas específicas, como endometriose, adenomiose ou outras alterações. Cada situação deve ser avaliada individualmente, sendo a consulta o momento ideal para essa avaliação.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>Tenho ciclos irregulares, é normal?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Os ciclos menstruais podem apresentar alguma variabilidade ao longo da vida, especialmente na adolescência, pós-parto ou transição para a menopausa. No entanto, ciclos muito irregulares, ausência prolongada de menstruação ou alterações recentes do padrão habitual podem justificar avaliação médica. As causas podem ser variadas e nem sempre representam um problema significativo, mas cada caso deve ser analisado individualmente.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>Quando devo começar a fazer rastreio do cancro do colo do útero?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Segundo as recomendações actuais em Portugal, o rastreio do cancro do colo do útero deve iniciar-se aos 25 anos nas mulheres sexualmente activas, havendo em alguns casos excepções. O método de rastreio e a periodicidade poderão variar de acordo com a idade, antecedentes pessoais e resultados prévios, entre outras variáveis. É importante manter o rastreio regular mesmo na ausência de sintomas, uma vez que permite identificar alterações precocemente, tendo um papel essencial na prevenção do cancro do colo do útero.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>Como posso saber se estou na menopausa?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">A menopausa corresponde à cessação definitiva da menstruação por falência da função ovárica. Do ponto de vista clínico, considera-se que uma mulher está na menopausa após 12 meses consecutivos sem menstruar, na ausência de outras causas que justifiquem essa ausência. A idade de aparecimento pode variar entre mulheres, podendo acompanhar-se de diferentes sintomas, como afrontamentos, alterações do sono, secura vaginal ou alterações de humor, embora nem todas as mulheres os apresentem da mesma forma. Nesta importante fase de vida da mulher, é determinante um acompanhamento personalizado e próximo.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>É possível agendar teleconsultas?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Sim, em algumas situações é possível realizar teleconsultas. As teleconsultas podem ser úteis para esclarecimento de dúvidas, discussão de exames, seguimento clínico ou orientação inicial. No entanto, existem situações em que a observação presencial é necessária para uma avaliação adequada. Em caso de dúvida, poderemos avaliar qual o formato de consulta mais indicado para cada situação.</div>
+      </div>
+
+      <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+    </div>
+
+    <div id="gin-refs" class="sub-panel">
+
+      <div class="ref-card" onclick="go('page-ref-ecog')">
+        <div class="ref-icon" style="padding:8px;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSI+CiAgPHJlY3QgeD0iNiIgeT0iNCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjI2IiByeD0iNCIgZmlsbD0iI0EwNjM2QSIvPgogIDxyZWN0IHg9IjkiIHk9IjciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxMiIgcng9IjIiIGZpbGw9IiNFOEY0RjQiLz4KICA8cmVjdCB4PSI5IiB5PSIyMSIgd2lkdGg9IjQiIGhlaWdodD0iMyIgcng9IjEiIGZpbGw9IiNDNDkwOEUiLz4KICA8cmVjdCB4PSIxNCIgeT0iMjEiIHdpZHRoPSI0IiBoZWlnaHQ9IjMiIHJ4PSIxIiBmaWxsPSIjQzQ5MDhFIi8+CiAgPHJlY3QgeD0iMTkiIHk9IjIxIiB3aWR0aD0iNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI0M0OTA4RSIvPgogIDxyZWN0IHg9IjkiIHk9IjI1IiB3aWR0aD0iMTYiIGhlaWdodD0iMiIgcng9IjEiIGZpbGw9IiNDNDkwOEUiLz4KICA8cGF0aCBkPSJNMjggMjQgTDI4IDM2IFEyOCAzOCAyNiAzOCBMMjQgMzgiIHN0cm9rZT0iI0EwNjM2QSIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogIDxlbGxpcHNlIGN4PSIyMyIgY3k9IjM4IiByeD0iMyIgcnk9IjIiIGZpbGw9IiNBMDYzNkEiLz4KPC9zdmc+" style="width:28px;height:28px;"></div>
+        <div><div class="ref-label">Ecografia Ginecológica</div><div class="ref-sub">Ver profissionais recomendados</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+      <div class="ref-card" onclick="go('page-ref-mama')">
+        <div class="ref-icon" style="padding:8px;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPCEtLSBCcmVhc3Qgc2hhcGUgLS0+CiAgPHBhdGggZD0iTTggMzYgUTYgMjIgMTQgMTYgUTIwIDExIDI2IDE0IFEzMiAxNyAzNCAyNCBRMzggMzAgNDAgMzYgWiIgZmlsbD0iI0M0OTA4RSIvPgogIDwhLS0gQ2hlc3Qgd2FsbCAtLT4KICA8cmVjdCB4PSI2IiB5PSIzNSIgd2lkdGg9IjM2IiBoZWlnaHQ9IjUiIHJ4PSIyIiBmaWxsPSIjQTA2MzZBIi8+CiAgPCEtLSBOaXBwbGUgLS0+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSIyNiIgcj0iMyIgZmlsbD0iIzdBM0Q0NCIvPgogIDwhLS0gSGlnaGxpZ2h0IC0tPgogIDxlbGxpcHNlIGN4PSIxOCIgY3k9IjE5IiByeD0iNCIgcnk9IjMiIGZpbGw9IiNEREI4QjAiIG9wYWNpdHk9IjAuNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTIwIDE4IDE5KSIvPgo8L3N2Zz4=" style="width:28px;height:28px;"></div>
+        <div><div class="ref-label">Exames Mamários</div><div class="ref-sub">Ver instituições recomendadas</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+      <div class="ref-card" onclick="go('page-ref-colpo')">
+        <div class="ref-icon">🔬</div>
+        <div><div class="ref-label">Colposcopia</div><div class="ref-sub">Ver profissionais recomendados</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+      <div class="ref-card" onclick="go('page-ref-fisiogin')">
+        <div class="ref-icon">🏃‍♀️</div>
+        <div><div class="ref-label">Fisioterapia do Pavimento Pélvico</div><div class="ref-sub">Ver profissionais recomendados</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+
+      <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REF GIN: ECOGRAFIA GINECOLÓGICA ══════════════════════ -->
+<div id="page-ref-ecog" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSI+CiAgPHJlY3QgeD0iNiIgeT0iNCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjI2IiByeD0iNCIgZmlsbD0iI0EwNjM2QSIvPgogIDxyZWN0IHg9IjkiIHk9IjciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxMiIgcng9IjIiIGZpbGw9IiNFOEY0RjQiLz4KICA8cmVjdCB4PSI5IiB5PSIyMSIgd2lkdGg9IjQiIGhlaWdodD0iMyIgcng9IjEiIGZpbGw9IiNDNDkwOEUiLz4KICA8cmVjdCB4PSIxNCIgeT0iMjEiIHdpZHRoPSI0IiBoZWlnaHQ9IjMiIHJ4PSIxIiBmaWxsPSIjQzQ5MDhFIi8+CiAgPHJlY3QgeD0iMTkiIHk9IjIxIiB3aWR0aD0iNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI0M0OTA4RSIvPgogIDxyZWN0IHg9IjkiIHk9IjI1IiB3aWR0aD0iMTYiIGhlaWdodD0iMiIgcng9IjEiIGZpbGw9IiNDNDkwOEUiLz4KICA8cGF0aCBkPSJNMjggMjQgTDI4IDM2IFEyOCAzOCAyNiAzOCBMMjQgMzgiIHN0cm9rZT0iI0EwNjM2QSIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogIDxlbGxpcHNlIGN4PSIyMyIgY3k9IjM4IiByeD0iMyIgcnk9IjIiIGZpbGw9IiNBMDYzNkEiLz4KPC9zdmc+" style="width:22px;height:22px;vertical-align:middle;margin-right:6px;"> Ecografia Ginecológica</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">A realização de ecografias ginecológicas por profissionais experientes é fundamental para uma avaliação adequada das diferentes estruturas anatómicas femininas, permitindo um diagnóstico mais rigoroso e uma melhor orientação clínica nas diversas patologias ginecológicas. Estes são alguns dos profissionais em quem confio:</p>
+    <div class="prof-card"><div class="prof-name">Dra. Célia Pedroso</div><div class="prof-local">Hospital Lusíadas Lisboa</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Rita Silva</div><div class="prof-local">Hospital CUF Tejo · Centro Médico do Cartaxo</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Inês Reis</div><div class="prof-local">Hospital da Luz de Lisboa · Clínica Gerações</div></div>
+    <div class="prof-card"><div class="prof-name">Dr. Dusan Djokovic</div><div class="prof-local">Hospital CUF Descobertas</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Cristina Vilhena</div><div class="prof-local">Clínica Joaquim Chaves (Entrecampos e Miraflores) · Hospital CUF Almada · Hospital CUF Tejo</div></div>
+    <p style="font-size:11px;color:var(--ink-lt);margin-top:14px;font-style:italic;">* Os locais de exercício destes profissionais podem sofrer alterações ao longo do tempo.</p>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ REF GIN: EXAMES MAMÁRIOS ═════════════════════════════ -->
+<div id="page-ref-mama" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPCEtLSBCcmVhc3Qgc2hhcGUgLS0+CiAgPHBhdGggZD0iTTggMzYgUTYgMjIgMTQgMTYgUTIwIDExIDI2IDE0IFEzMiAxNyAzNCAyNCBRMzggMzAgNDAgMzYgWiIgZmlsbD0iI0M0OTA4RSIvPgogIDwhLS0gQ2hlc3Qgd2FsbCAtLT4KICA8cmVjdCB4PSI2IiB5PSIzNSIgd2lkdGg9IjM2IiBoZWlnaHQ9IjUiIHJ4PSIyIiBmaWxsPSIjQTA2MzZBIi8+CiAgPCEtLSBOaXBwbGUgLS0+CiAgPGNpcmNsZSBjeD0iMjIiIGN5PSIyNiIgcj0iMyIgZmlsbD0iIzdBM0Q0NCIvPgogIDwhLS0gSGlnaGxpZ2h0IC0tPgogIDxlbGxpcHNlIGN4PSIxOCIgY3k9IjE5IiByeD0iNCIgcnk9IjMiIGZpbGw9IiNEREI4QjAiIG9wYWNpdHk9IjAuNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTIwIDE4IDE5KSIvPgo8L3N2Zz4=" style="width:22px;height:22px;vertical-align:middle;margin-right:6px;"> Exames Mamários</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">A realização de exames mamários em instituições de referência e com equipas experientes é fundamental para uma avaliação adequada e rigorosa da mama. Sempre que possível, é importante que os exames sejam realizados de forma consistente no mesmo local, facilitando a comparação com estudos anteriores e contribuindo para uma avaliação mais precisa ao longo do tempo.</p>
+    <div class="prof-card"><div class="prof-name">Hospital Lusíadas Lisboa</div><div class="prof-local"><a href="https://www.lusiadas.pt" target="_blank" style="color:var(--rose);">lusiadas.pt</a></div></div>
+    <div class="prof-card"><div class="prof-name">Hospital CUF Descobertas</div><div class="prof-local"><a href="https://www.cuf.pt" target="_blank" style="color:var(--rose);">cuf.pt</a></div></div>
+    <div class="prof-card"><div class="prof-name">Affidea IMI República</div><div class="prof-local"><a href="https://www.affidea.pt" target="_blank" style="color:var(--rose);">affidea.pt</a></div></div>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ REF GIN: COLPOSCOPIA ══════════════════════════════════ -->
+<div id="page-ref-colpo" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🔬 Colposcopia</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">A colposcopia é um exame ginecológico realizado para observar de forma detalhada o colo do útero, a vagina e a vulva, recorrendo a um equipamento de ampliação denominado colposcópio. Este procedimento poderá ser solicitado em consulta de ginecologia, mediante determinados resultados ou apresentações clínicas. Profissionais de referência:</p>
+    <div class="prof-card"><div class="prof-name">Dra. Raquel Robalo</div><div class="prof-local">Hospital Lusíadas Lisboa</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Rita Silva</div><div class="prof-local">Hospital Lusíadas Campera</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Mafalda Simões</div><div class="prof-local">Hospital Lusíadas Lisboa</div></div>
+    <p style="font-size:11px;color:var(--ink-lt);margin-top:14px;font-style:italic;">* Os locais de exercício destes profissionais podem sofrer alterações ao longo do tempo.</p>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ REF GIN: FISIOTERAPIA PAVIMENTO PÉLVICO ══════════════ -->
+<div id="page-ref-fisiogin" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🏃‍♀️ Fisioterapia do Pavimento Pélvico</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">A fisioterapia do pavimento pélvico desempenha um papel fundamental na abordagem de diversas condições ginecológicas, nomeadamente a incontinência urinária, o prolapso dos órgãos pélvicos e outras disfunções do pavimento pélvico. Através de uma avaliação individualizada e de técnicas específicas de reabilitação, é possível melhorar sintomas, recuperar função muscular e contribuir significativamente para a qualidade de vida e bem-estar da mulher.</p>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Isabel Ramos de Almeida</div><div class="prof-local">Hospital Lusíadas de Lisboa</div></div>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Patrícia Fernandes da Mota</div><div class="prof-local">Centro Médico do Cartaxo · Eleva.care</div></div>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Joana da Ponte</div><div class="prof-local">Clínica Longeva · Upclinc · Clínica Cligenus</div></div>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Madalena Coelho</div><div class="prof-local">Eleva.care</div></div>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Laira Ramos</div><div class="prof-local">Períneo</div></div>
+    <div class="prof-card"><div class="prof-name">Fisioterapeuta Jorge Santos</div><div class="prof-local">Domicílios · <a href="tel:+351965268403" style="color:var(--rose);">+351 965 268 403</a></div></div>
+    <p style="font-size:11px;color:var(--ink-lt);margin-top:14px;font-style:italic;">* Os locais de exercício destes profissionais podem sofrer alterações ao longo do tempo.</p>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ MEDICINA DA REPRODUÇÃO ══════════════════════════════════ -->
+<div id="page-reproducao" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title" data-pt="🧬 Medicina da Reprodução" data-en="🧬 Reproductive Medicine">🧬 Medicina da Reprodução</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="sub-tabs">
+      <button class="sub-tab on" onclick="subTab(this,'rep-faq')" data-pt="Perguntas Frequentes" data-en="Frequently Asked Questions">Perguntas Frequentes</button>
+      <button class="sub-tab" onclick="subTab(this,'rep-refs')" data-pt="Referências Úteis" data-en="Useful References">Referências Úteis</button>
+    </div>
+    <div id="rep-faq" class="sub-panel on">
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>O que devo levar à primeira consulta de Medicina da Reprodução?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Sempre que possível, é útil levar exames anteriores, análises hormonais, relatórios de ecografias, cirurgias, tratamentos prévios ou qualquer documentação relacionada com fertilidade, antecedentes pessoais ou familiares seus ou do seu parceiro/a. No entanto, não se preocupe — antes da sua primeira consulta na AVA Clinic, por via de um gestor de pacientes, ser-lhe-ão solicitadas um conjunto de informações relevantes de forma a prepararmos o melhor possível a sua primeira consulta presencial.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>O meu parceiro também precisa de ir à consulta?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Sim. A fertilidade é uma questão do casal e a avaliação do parceiro é uma parte importante do estudo inicial.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>Quais as causas mais comuns de infertilidade?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">As causas de infertilidade podem ser muito variadas e envolver factores femininos, masculinos ou ambos. Entre as causas mais frequentes encontram-se alterações da ovulação, endometriose, alterações tubárias, diminuição da reserva ovárica, alterações do esperma ou factores relacionados com a idade. Em alguns casos, apesar da investigação realizada, não é possível identificar nenhuma causa específica. Cada situação deve ser sempre avaliada individualmente, uma vez que o estudo e abordagem dependem da história clínica e objectivos do casal.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>O estilo de vida influencia a fertilidade?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Sim. Vários factores relacionados com o estilo de vida podem influenciar a fertilidade feminina e masculina. Tabaco, consumo excessivo de álcool, alterações significativas de peso, sedentarismo, privação de sono ou níveis elevados de stress podem ter impacto na saúde reprodutiva. No entanto, cada situação é diferente e nem sempre existe uma relação directa entre hábitos de vida e dificuldade em engravidar. Em consulta poderemos discutir estratégias individualizadas para optimizar a saúde reprodutiva do casal.</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>Até que idade se podem fazer tratamentos de fertilidade em Portugal?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Em Portugal, o limite máximo de idade para mulheres realizarem tratamentos de Procriação Medicamente Assistida é 50 anos, permitindo-se a gestação até aos 49 anos e 365 dias. No Serviço Nacional de Saúde, a comparticipação é, no entanto, mais restrita, focando-se em mulheres até aos 40 anos (39 anos e 364 dias) para técnicas de 2.ª linha, como a Fertilização In Vitro (FIV).</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q" onclick="faq(this)"><span>É possível agendar teleconsultas?</span><span class="faq-ch">▾</span></button>
+        <div class="faq-a">Sim, em algumas situações é possível realizar teleconsultas. As teleconsultas podem ser úteis para esclarecimento de dúvidas, discussão de exames, seguimento clínico ou orientação inicial. No entanto, existem situações em que a observação presencial é necessária para uma avaliação adequada. Em caso de dúvida, poderemos avaliar qual o formato de consulta mais indicado para cada situação.</div>
+      </div>
+
+      <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+    </div>
+
+    <div id="rep-refs" class="sub-panel">
+
+      <div class="ref-card" onclick="go('page-ref-esperm')">
+        <div class="ref-icon" style="padding:8px;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPGVsbGlwc2UgY3g9IjI0IiBjeT0iMjYiIHJ4PSIxOCIgcnk9IjYiIGZpbGw9IiNEREI4QjAiIG9wYWNpdHk9IjAuNCIvPgogIDxlbGxpcHNlIGN4PSIyNCIgY3k9IjI0IiByeD0iMTgiIHJ5PSI2IiBmaWxsPSJub25lIiBzdHJva2U9IiNBMDYzNkEiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSIyNCIgY3k9IjIyIiByeD0iMTgiIHJ5PSI2IiBmaWxsPSIjRjJFNEUxIiBzdHJva2U9IiNBMDYzNkEiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSIyNCIgY3k9IjIyIiByeD0iMTQiIHJ5PSI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNDNDkwOEUiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWRhc2hhcnJheT0iMyAyIi8+CiAgPGNpcmNsZSBjeD0iMTgiIGN5PSIyMSIgcj0iMS41IiBmaWxsPSIjQTA2MzZBIi8+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIxOSIgcj0iMS41IiBmaWxsPSIjQTA2MzZBIi8+CiAgPGNpcmNsZSBjeD0iMzAiIGN5PSIyMiIgcj0iMS41IiBmaWxsPSIjQTA2MzZBIi8+CiAgPGNpcmNsZSBjeD0iMjEiIGN5PSIyNCIgcj0iMSIgZmlsbD0iI0M0OTA4RSIvPgogIDxjaXJjbGUgY3g9IjI3IiBjeT0iMjAiIHI9IjEiIGZpbGw9IiNDNDkwOEUiLz4KPC9zdmc+" style="width:28px;height:28px;"></div>
+        <div><div class="ref-label">Espermograma</div><div class="ref-sub">Ver laboratórios recomendados</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+      <div class="ref-card" onclick="go('page-ref-hsg')">
+        <div class="ref-icon" style="padding:8px;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iIzNBMkUyQyIvPgogIDx0ZXh0IHg9IjI0IiB5PSIzMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNEREI4QjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJhdXRvIj5SeDwvdGV4dD4KPC9zdmc+" style="width:28px;height:28px;"></div>
+        <div><div class="ref-label">Histerossalpingografia</div><div class="ref-sub">Ver instituições recomendadas</div></div>
+        <div class="ref-arrow">›</div>
+      </div>
+
+      <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REF REP: ESPERMOGRAMA ════════════════════════════════ -->
+<div id="page-ref-esperm" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPGVsbGlwc2UgY3g9IjI0IiBjeT0iMjYiIHJ4PSIxOCIgcnk9IjYiIGZpbGw9IiNEREI4QjAiIG9wYWNpdHk9IjAuNCIvPgogIDxlbGxpcHNlIGN4PSIyNCIgY3k9IjI0IiByeD0iMTgiIHJ5PSI2IiBmaWxsPSJub25lIiBzdHJva2U9IiNBMDYzNkEiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSIyNCIgY3k9IjIyIiByeD0iMTgiIHJ5PSI2IiBmaWxsPSIjRjJFNEUxIiBzdHJva2U9IiNBMDYzNkEiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSIyNCIgY3k9IjIyIiByeD0iMTQiIHJ5PSI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNDNDkwOEUiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWRhc2hhcnJheT0iMyAyIi8+CiAgPGNpcmNsZSBjeD0iMTgiIGN5PSIyMSIgcj0iMS41IiBmaWxsPSIjQTA2MzZBIi8+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIxOSIgcj0iMS41IiBmaWxsPSIjQTA2MzZBIi8+CiAgPGNpcmNsZSBjeD0iMzAiIGN5PSIyMiIgcj0iMS41IiBmaWxsPSIjQTA2MzZBIi8+CiAgPGNpcmNsZSBjeD0iMjEiIGN5PSIyNCIgcj0iMSIgZmlsbD0iI0M0OTA4RSIvPgogIDxjaXJjbGUgY3g9IjI3IiBjeT0iMjAiIHI9IjEiIGZpbGw9IiNDNDkwOEUiLz4KPC9zdmc+" style="width:22px;height:22px;vertical-align:middle;margin-right:6px;"> Espermograma</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">O espermograma é um exame fundamental na avaliação da fertilidade masculina, permitindo analisar diferentes parâmetros do sémen. A sua correcta realização e interpretação são essenciais no estudo do casal com dificuldade em engravidar. É importante que este exame seja realizado em laboratórios com experiência e diferenciação na área da fertilidade e medicina da reprodução.</p>
+    <div class="prof-card"><div class="prof-name">AVA Clinic</div><div class="prof-local"><a href="https://avaclinic.pt" target="_blank" style="color:var(--rose);">avaclinic.pt</a></div></div>
+    <div class="prof-card"><div class="prof-name">Hospital Lusíadas Lisboa</div><div class="prof-local"><a href="https://www.lusiadas.pt" target="_blank" style="color:var(--rose);">lusiadas.pt</a></div></div>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ REF REP: HISTEROSSALPINGOGRAFIA ══════════════════════ -->
+<div id="page-ref-hsg" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iIzNBMkUyQyIvPgogIDx0ZXh0IHg9IjI0IiB5PSIzMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNEREI4QjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJhdXRvIj5SeDwvdGV4dD4KPC9zdmc+" style="width:22px;height:22px;vertical-align:middle;margin-right:6px;"> Histerossalpingografia</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <p style="font-size:13px;color:var(--ink-mid);line-height:1.75;margin-bottom:20px;">A histerossalpingografia é um exame imagiológico utilizado na avaliação da cavidade uterina e da permeabilidade das trompas de Falópio, sendo frequentemente solicitado no contexto do estudo da fertilidade.</p>
+    <div class="prof-card"><div class="prof-name">AVA Clinic</div><div class="prof-local"><a href="https://avaclinic.pt" target="_blank" style="color:var(--rose);">avaclinic.pt</a></div></div>
+    <div class="prof-card"><div class="prof-name">Hospital Lusíadas Lisboa</div><div class="prof-local"><a href="https://www.lusiadas.pt" target="_blank" style="color:var(--rose);">lusiadas.pt</a></div></div>
+    <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
+  </div>
+</div>
+
+<!-- ══ REFERENCE DETAIL PAGES ════════════════════════════════ -->
+
+<div id="page-ref-ecoobs" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIxMiIgcj0iOCIgZmlsbD0iI0REQjhCMCIvPgogIDxlbGxpcHNlIGN4PSIyMSIgY3k9IjExIiByeD0iMS41IiByeT0iMS41IiBmaWxsPSIjN0EzRDQ0Ii8+CiAgPGVsbGlwc2UgY3g9IjI3IiBjeT0iMTEiIHJ4PSIxLjUiIHJ5PSIxLjUiIGZpbGw9IiM3QTNENDQiLz4KICA8cGF0aCBkPSJNMjEgMTUgUTI0IDE3IDI3IDE1IiBzdHJva2U9IiM3QTNENDQiIHN0cm9rZS13aWR0aD0iMS4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIGZpbGw9Im5vbmUiLz4KICA8cGF0aCBkPSJNMTYgMjAgUTE2IDI4IDI0IDMwIFEzMiAyOCAzMiAyMCBRMzAgMTggMjQgMTggUTE4IDE4IDE2IDIwWiIgZmlsbD0iI0M0OTA4RSIvPgogIDxwYXRoIGQ9Ik0xNiAyMSBRMTAgMTkgOSAyNSBRMTAgMjkgMTYgMjciIGZpbGw9IiNEREI4QjAiLz4KICA8cGF0aCBkPSJNMzIgMjEgUTM4IDE5IDM5IDI1IFEzOCAyOSAzMiAyNyIgZmlsbD0iI0REQjhCMCIvPgogIDxwYXRoIGQ9Ik0xOSAzMCBRMTggMzYgMjAgMzgiIHN0cm9rZT0iI0M0OTA4RSIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0yOSAzMCBRMzAgMzYgMjggMzgiIHN0cm9rZT0iI0M0OTA4RSIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogIDxlbGxpcHNlIGN4PSIyMCIgY3k9IjM5IiByeD0iMyIgcnk9IjIiIGZpbGw9IiNEREI4QjAiLz4KICA8ZWxsaXBzZSBjeD0iMjgiIGN5PSIzOSIgcng9IjMiIHJ5PSIyIiBmaWxsPSIjRERCOEIwIi8+Cjwvc3ZnPg==" style="width:22px;height:22px;vertical-align:middle;margin-right:6px;"> Ecografia Obstétrica</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Ecografia Obstétrica" data-en="Obstetric Ultrasound">Ecografia Obstétrica</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<div id="page-ref-analin" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🧪 Análises de Gravidez</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Análises de Gravidez" data-en="Pregnancy Blood Tests">Análises de Gravidez</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<div id="page-ref-farma" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">💊 Farmácias de Manipulação</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Farmácias de Manipulação" data-en="Compounding Pharmacies">Farmácias de Manipulação</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<div id="page-ref-matern" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🏥 Maternidades</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Maternidades" data-en="Maternity Units">Maternidades</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<div id="page-ref-ecog" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSI+CiAgPHJlY3QgeD0iNiIgeT0iNCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjI2IiByeD0iNCIgZmlsbD0iI0EwNjM2QSIvPgogIDxyZWN0IHg9IjkiIHk9IjciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxMiIgcng9IjIiIGZpbGw9IiNFOEY0RjQiLz4KICA8cmVjdCB4PSI5IiB5PSIyMSIgd2lkdGg9IjQiIGhlaWdodD0iMyIgcng9IjEiIGZpbGw9IiNDNDkwOEUiLz4KICA8cmVjdCB4PSIxNCIgeT0iMjEiIHdpZHRoPSI0IiBoZWlnaHQ9IjMiIHJ4PSIxIiBmaWxsPSIjQzQ5MDhFIi8+CiAgPHJlY3QgeD0iMTkiIHk9IjIxIiB3aWR0aD0iNCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iI0M0OTA4RSIvPgogIDxyZWN0IHg9IjkiIHk9IjI1IiB3aWR0aD0iMTYiIGhlaWdodD0iMiIgcng9IjEiIGZpbGw9IiNDNDkwOEUiLz4KICA8cGF0aCBkPSJNMjggMjQgTDI4IDM2IFEyOCAzOCAyNiAzOCBMMjQgMzgiIHN0cm9rZT0iI0EwNjM2QSIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSIvPgogIDxlbGxpcHNlIGN4PSIyMyIgY3k9IjM4IiByeD0iMyIgcnk9IjIiIGZpbGw9IiNBMDYzNkEiLz4KPC9zdmc+" style="width:22px;height:22px;vertical-align:middle;margin-right:6px;"> Ecografia Ginecológica</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Ecografia Ginecológica" data-en="Gynaecological Ultrasound">Ecografia Ginecológica</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<div id="page-ref-colpo" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🔬 Colposcopia</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Colposcopia" data-en="Colposcopy">Colposcopia</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<div id="page-ref-mamo" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🩻 Mamografia</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Mamografia" data-en="Mammography">Mamografia</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<div id="page-ref-ecopav" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🔊 Ecografia do Pavimento Pélvico</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Ecografia do Pavimento Pélvico" data-en="Pelvic Floor Ultrasound">Ecografia do Pavimento Pélvico</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<div id="page-ref-hor" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title">🧪 Análises Hormonais</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Análises Hormonais" data-en="Hormonal Blood Tests">Análises Hormonais</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<div id="page-ref-esperm" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPGVsbGlwc2UgY3g9IjI0IiBjeT0iMjYiIHJ4PSIxOCIgcnk9IjYiIGZpbGw9IiNEREI4QjAiIG9wYWNpdHk9IjAuNCIvPgogIDxlbGxpcHNlIGN4PSIyNCIgY3k9IjI0IiByeD0iMTgiIHJ5PSI2IiBmaWxsPSJub25lIiBzdHJva2U9IiNBMDYzNkEiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSIyNCIgY3k9IjIyIiByeD0iMTgiIHJ5PSI2IiBmaWxsPSIjRjJFNEUxIiBzdHJva2U9IiNBMDYzNkEiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSIyNCIgY3k9IjIyIiByeD0iMTQiIHJ5PSI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNDNDkwOEUiIHN0cm9rZS13aWR0aD0iMSIgc3Ryb2tlLWRhc2hhcnJheT0iMyAyIi8+CiAgPGNpcmNsZSBjeD0iMTgiIGN5PSIyMSIgcj0iMS41IiBmaWxsPSIjQTA2MzZBIi8+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIxOSIgcj0iMS41IiBmaWxsPSIjQTA2MzZBIi8+CiAgPGNpcmNsZSBjeD0iMzAiIGN5PSIyMiIgcj0iMS41IiBmaWxsPSIjQTA2MzZBIi8+CiAgPGNpcmNsZSBjeD0iMjEiIGN5PSIyNCIgcj0iMSIgZmlsbD0iI0M0OTA4RSIvPgogIDxjaXJjbGUgY3g9IjI3IiBjeT0iMjAiIHI9IjEiIGZpbGw9IiNDNDkwOEUiLz4KPC9zdmc+" style="width:22px;height:22px;vertical-align:middle;margin-right:6px;"> Espermograma</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Espermograma" data-en="Semen Analysis">Espermograma</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<div id="page-ref-hsg" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="back()">‹</button>
+    <div class="page-title"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSI+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iNiIgZmlsbD0iIzNBMkUyQyIvPgogIDx0ZXh0IHg9IjI0IiB5PSIzMiIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNEREI4QjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJhdXRvIj5SeDwvdGV4dD4KPC9zdmc+" style="width:22px;height:22px;vertical-align:middle;margin-right:6px;"> Histerossalpingografia</div>
+    <button class="home-btn" onclick="go('page-home')">⌂</button>
+  </div>
+  <div class="page-body">
+    <div class="ref-placeholder">Os profissionais recomendados para <strong data-pt="Histerossalpingografia" data-en="Hysterosalpingography">Histerossalpingografia</strong> serão adicionados brevemente. Por favor volte em breve.</div>
+    <button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button>
+  </div>
+</div>
+<script>
+const GATE_PW = 'CUIDAREACOMPANHAR';
+const sb = supabase.createClient('https://bzlkexnvuyafacsissev.supabase.co','sb_publishable_U8sAa_RD74cDokN6D9Z9RQ_uFjrCK_P');
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJrBFnraS6aoBGj4zBOLpYcVFjGtuHhvBxJ5wzt1s3K530k0YP4b2QHO_CtRuHqVFP/exec';
+var currentUser = null;
+var navHistory = ['page-home'];
+
+function go(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var t = document.getElementById(id);
+  if (t) { t.classList.add('active'); window.scrollTo(0,0); }
+  if (navHistory[navHistory.length-1] !== id) navHistory.push(id);
+}
+function back() {
+  if (navHistory.length > 1) { navHistory.pop(); var p = navHistory[navHistory.length-1]; navHistory.pop(); go(p); }
+  else go('page-home');
+}
+function setLang(l) {
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.remove('on');
+    if (b.getAttribute('onclick') === "setLang('" + l + "')") b.classList.add('on');
+  });
+  document.documentElement.lang = l;
+  document.querySelectorAll('[data-pt]').forEach(function(el){
+    var t = el.getAttribute('data-' + l);
+    if (t) el.innerHTML = t;
+  });
+}
+function toggleVis(id) { var i=document.getElementById(id); i.type=i.type==='password'?'text':'password'; }
+function checkGate() {
+  var v = document.getElementById('gate-pw').value.trim().toUpperCase();
+  if (v === GATE_PW) { document.getElementById('gate-pw').value=''; go('page-auth'); }
+  else { var e=document.getElementById('gate-err'); e.style.display='block'; document.getElementById('gate-pw').style.borderColor='#b0363f'; }
+}
+function switchTab(t) {
+  ['login','reg'].forEach(function(id){
+    document.getElementById('tab-'+id).classList.toggle('on',id===t);
+    document.getElementById('panel-'+id).classList.toggle('on',id===t);
+  });
+}
+function hashPw(pw) { var h=0; for(var i=0;i<pw.length;i++){h=((h<<5)-h)+pw.charCodeAt(i);h=h|0;} return String(h); }
+function showErr(el,msg){ el.textContent=msg; el.style.display='block'; }
+function loginSuccess(name,email,phone,clinics) {
+  currentUser={name:name,email:email,phone:phone||'',clinics:clinics||''};
+  var g=document.getElementById('patient-greeting');
+  if(g) g.textContent='Ola, '+name.split(' ')[0]+'!';
+  go('page-patient');
+}
+function logout(){ sb.auth.signOut(); currentUser=null; go('page-home'); }
+function saveLocal(email,name,pw_hash,phone,clinics){
+  var a=JSON.parse(localStorage.getItem('ml_accounts')||'{}');
+  a[email]={name:name,pw_hash:pw_hash,phone:phone||'',clinics:clinics||''};
+  localStorage.setItem('ml_accounts',JSON.stringify(a));
+}
+async function doLogin() {
+  var email=document.getElementById('l-email').value.trim().toLowerCase();
+  var pw=document.getElementById('l-pw').value;
+  var err=document.getElementById('login-err');
+  var btn=document.getElementById('btn-login');
+  err.style.display='none';
+  if(!email||!pw){showErr(err,'Por favor preencha todos os campos.');return;}
+  btn.textContent='A entrar…';btn.disabled=true;
+  var res=await sb.auth.signInWithPassword({email:email,password:pw});
+  btn.textContent='Entrar';btn.disabled=false;
+  if(res.error){showErr(err,'E-mail ou palavra-passe incorrectos.');return;}
+  var m=res.data.user.user_metadata||{};
+  loginSuccess(m.name||email,email,m.phone||'',m.clinics||'');
+}
+async function doRegister() {
+  var name=document.getElementById('r-name').value.trim();
+  var dob=document.getElementById('r-dob').value;
+  var email=document.getElementById('r-email').value.trim().toLowerCase();
+  var phone=document.getElementById('r-phone').value.trim();
+  var pw=document.getElementById('r-pw').value;
+  var consent=document.getElementById('r-consent').checked;
+  var clinics=[];
+  document.querySelectorAll('#panel-reg .check-pill input:checked').forEach(function(i){clinics.push(i.value);});
+  var err=document.getElementById('reg-err');
+  err.style.display='none';
+  if(!name||!dob||!email||!pw||!consent){showErr(err,'Por favor preencha todos os campos e aceite os termos.');return;}
+  if(pw.length<6){showErr(err,'A palavra-passe deve ter pelo menos 6 caracteres.');return;}
+  var cs=clinics.join(', ');
+  var btn=document.getElementById('btn-register');
+  btn.textContent='A registar…';btn.disabled=true;
+  var regRes=await sb.auth.signUp({email:email,password:pw,options:{data:{name:name,dob:dob,phone:phone,clinics:cs}}});
+  btn.textContent='Criar conta';btn.disabled=false;
+  if(regRes.error){
+    if(regRes.error.message.indexOf('already')>-1){showErr(err,'Este e-mail já está registado. Por favor entre na sua conta.');}
+    else{showErr(err,'Erro: '+regRes.error.message);}
+    return;
+  }
+  // Google Forms para alimentar a Sheet
+  (function(){
+    var FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSer2LMMowWYMpKB_r5ZPEDojoLZhLm55zGamhywjfPxQIQrFA/formResponse';
+    var iframe = document.getElementById('gf-iframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'gf-iframe';
+      iframe.name = 'gf-iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+    var f = document.createElement('form');
+    f.method = 'POST';
+    f.action = FORM_ACTION;
+    f.target = 'gf-iframe';
+    f.style.display = 'none';
+    var fields = {
+      'entry.1411412011': name,
+      'entry.976665200': dob || '',
+      'entry.1824204454': email,
+      'entry.967078805': phone || '',
+      'entry.1848600115': cs || ''
+    };
+    for (var k in fields) {
+      var inp = document.createElement('input');
+      inp.type = 'hidden'; inp.name = k; inp.value = fields[k];
+      f.appendChild(inp);
+    }
+    document.body.appendChild(f);
+    f.submit();
+    setTimeout(function(){ if (f.parentNode) f.parentNode.removeChild(f); }, 3000);
+  })();
+  loginSuccess(name,email,phone,cs);
+}
+function subTab(btn,panelId) {
+  var pb=btn.closest('.page-body');
+  pb.querySelectorAll('.sub-tab').forEach(function(b){b.classList.remove('on');});
+  pb.querySelectorAll('.sub-panel').forEach(function(p){p.classList.remove('on');});
+  btn.classList.add('on');
+  var el=document.getElementById(panelId);
+  if(el) el.classList.add('on');
+}
+function faq(btn) {
+  var a=btn.nextElementSibling,ch=btn.querySelector('.faq-ch'),open=a.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(function(x){x.classList.remove('open');});
+  document.querySelectorAll('.faq-ch').forEach(function(x){x.classList.remove('open');});
+  if(!open){a.classList.add('open');ch.classList.add('open');}
+}
+function prepareEmailLinks() {
+  var n=currentUser?currentUser.name||'':'';
+  var p=currentUser?currentUser.phone||'':'';
+  var c=currentUser?currentUser.clinics||'':'';
+  var e=currentUser?currentUser.email||'':'';
+  var sig='---\n';
+  if(n) sig+='Nome: '+n+'\n';
+  if(p) sig+='Telefone: '+p+'\n';
+  if(c) sig+='Instituicao: '+c+'\n';
+  if(e) sig+='Email: '+e+'\n';
+  var body=encodeURIComponent('Ola Dra. Mariana,\n\n\n\n'+sig);
+  var subj=encodeURIComponent('Contacto via app');
+  var to='consulta@marianalourenco.pt';
+  var al=document.getElementById('mail-apple');
+  var gl=document.getElementById('mail-gmail');
+  var ol=document.getElementById('mail-outlook');
+  if(al) al.href='mailto:'+to+'?subject='+subj+'&body='+body;
+  if(gl) gl.href='googlegmail://co?to='+to+'&subject='+subj+'&body='+body;
+  if(ol) ol.href='ms-outlook://compose?to='+to+'&subject='+subj+'&body='+body;
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var gp=document.getElementById('gate-pw');
+  if(gp) gp.addEventListener('keydown',function(e){if(e.key==='Enter')checkGate();});
+  var lp=document.getElementById('l-pw');
+  if(lp) lp.addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+});
+
+function calcWeeks() {
+  var lmp = document.getElementById('lmp-date').value;
+  if (!lmp) return;
+  var lmpDate = new Date(lmp);
+  var today = new Date();
+  var diffMs = today - lmpDate;
+  var diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  if (diffDays < 0 || diffDays > 300) { document.getElementById('weeks-result').style.display='none'; return; }
+  var weeks = Math.floor(diffDays / 7);
+  var days = diffDays % 7;
+  var dpp = new Date(lmpDate.getTime() + 280 * 24 * 60 * 60 * 1000);
+  var dppStr = dpp.toLocaleDateString('pt-PT', {day:'2-digit', month:'long', year:'numeric'});
+  document.getElementById('weeks-num').textContent = weeks + ' semanas e ' + days + ' dias';
+  document.getElementById('weeks-dpp').textContent = 'Data provável do parto: ' + dppStr;
+  document.getElementById('weeks-result').style.display = 'block';
+}
+
+
+function copyEmail() {
+  var addr = 'consulta@marianalourenco.pt';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(addr).then(function() {
+      var sub = document.getElementById('copy-email-sub');
+      if (sub) { sub.textContent = 'Copiado!'; setTimeout(function(){ sub.setAttribute('data-pt','Para colar no seu programa de email'); sub.textContent='Para colar no seu programa de email'; }, 2000); }
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = addr;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    var sub = document.getElementById('copy-email-sub');
+    if (sub) { sub.textContent = 'Copiado!'; setTimeout(function(){ sub.textContent='Para colar no seu programa de email'; }, 2000); }
+  }
+}
+
+
+function showResetPw(){
+  var p=document.getElementById('panel-login');
+  p.innerHTML='<div style="text-align:center;padding:16px 0 8px;"><p style="font-size:20px;color:var(--ink);margin-bottom:8px;">Recuperar palavra-passe</p><p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;line-height:1.6;">Insira o seu e-mail e enviaremos um link para redefinir a sua palavra-passe.</p></div><div class="auth-err" id="reset-err"></div><div class="fg"><label class="fl">E-mail</label><input type="email" class="fi" id="reset-email" placeholder="maria@email.com"></div><button class="btn-rose" id="btn-reset" onclick="doResetPw()">Enviar link</button><div style="text-align:center;margin-top:12px;"><a onclick="switchTab('login')" style="font-size:12px;color:var(--rose);cursor:pointer;">Voltar ao login</a></div>';
+}
+async function doResetPw(){
+  var email=document.getElementById('reset-email').value.trim().toLowerCase();
+  var err=document.getElementById('reset-err');
+  var btn=document.getElementById('btn-reset');
+  if(!email){err.textContent='Por favor insira o seu e-mail.';err.style.display='block';return;}
+  btn.textContent='A enviar…';btn.disabled=true;
+  await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://marianalourenco.pt'});
+  btn.textContent='Enviar link';btn.disabled=false;
+  document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:32px 0;"><div style="font-size:40px;margin-bottom:16px;">✉️</div><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Email enviado</p><p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Se este e-mail estiver registado, receberá um link para redefinir a sua palavra-passe.<br><em>Não recebeu? Verifique a pasta de spam.</em></p></div>';
+}
+async function doSetNewPw(){
+  var pw=document.getElementById('new-pw').value;
+  var err=document.getElementById('newpw-err');
+  var btn=document.getElementById('btn-newpw');
+  if(!pw||pw.length<6){err.textContent='A palavra-passe deve ter pelo menos 6 caracteres.';err.style.display='block';return;}
+  btn.textContent='A guardar…';btn.disabled=true;
+  var res=await sb.auth.updateUser({password:pw});
+  btn.textContent='Guardar';btn.disabled=false;
+  if(res.error){err.textContent='Erro: '+res.error.message;err.style.display='block';return;}
+  document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:32px 0;"><div style="font-size:40px;margin-bottom:16px;">✅</div><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Palavra-passe actualizada</p><p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Pode agora entrar com a sua nova palavra-passe.</p><div style="margin-top:20px;"><a onclick="switchTab('login')" style="color:var(--rose);cursor:pointer;font-size:13px;">Ir para o login</a></div></div>';
+}
+sb.auth.onAuthStateChange(function(event,session){
+  if(event==='PASSWORD_RECOVERY'){
+    go('page-auth');
+    switchTab('login');
+    document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:16px 0 8px;"><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Definir nova palavra-passe</p><p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;">Escolha uma nova palavra-passe para a sua conta.</p></div><div class="auth-err" id="newpw-err"></div><div class="fg"><label class="fl">Nova palavra-passe</label><input type="password" class="fi" id="new-pw" placeholder="Mínimo 6 caracteres"></div><button class="btn-rose" id="btn-newpw" onclick="doSetNewPw()">Guardar palavra-passe</button>';
+  }
+});
+</script>
+
+
+
+</body>
+</html>
