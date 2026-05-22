@@ -1254,6 +1254,21 @@ function prepareEmailLinks() {
   if(ol) ol.href='ms-outlook://compose?to='+to+'&subject='+subj+'&body='+body;
 }
 document.addEventListener('DOMContentLoaded',function(){
+  // Verificar se a paciente veio do link de reset de password
+  var hash = window.location.hash;
+  if(hash && hash.indexOf('type=recovery') > -1) {
+    go('page-auth');
+    switchTab('login');
+    document.getElementById('panel-login').innerHTML=[
+      '<div style="text-align:center;padding:16px 0 8px;">',
+      '<p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Definir nova palavra-passe</p>',
+      '<p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;">Escolha uma nova palavra-passe para a sua conta.</p>',
+      '</div>',
+      '<div class="auth-err" id="newpw-err"></div>',
+      '<div class="fg"><label class="fl">Nova palavra-passe</label><input type="password" class="fi" id="new-pw" placeholder="Mínimo 6 caracteres"></div>',
+      '<button class="btn-rose" id="btn-newpw" onclick="doSetNewPw()">Guardar palavra-passe</button>'
+    ].join('');
+  }
   var gp=document.getElementById('gate-pw');
   if(gp) gp.addEventListener('keydown',function(e){if(e.key==='Enter')checkGate();});
   var lp=document.getElementById('l-pw');
@@ -1341,7 +1356,7 @@ async function doSetNewPw(){
     '<div style="font-size:40px;margin-bottom:16px;">✅</div>',
     '<p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Palavra-passe actualizada</p>',
     '<p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Pode agora entrar com a sua nova palavra-passe.</p>',
-    '<div style="margin-top:20px;"><button class="btn-rose" onclick="switchTab(&quot;login&quot;)" style="max-width:200px;margin:0 auto;">Ir para o login</button></div>',
+    '<div style="margin-top:20px;"><button class="btn-rose" onclick="goToLogin()" style="max-width:200px;margin:0 auto;">Ir para o login</button></div>',
     '</div>'
   ].join("");
 }
@@ -1360,6 +1375,10 @@ sb.auth.onAuthStateChange(function(event,session){
     ].join("");
   }
 });
+
+function goToLogin(){
+  switchTab('login');
+}
 </script>
 
 <!-- NETLIFY FORM (hidden) -->
