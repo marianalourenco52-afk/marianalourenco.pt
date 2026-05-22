@@ -1299,35 +1299,65 @@ function copyEmail() {
 
 
 function showResetPw(){
-  var p=document.getElementById('panel-login');
-  p.innerHTML='<div style="text-align:center;padding:16px 0 8px;"><p style="font-size:20px;font-weight:400;color:var(--ink);margin-bottom:8px;">Recuperar palavra-passe</p><p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;line-height:1.6;">Insira o seu e-mail e enviaremos um link para redefinir a sua palavra-passe.</p></div><div class=\"auth-err\" id=\"reset-err\"></div><div class=\"fg\"><label class=\"fl\">E-mail</label><input type=\"email\" class=\"fi\" id=\"reset-email\" placeholder=\"maria@email.com\"></div><button class=\"btn-rose\" id=\"btn-reset\" onclick=\"doResetPw()\">Enviar link</button><div style=\"text-align:center;margin-top:12px;\"><a onclick=\"switchTab(&#39;login&#39;)\" style=\"font-size:12px;color:var(--rose);cursor:pointer;\">Voltar ao login</a></div>';
+  var p=document.getElementById("panel-login");
+  p.innerHTML=[
+    '<div style="text-align:center;padding:16px 0 8px;">',
+    '<p style="font-size:20px;font-weight:400;color:var(--ink);margin-bottom:8px;">Recuperar palavra-passe</p>',
+    '<p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;line-height:1.6;">Insira o seu e-mail e enviaremos um link para redefinir a sua palavra-passe.</p>',
+    '</div>',
+    '<div class="auth-err" id="reset-err"></div>',
+    '<div class="fg"><label class="fl">E-mail</label><input type="email" class="fi" id="reset-email" placeholder="maria@email.com"></div>',
+    '<button class="btn-rose" id="btn-reset" onclick="doResetPw()">Enviar link</button>',
+    '<div style="text-align:center;margin-top:12px;"><a onclick="switchTab('login')" style="font-size:12px;color:var(--rose);cursor:pointer;">Voltar ao login</a></div>'
+  ].join("");
 }
 async function doResetPw(){
-  var email=document.getElementById('reset-email').value.trim().toLowerCase();
-  var err=document.getElementById('reset-err');
-  var btn=document.getElementById('btn-reset');
-  if(!email){err.textContent='Por favor insira o seu e-mail.';err.style.display='block';return;}
-  btn.textContent='A enviar…';btn.disabled=true;
-  await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://marianalourenco.pt'});
-  btn.textContent='Enviar link';btn.disabled=false;
-  document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:32px 0;"><div style="font-size:40px;margin-bottom:16px;">✉️</div><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Email enviado</p><p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Se este e-mail estiver registado, receberá um link para redefinir a sua palavra-passe.</p></div>';
+  var email=document.getElementById("reset-email").value.trim().toLowerCase();
+  var err=document.getElementById("reset-err");
+  var btn=document.getElementById("btn-reset");
+  if(!email){err.textContent="Por favor insira o seu e-mail.";err.style.display="block";return;}
+  btn.textContent="A enviar…";btn.disabled=true;
+  await sb.auth.resetPasswordForEmail(email,{redirectTo:"https://marianalourenco.pt"});
+  btn.textContent="Enviar link";btn.disabled=false;
+  document.getElementById("panel-login").innerHTML=[
+    '<div style="text-align:center;padding:32px 0;">',
+    '<div style="font-size:40px;margin-bottom:16px;">✉️</div>',
+    '<p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Email enviado</p>',
+    '<p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Se este e-mail estiver registado, receberá um link para redefinir a sua palavra-passe.</p>',
+    '</div>'
+  ].join("");
 }
 async function doSetNewPw(){
-  var pw=document.getElementById('new-pw').value;
-  var err=document.getElementById('newpw-err');
-  var btn=document.getElementById('btn-newpw');
-  if(!pw||pw.length<6){err.textContent='A palavra-passe deve ter pelo menos 6 caracteres.';err.style.display='block';return;}
-  btn.textContent='A guardar…';btn.disabled=true;
+  var pw=document.getElementById("new-pw").value;
+  var err=document.getElementById("newpw-err");
+  var btn=document.getElementById("btn-newpw");
+  if(!pw||pw.length<6){err.textContent="A palavra-passe deve ter pelo menos 6 caracteres.";err.style.display="block";return;}
+  btn.textContent="A guardar…";btn.disabled=true;
   var res=await sb.auth.updateUser({password:pw});
-  btn.textContent='Guardar';btn.disabled=false;
-  if(res.error){err.textContent='Erro: '+res.error.message;err.style.display='block';return;}
-  document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:32px 0;"><div style="font-size:40px;margin-bottom:16px;">✅</div><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Palavra-passe actualizada</p><p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Pode agora entrar com a sua nova palavra-passe.</p><div style="margin-top:20px;"><button class=\"btn-rose\" onclick=\"switchTab(&#39;login&#39;)\" style=\"max-width:200px;margin:0 auto;\">Ir para o login</button></div></div>';
+  btn.textContent="Guardar";btn.disabled=false;
+  if(res.error){err.textContent="Erro: "+res.error.message;err.style.display="block";return;}
+  document.getElementById("panel-login").innerHTML=[
+    '<div style="text-align:center;padding:32px 0;">',
+    '<div style="font-size:40px;margin-bottom:16px;">✅</div>',
+    '<p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Palavra-passe actualizada</p>',
+    '<p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Pode agora entrar com a sua nova palavra-passe.</p>',
+    '<div style="margin-top:20px;"><button class="btn-rose" onclick="switchTab(&quot;login&quot;)" style="max-width:200px;margin:0 auto;">Ir para o login</button></div>',
+    '</div>'
+  ].join("");
 }
 sb.auth.onAuthStateChange(function(event,session){
-  if(event==='PASSWORD_RECOVERY'){
-    go('page-auth');
-    switchTab('login');
-    document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:16px 0 8px;"><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Definir nova palavra-passe</p><p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;">Escolha uma nova palavra-passe para a sua conta.</p></div><div class=\"auth-err\" id=\"newpw-err\"></div><div class=\"fg\"><label class=\"fl\">Nova palavra-passe</label><input type=\"password\" class=\"fi\" id=\"new-pw\" placeholder=\"Mínimo 6 caracteres\"></div><button class=\"btn-rose\" id=\"btn-newpw\" onclick=\"doSetNewPw()\">Guardar palavra-passe</button>';
+  if(event==="PASSWORD_RECOVERY"){
+    go("page-auth");
+    switchTab("login");
+    document.getElementById("panel-login").innerHTML=[
+      '<div style="text-align:center;padding:16px 0 8px;">',
+      '<p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Definir nova palavra-passe</p>',
+      '<p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;">Escolha uma nova palavra-passe para a sua conta.</p>',
+      '</div>',
+      '<div class="auth-err" id="newpw-err"></div>',
+      '<div class="fg"><label class="fl">Nova palavra-passe</label><input type="password" class="fi" id="new-pw" placeholder="Mínimo 6 caracteres"></div>',
+      '<button class="btn-rose" id="btn-newpw" onclick="doSetNewPw()">Guardar palavra-passe</button>'
+    ].join("");
   }
 });
 </script>
