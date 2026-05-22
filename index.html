@@ -302,7 +302,7 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
         </div>
       </div>
       <button class="btn-rose" id="btn-login" style="margin-top:8px;" onclick="doLogin()">Entrar</button>
-      <div style="text-align:center;margin-top:10px;"><a onclick="showResetPw()" style="font-size:12px;color:var(--rose);cursor:pointer;">Esqueci a palavra-passe · Forgot password</a></div>
+      <div style="text-align:center;margin-top:10px;"><a onclick="showResetPw()" style="font-size:12px;color:var(--rose);cursor:pointer;">Esqueci a palavra-passe &middot; Forgot password</a></div>
       <div class="auth-alt" data-pt="Ainda não tem conta? Registe-se aqui" data-en="No account yet? Register here">Ainda não tem conta? <a onclick="switchTab('reg')">Registe-se aqui</a></div>
     </div>
 
@@ -1181,11 +1181,11 @@ async function doRegister() {
   var regRes=await sb.auth.signUp({email:email,password:pw,options:{data:{name:name,dob:dob,phone:phone,clinics:cs}}});
   btn.textContent='Criar conta';btn.disabled=false;
   if(regRes.error){
-    if(regRes.error.message.indexOf('already')>-1){showErr(err,'Este e-mail já está registado. Por favor entre na sua conta.');}
+    if(regRes.error.message.indexOf('already')>-1){showErr(err,'Este e-mail ja esta registado. Por favor entre na sua conta.');}
     else{showErr(err,'Erro: '+regRes.error.message);}
     return;
   }
-  // Google Forms para alimentar a Sheet
+  // Google Forms para Sheet
   (function(){
     var FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSer2LMMowWYMpKB_r5ZPEDojoLZhLm55zGamhywjfPxQIQrFA/formResponse';
     var iframe = document.getElementById('gf-iframe');
@@ -1300,7 +1300,7 @@ function copyEmail() {
 
 function showResetPw(){
   var p=document.getElementById('panel-login');
-  p.innerHTML='<div style="text-align:center;padding:16px 0 8px;"><p style="font-size:20px;color:var(--ink);margin-bottom:8px;">Recuperar palavra-passe</p><p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;line-height:1.6;">Insira o seu e-mail e enviaremos um link para redefinir a sua palavra-passe.</p></div><div class="auth-err" id="reset-err"></div><div class="fg"><label class="fl">E-mail</label><input type="email" class="fi" id="reset-email" placeholder="maria@email.com"></div><button class="btn-rose" id="btn-reset" onclick="doResetPw()">Enviar link</button><div style="text-align:center;margin-top:12px;"><a onclick="switchTab('login')" style="font-size:12px;color:var(--rose);cursor:pointer;">Voltar ao login</a></div>';
+  p.innerHTML='<div style="text-align:center;padding:16px 0 8px;"><p style="font-size:20px;font-weight:400;color:var(--ink);margin-bottom:8px;">Recuperar palavra-passe</p><p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;line-height:1.6;">Insira o seu e-mail e enviaremos um link para redefinir a sua palavra-passe.</p></div><div class=\"auth-err\" id=\"reset-err\"></div><div class=\"fg\"><label class=\"fl\">E-mail</label><input type=\"email\" class=\"fi\" id=\"reset-email\" placeholder=\"maria@email.com\"></div><button class=\"btn-rose\" id=\"btn-reset\" onclick=\"doResetPw()\">Enviar link</button><div style=\"text-align:center;margin-top:12px;\"><a onclick=\"switchTab(&#39;login&#39;)\" style=\"font-size:12px;color:var(--rose);cursor:pointer;\">Voltar ao login</a></div>';
 }
 async function doResetPw(){
   var email=document.getElementById('reset-email').value.trim().toLowerCase();
@@ -1310,7 +1310,7 @@ async function doResetPw(){
   btn.textContent='A enviar…';btn.disabled=true;
   await sb.auth.resetPasswordForEmail(email,{redirectTo:'https://marianalourenco.pt'});
   btn.textContent='Enviar link';btn.disabled=false;
-  document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:32px 0;"><div style="font-size:40px;margin-bottom:16px;">✉️</div><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Email enviado</p><p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Se este e-mail estiver registado, receberá um link para redefinir a sua palavra-passe.<br><em>Não recebeu? Verifique a pasta de spam.</em></p></div>';
+  document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:32px 0;"><div style="font-size:40px;margin-bottom:16px;">✉️</div><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Email enviado</p><p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Se este e-mail estiver registado, receberá um link para redefinir a sua palavra-passe.</p></div>';
 }
 async function doSetNewPw(){
   var pw=document.getElementById('new-pw').value;
@@ -1321,18 +1321,27 @@ async function doSetNewPw(){
   var res=await sb.auth.updateUser({password:pw});
   btn.textContent='Guardar';btn.disabled=false;
   if(res.error){err.textContent='Erro: '+res.error.message;err.style.display='block';return;}
-  document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:32px 0;"><div style="font-size:40px;margin-bottom:16px;">✅</div><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Palavra-passe actualizada</p><p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Pode agora entrar com a sua nova palavra-passe.</p><div style="margin-top:20px;"><a onclick="switchTab('login')" style="color:var(--rose);cursor:pointer;font-size:13px;">Ir para o login</a></div></div>';
+  document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:32px 0;"><div style="font-size:40px;margin-bottom:16px;">✅</div><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Palavra-passe actualizada</p><p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Pode agora entrar com a sua nova palavra-passe.</p><div style="margin-top:20px;"><button class=\"btn-rose\" onclick=\"switchTab(&#39;login&#39;)\" style=\"max-width:200px;margin:0 auto;\">Ir para o login</button></div></div>';
 }
 sb.auth.onAuthStateChange(function(event,session){
   if(event==='PASSWORD_RECOVERY'){
     go('page-auth');
     switchTab('login');
-    document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:16px 0 8px;"><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Definir nova palavra-passe</p><p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;">Escolha uma nova palavra-passe para a sua conta.</p></div><div class="auth-err" id="newpw-err"></div><div class="fg"><label class="fl">Nova palavra-passe</label><input type="password" class="fi" id="new-pw" placeholder="Mínimo 6 caracteres"></div><button class="btn-rose" id="btn-newpw" onclick="doSetNewPw()">Guardar palavra-passe</button>';
+    document.getElementById('panel-login').innerHTML='<div style="text-align:center;padding:16px 0 8px;"><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Definir nova palavra-passe</p><p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;">Escolha uma nova palavra-passe para a sua conta.</p></div><div class=\"auth-err\" id=\"newpw-err\"></div><div class=\"fg\"><label class=\"fl\">Nova palavra-passe</label><input type=\"password\" class=\"fi\" id=\"new-pw\" placeholder=\"Mínimo 6 caracteres\"></div><button class=\"btn-rose\" id=\"btn-newpw\" onclick=\"doSetNewPw()\">Guardar palavra-passe</button>';
   }
 });
 </script>
 
-
+<!-- NETLIFY FORM (hidden) -->
+<form name="pacientes" netlify hidden>
+  <input type="hidden" name="form-name" value="pacientes">
+  <input type="text" name="nome">
+  <input type="text" name="data_nascimento">
+  <input type="email" name="email">
+  <input type="tel" name="telefone">
+  <input type="text" name="instituicao">
+  <input type="hidden" name="_subject" value="Novo registo de paciente">
+</form>
 
 </body>
 </html>
