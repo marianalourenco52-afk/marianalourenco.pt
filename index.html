@@ -1371,11 +1371,11 @@ async function doSetNewPw(){
   var div=document.createElement("div");
   div.style.cssText="text-align:center;padding:32px 0;";
   div.innerHTML='<div style="font-size:40px;margin-bottom:16px;">✅</div><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Palavra-passe actualizada</p><p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Pode agora entrar com a sua nova palavra-passe.</p>';
-  var btnLogin=document.createElement("button");
+  var btnLogin=document.createElement("a");
   btnLogin.className="btn-rose";
-  btnLogin.style.cssText="max-width:200px;margin:20px auto 0;display:block;";
+  btnLogin.style.cssText="max-width:200px;margin:20px auto 0;display:block;text-align:center;text-decoration:none;";
   btnLogin.textContent="Ir para o login";
-  btnLogin.addEventListener("click",function(){ switchTab("login"); });
+  btnLogin.href="https://marianalourenco.pt";
   div.appendChild(btnLogin);
   p.appendChild(div);
 }
