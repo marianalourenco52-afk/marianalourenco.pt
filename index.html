@@ -1338,8 +1338,7 @@ function copyEmail() {
 function showResetPw(){
   var p=document.getElementById("panel-login");
   p.innerHTML='<div style="text-align:center;padding:16px 0 8px;"><p style="font-size:20px;font-weight:400;color:var(--ink);margin-bottom:8px;">Recuperar palavra-passe</p><p style="font-size:13px;color:var(--ink-mid);margin-bottom:20px;line-height:1.6;">Insira o seu e-mail e enviaremos um link para redefinir a sua palavra-passe.</p></div><div class="auth-err" id="reset-err"></div><div class="fg"><label class="fl">E-mail</label><input type="email" class="fi" id="reset-email" placeholder="maria@email.com"></div><button class="btn-rose" id="btn-reset">Enviar link</button><div style="text-align:center;margin-top:12px;"><a id="back-to-login" style="font-size:12px;color:var(--rose);cursor:pointer;">Voltar ao login</a></div>';
-  document.getElementById("btn-reset").addEventListener("click", doResetPw);
-  document.getElementById("back-to-login").addEventListener("click", function(){ switchTab("login"); });
+  // eventos geridos pelo event delegation no panel-login
 }
 async function doResetPw(){
   var email=document.getElementById("reset-email").value.trim().toLowerCase();
