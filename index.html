@@ -1346,7 +1346,10 @@ async function doSetNewPw(){
   btn.textContent="Guardar";btn.disabled=false;
   if(res.error){err.textContent="Erro: "+res.error.message;err.style.display="block";return;}
   document.getElementById("panel-login").innerHTML='<div style="text-align:center;padding:32px 0;"><div style="font-size:40px;margin-bottom:16px;">✅</div><p style="font-size:20px;color:var(--ink);margin-bottom:12px;">Palavra-passe actualizada</p><p style="font-size:13px;color:var(--ink-mid);line-height:1.7;">Pode agora entrar com a sua nova palavra-passe.</p><div style="margin-top:20px;"><button class="btn-rose" id="btn-go-login" style="max-width:200px;margin:0 auto;">Ir para o login</button></div></div>';
-  document.getElementById("btn-go-login").addEventListener("click", function(){ switchTab("login"); });
+  setTimeout(function(){ 
+    var b = document.getElementById("btn-go-login"); 
+    if(b) b.addEventListener("click", function(){ switchTab("login"); }); 
+  }, 50);
 }
 sb.auth.onAuthStateChange(function(event,session){
   if(event==="PASSWORD_RECOVERY"){
