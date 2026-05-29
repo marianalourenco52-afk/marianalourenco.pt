@@ -324,9 +324,44 @@
     .card { padding: 2rem 1.5rem 1.75rem; border-radius: 16px; }
     .card-name { font-size: 1.75rem; }
   }
+
+  /* ── LANG BADGE ── */
+  .lang-badge {
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    z-index: 999;
+    display: flex;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--rose-light);
+    border-radius: 20px;
+    padding: 3px;
+  }
+  .lang-btn {
+    background: none;
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 5px 11px;
+    border-radius: 16px;
+    transition: all .2s;
+  }
+  .lang-btn.on { background: var(--rose); color: #fff; }
+
 </style>
 </head>
 <body>
+
+
+<div class="lang-badge">
+  <button class="lang-btn on" id="btn-pt" onclick="setLang('pt')">PT</button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+</div>
 
 <div class="page">
 
@@ -339,7 +374,7 @@
       </div>
       <div>
         <h1 class="card-name">Mariana Lourenço</h1>
-        <div class="card-tagline">Cuidar e Acompanhar</div>
+        <div class="card-tagline" data-pt="Cuidar e Acompanhar" data-en="Care &amp; Companionship">Cuidar e Acompanhar</div>
         <div class="card-om">OM 63637</div>
       </div>
     </div>
@@ -352,26 +387,26 @@
     </div>
 
     <!-- Specialties -->
-    <div class="specialties" aria-label="Especialidades">
+    <div class="specialties" data-pt-html="Ginecologia &amp;nbsp;·&amp;nbsp; Obstetrícia<br>Medicina da Reprodução" data-en-html="Gynaecology &amp;nbsp;·&amp;nbsp; Obstetrics<br>Reproductive Medicine" aria-label="Specialties">
       Ginecologia &nbsp;·&nbsp; Obstetrícia<br>
       Medicina da Reprodução
     </div>
 
     <!-- Contacts -->
     <div class="contacts">
-      <a class="contact-row" href="tel:+351914779655" aria-label="Ligar para +351 914 779 655">
+      <a class="contact-row" href="tel:+351914779655" aria-label="Call +351 914 779 655">
         <div class="contact-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 5.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </div>
         +351 914 779 655
       </a>
-      <a class="contact-row" href="mailto:consulta@marianalourenco.pt" aria-label="Enviar email">
+      <a class="contact-row" href="mailto:consulta@marianalourenco.pt" aria-label="Send email">
         <div class="contact-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         </div>
         consulta@marianalourenco.pt
       </a>
-      <a class="contact-row" href="https://marianalourenco.pt" target="_blank" rel="noopener" aria-label="Visitar website">
+      <a class="contact-row" href="https://marianalourenco.pt" target="_blank" rel="noopener" aria-label="Visit website">
         <div class="contact-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         </div>
@@ -381,13 +416,13 @@
 
     <!-- Action buttons -->
     <div class="actions">
-      <button class="btn btn-primary" onclick="downloadVCard()" aria-label="Guardar contacto no telemóvel">
+      <button class="btn btn-primary" onclick="downloadVCard()" aria-label="Save contact" data-pt="Guardar contacto" data-en="Save contact">
         <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-        Guardar contacto
+        <span class="btn-label" data-pt="Guardar contacto" data-en="Save contact">Guardar contacto</span>
       </button>
-      <button class="btn" onclick="shareCard()" aria-label="Partilhar cartão">
+      <button class="btn" onclick="shareCard()" aria-label="Share card" data-pt="Partilhar" data-en="Share">
         <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-        Partilhar
+        <span class="btn-label" data-pt="Partilhar" data-en="Share">Partilhar</span>
       </button>
     </div>
 
@@ -395,9 +430,9 @@
     <div class="qr-section">
       <div id="qr-wrap" aria-label="QR code para a área reservada de pacientes"></div>
       <div class="qr-info">
-        <div class="qr-label">Área reservada de pacientes</div>
+        <div class="qr-label" data-pt="Área reservada de pacientes" data-en="Patient Area">Área reservada de pacientes</div>
         <div class="qr-desc">marianalourenco.pt</div>
-        <div class="qr-pw">Password: cuidareacompanhar</div>
+        <div class="qr-pw" data-pt="Password: cuidareacompanhar" data-en="Password: cuidareacompanhar">Password: cuidareacompanhar</div>
       </div>
     </div>
 
@@ -405,7 +440,7 @@
 
   <a class="back-link" href="https://marianalourenco.pt">
     <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-    Voltar ao website
+    <span data-pt="Voltar ao website" data-en="Back to website">Voltar ao website</span>
   </a>
 
 </div><!-- /page -->
@@ -486,5 +521,38 @@
     }
   }
 </script>
+
+<script>
+function setLang(lang) {
+  // botões
+  document.getElementById('btn-pt').classList.toggle('on', lang === 'pt');
+  document.getElementById('btn-en').classList.toggle('on', lang === 'en');
+  
+  // elementos simples data-pt / data-en
+  document.querySelectorAll('[data-pt],[data-en]').forEach(function(el) {
+    var val = el.getAttribute('data-' + lang);
+    if (val !== null) el.textContent = val;
+  });
+  
+  // elementos com HTML data-pt-html / data-en-html
+  document.querySelectorAll('[data-pt-html],[data-en-html]').forEach(function(el) {
+    var val = el.getAttribute('data-' + lang + '-html');
+    if (val !== null) el.innerHTML = val;
+  });
+
+  // toast
+  document.getElementById('toast').textContent = '';
+
+  // atualizar aria-labels e toasts dinamicamente
+  localStorage.setItem('cartao-lang', lang);
+}
+
+// restaurar língua guardada
+(function() {
+  var saved = localStorage.getItem('cartao-lang');
+  if (saved && saved !== 'pt') setLang(saved);
+})();
+</script>
+
 </body>
 </html>
