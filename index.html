@@ -176,23 +176,23 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
 .sheet-item-sub{font-size:11px;color:var(--ink-lt);}
 
 /* CARTÃO DIGITAL (área de pacientes) */
-#page-cartao .cc-card{position:relative;width:100%;max-width:400px;margin:0 auto;background:#fff;border:1px solid var(--rose-lt);border-radius:20px;padding:2.2rem 1.6rem 1.6rem;box-shadow:0 4px 40px rgba(185,122,122,.10),0 1px 4px rgba(185,122,122,.08);}
-#page-cartao .cc-card::before{content:'';position:absolute;top:0;left:2rem;right:2rem;height:2px;background:linear-gradient(90deg,transparent,var(--rose-lt),var(--rose),var(--rose-lt),transparent);}
-#page-cartao .cc-head{display:flex;align-items:center;gap:1.1rem;margin-bottom:1.5rem;}
-#page-cartao .cc-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--rose-lt);}
-#page-cartao .cc-name{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;line-height:1.05;color:var(--ink);}
-#page-cartao .cc-tag{font-size:8.5px;letter-spacing:.22em;color:var(--rose);text-transform:uppercase;margin-top:4px;font-weight:500;}
-#page-cartao .cc-om{font-size:10px;letter-spacing:.08em;color:var(--ink-lt);margin-top:2px;}
-#page-cartao .cc-div{height:1px;background:var(--rose-bg);margin-bottom:1.2rem;}
-#page-cartao .cc-spec{text-align:center;font-size:9px;letter-spacing:.18em;color:var(--ink-mid);text-transform:uppercase;font-weight:500;line-height:2;margin-bottom:1.5rem;}
-#page-cartao .cc-contacts{display:flex;flex-direction:column;gap:12px;margin-bottom:1.5rem;}
-#page-cartao .cc-row{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink-mid);font-size:13px;}
-#page-cartao .cc-ico{width:32px;height:32px;border-radius:8px;background:var(--rose-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-#page-cartao .cc-ico svg{width:15px;height:15px;stroke:var(--rose);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-#page-cartao .cc-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-#page-cartao .cc-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 10px;border-radius:10px;border:1px solid var(--rose-lt);background:var(--rose-bg);color:var(--rose);font-family:'Jost',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
-#page-cartao .cc-btn.cc-primary{background:var(--rose);color:#fff;border-color:var(--rose);}
-#page-cartao .cc-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+#cc-modal .cc-card{position:relative;width:100%;max-width:400px;margin:0 auto;background:#fff;border:1px solid var(--rose-lt);border-radius:20px;padding:2.2rem 1.6rem 1.6rem;box-shadow:0 4px 40px rgba(185,122,122,.10),0 1px 4px rgba(185,122,122,.08);}
+#cc-modal .cc-card::before{content:'';position:absolute;top:0;left:2rem;right:2rem;height:2px;background:linear-gradient(90deg,transparent,var(--rose-lt),var(--rose),var(--rose-lt),transparent);}
+#cc-modal .cc-head{display:flex;align-items:center;gap:1.1rem;margin-bottom:1.5rem;}
+#cc-modal .cc-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--rose-lt);}
+#cc-modal .cc-name{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;line-height:1.05;color:var(--ink);}
+#cc-modal .cc-tag{font-size:8.5px;letter-spacing:.22em;color:var(--rose);text-transform:uppercase;margin-top:4px;font-weight:500;}
+#cc-modal .cc-om{font-size:10px;letter-spacing:.08em;color:var(--ink-lt);margin-top:2px;}
+#cc-modal .cc-div{height:1px;background:var(--rose-bg);margin-bottom:1.2rem;}
+#cc-modal .cc-spec{text-align:center;font-size:9px;letter-spacing:.18em;color:var(--ink-mid);text-transform:uppercase;font-weight:500;line-height:2;margin-bottom:1.5rem;}
+#cc-modal .cc-contacts{display:flex;flex-direction:column;gap:12px;margin-bottom:1.5rem;}
+#cc-modal .cc-row{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink-mid);font-size:13px;}
+#cc-modal .cc-ico{width:32px;height:32px;border-radius:8px;background:var(--rose-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#cc-modal .cc-ico svg{width:15px;height:15px;stroke:var(--rose);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+#cc-modal .cc-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+#cc-modal .cc-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:11px 10px;border-radius:10px;border:1px solid var(--rose-lt);background:var(--rose-bg);color:var(--rose);font-family:'Jost',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+#cc-modal .cc-btn.cc-primary{background:var(--rose);color:#fff;border-color:var(--rose);}
+#cc-modal .cc-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 #cc-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#2e1f1f;color:#fff;padding:9px 22px;border-radius:30px;font-size:12px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;white-space:nowrap;}
 #cc-toast.show{opacity:1;}
 .calc-mode{width:100%;padding:10px 12px;border:1.5px solid var(--rose-lt);border-radius:10px;background:var(--white);color:var(--ink-mid);font-family:'Jost',sans-serif;font-size:13px;cursor:pointer;text-align:center;}
@@ -310,16 +310,17 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
       <div class="auth-err" id="login-err"></div>
       <div class="fg">
         <label class="fl">E-mail</label>
-        <input type="email" class="fi" id="l-email" placeholder="maria@email.com">
+        <input type="email" class="fi" id="l-email" placeholder="maria@email.com" autocomplete="username" name="email">
       </div>
       <div class="fg" style="position:relative;">
         <label class="fl">Palavra-passe</label>
         <div style="position:relative;">
-          <input type="password" class="fi" id="l-pw" placeholder="••••••••" style="padding-right:44px;">
+          <input type="password" class="fi" id="l-pw" placeholder="••••••••" style="padding-right:44px;" autocomplete="current-password" name="password">
           <button class="pw-eye" onclick="toggleVis('l-pw')">👁</button>
         </div>
       </div>
-      <button class="btn-rose" id="btn-login" style="margin-top:8px;" onclick="doLogin()">Entrar</button>
+      <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-mid);margin-top:4px;cursor:pointer;"><input type="checkbox" id="l-remember" checked style="accent-color:var(--rose);"> Manter sessão iniciada neste dispositivo</label>
+      <button class="btn-rose" id="btn-login" style="margin-top:12px;" onclick="doLogin()">Entrar</button>
       <div style="text-align:center;margin-top:10px;"><a onclick="showResetPw()" style="font-size:12px;color:var(--rose);cursor:pointer;">Esqueci a palavra-passe &middot; Forgot password</a></div>
       <div class="auth-alt" data-pt="Ainda não tem conta? Registe-se aqui" data-en="No account yet? Register here">Ainda não tem conta? <a onclick="switchTab('reg')">Registe-se aqui</a></div>
     </div>
@@ -376,12 +377,7 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
 
     <div class="menu-row menu-row-dark" onclick="go('page-contact')">
       <div class="menu-icon">📞</div>
-      <div><div class="menu-label" data-pt="Contacte-me" data-en="Contact me">Contacte-me</div><div class="menu-sub" data-pt="E-mail · WhatsApp" data-en="E-mail · WhatsApp">E-mail · WhatsApp</div></div>
-      <div class="menu-arrow">›</div>
-    </div>
-    <div class="menu-row" onclick="go('page-cartao')">
-      <div class="menu-icon">💳</div>
-      <div><div class="menu-label" data-pt="Cartão de visita digital" data-en="Digital business card">Cartão de visita digital</div><div class="menu-sub" data-pt="Guardar contacto · Partilhar" data-en="Save contact · Share">Guardar contacto · Partilhar</div></div>
+      <div><div class="menu-label" data-pt="Contacte-me" data-en="Contact me">Contacte-me</div><div class="menu-sub" data-pt="E-mail · WhatsApp" data-en="E-mail · WhatsApp">E-mail · WhatsApp</div><div id="cc-open" role="button" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 10px;border-radius:6px;background:#F2E4E1;color:var(--rose-dark);font-size:11px;font-weight:500;letter-spacing:.03em;cursor:pointer;" data-pt="💳 Cartão de visita" data-en="💳 Business card">💳 Cartão de visita</div></div>
       <div class="menu-arrow">›</div>
     </div>
     <div class="menu-row" onclick="go('page-obstetricia')">
@@ -412,13 +408,9 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
 </div>
 
 <!-- ══ CARTÃO DIGITAL (só área de pacientes) ═════════════════ -->
-<div id="page-cartao" class="page">
-  <div class="page-header">
-    <button class="back-btn" onclick="back()">‹</button>
-    <div class="page-title" data-pt="Cartão de visita digital" data-en="Digital business card">Cartão de visita digital</div>
-    <button class="home-btn" onclick="go('page-home')">⌂</button>
-  </div>
-  <div class="page-body">
+<div id="cc-modal" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(46,31,31,.55);align-items:center;justify-content:center;padding:20px;overflow:auto;">
+  <div style="position:relative;width:100%;max-width:400px;">
+    <button type="button" id="cc-close" aria-label="Fechar" style="position:absolute;top:-14px;right:-6px;z-index:2;width:34px;height:34px;border-radius:50%;border:1px solid var(--rose-lt);background:#fff;color:var(--ink);font-size:18px;cursor:pointer;">×</button>
     <div class="cc-card">
       <div class="cc-head">
         <img class="cc-avatar" id="cc-avatar" alt="">
@@ -448,6 +440,12 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
   var img=document.querySelector('#page-home .photo-ring img'), av=document.getElementById('cc-avatar');
   if(img&&av) av.src=img.src;
   function toast(m){var t=document.getElementById('cc-toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
+  var modal=document.getElementById('cc-modal');
+  function openCC(){modal.style.display='flex';}
+  function closeCC(){modal.style.display='none';}
+  document.getElementById('cc-open').addEventListener('click',function(e){e.stopPropagation();openCC();});
+  document.getElementById('cc-close').addEventListener('click',closeCC);
+  modal.addEventListener('click',function(e){if(e.target===modal)closeCC();});
   document.getElementById('cc-save').addEventListener('click',function(){
     var vcf=['BEGIN:VCARD','VERSION:3.0','FN:Mariana Louren\u00e7o','N:Louren\u00e7o;Mariana;;;','TITLE:Ginecologista / Obstetra','ORG:marianalourenco.pt','TEL;TYPE=CELL,VOICE:+351914779655','EMAIL;TYPE=WORK:consulta@marianalourenco.pt','URL:https://marianalourenco.pt','NOTE:OM 63637 \u00b7 Ginecologia \u00b7 Obstetr\u00edcia \u00b7 Medicina da Reprodu\u00e7\u00e3o','END:VCARD'].join('\r\n');
     var blob=new Blob([vcf],{type:'text/vcard;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
@@ -1230,7 +1228,7 @@ function loginSuccess(name,email,phone,clinics) {
   if(g) g.textContent='Ola, '+name.split(' ')[0]+'!';
   go('page-patient');
 }
-function logout(){ sb.auth.signOut(); currentUser=null; go('page-home'); }
+function logout(){ try{localStorage.removeItem('ml_keep');}catch(e){} sb.auth.signOut(); currentUser=null; go('page-home'); }
 function saveLocal(email,name,pw_hash,phone,clinics){
   var a=JSON.parse(localStorage.getItem('ml_accounts')||'{}');
   a[email]={name:name,pw_hash:pw_hash,phone:phone||'',clinics:clinics||''};
@@ -1248,6 +1246,11 @@ async function doLogin() {
   btn.textContent='Entrar';btn.disabled=false;
   if(res.error){showErr(err,'E-mail ou palavra-passe incorrectos.');return;}
   var m=res.data.user.user_metadata||{};
+  try{
+    var rem=document.getElementById('l-remember');
+    if(rem&&rem.checked){localStorage.setItem('ml_keep','1');localStorage.setItem('ml_email',email);}
+    else{localStorage.removeItem('ml_keep');localStorage.removeItem('ml_email');}
+  }catch(e){}
   loginSuccess(m.name||email,email,m.phone||'',m.clinics||'');
 }
 async function doRegister() {
@@ -1497,6 +1500,23 @@ async function doSetNewPw(){
   div.appendChild(btnLogin);
   p.appendChild(div);
 }
+
+// Manter sessão: pré-preenche o e-mail e entra automaticamente se a paciente o pediu (a palavra-passe nunca é guardada pelo site)
+document.addEventListener('DOMContentLoaded',function(){
+  try{
+    var em=localStorage.getItem('ml_email'), le=document.getElementById('l-email');
+    if(em&&le) le.value=em;
+    if(window.location.hash.indexOf('type=recovery')>-1) return;
+    var keep=localStorage.getItem('ml_keep')==='1';
+    sb.auth.getSession().then(function(r){
+      var ses=r&&r.data&&r.data.session;
+      if(!ses) return;
+      if(!keep){ sb.auth.signOut(); return; }
+      var u=ses.user, m=u.user_metadata||{};
+      loginSuccess(m.name||u.email,u.email,m.phone||'',m.clinics||'');
+    }).catch(function(){});
+  }catch(e){}
+});
 
 sb.auth.onAuthStateChange(function(event,session){
   if(event==="PASSWORD_RECOVERY"){
