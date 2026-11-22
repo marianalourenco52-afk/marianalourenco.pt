@@ -195,6 +195,8 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
 #page-cartao .cc-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 #cc-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#2e1f1f;color:#fff;padding:9px 22px;border-radius:30px;font-size:12px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;white-space:nowrap;}
 #cc-toast.show{opacity:1;}
+.calc-mode{width:100%;padding:10px 12px;border:1.5px solid var(--rose-lt);border-radius:10px;background:var(--white);color:var(--ink-mid);font-family:'Jost',sans-serif;font-size:13px;cursor:pointer;text-align:center;}
+.calc-mode.on{background:var(--rose);border-color:var(--rose);color:#fff;}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -377,6 +379,11 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
       <div><div class="menu-label" data-pt="Contacte-me" data-en="Contact me">Contacte-me</div><div class="menu-sub" data-pt="E-mail · WhatsApp" data-en="E-mail · WhatsApp">E-mail · WhatsApp</div></div>
       <div class="menu-arrow">›</div>
     </div>
+    <div class="menu-row" onclick="go('page-cartao')">
+      <div class="menu-icon">💳</div>
+      <div><div class="menu-label" data-pt="Cartão de visita digital" data-en="Digital business card">Cartão de visita digital</div><div class="menu-sub" data-pt="Guardar contacto · Partilhar" data-en="Save contact · Share">Guardar contacto · Partilhar</div></div>
+      <div class="menu-arrow">›</div>
+    </div>
     <div class="menu-row" onclick="go('page-obstetricia')">
       <div class="menu-icon">🤰</div>
       <div><div class="menu-label" data-pt="Obstetrícia" data-en="Obstetrics">Obstetrícia</div><div class="menu-sub" data-pt="FAQ · Referências úteis" data-en="FAQ · Useful references">FAQ · Referências úteis</div></div>
@@ -390,11 +397,6 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
     <div class="menu-row" onclick="go('page-reproducao')">
       <div class="menu-icon">🧬</div>
       <div><div class="menu-label" data-pt="Medicina da Reprodução" data-en="Reproductive Medicine">Medicina da Reprodução</div><div class="menu-sub" data-pt="FAQ · Referências úteis" data-en="FAQ · Useful references">FAQ · Referências úteis</div></div>
-      <div class="menu-arrow">›</div>
-    </div>
-    <div class="menu-row" onclick="go('page-cartao')">
-      <div class="menu-icon">💳</div>
-      <div><div class="menu-label" data-pt="Cartão de visita digital" data-en="Digital business card">Cartão de visita digital</div><div class="menu-sub" data-pt="Guardar contacto · Partilhar" data-en="Save contact · Share">Guardar contacto · Partilhar</div></div>
       <div class="menu-arrow">›</div>
     </div>
     <div onclick="go('page-register')" style="margin-top:16px;display:flex;align-items:center;gap:10px;padding:11px 16px;border:1px dashed var(--rose-lt);border-radius:12px;cursor:pointer;">
@@ -553,7 +555,20 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
           <span style="font-size:18px;">🗓</span>
           <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);font-weight:500;">Calculadora de Semanas de Gestação</span>
         </div>
-        <label style="font-size:13px;color:var(--ink-mid);display:block;margin-bottom:8px;">Data do 1.º dia da última menstruação:</label>
+        <div style="font-size:12px;color:var(--ink-mid);margin-bottom:8px;">Datar a gravidez por:</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+          <button type="button" class="calc-mode on" id="cm-lmp" onclick="setCalcMode('lmp')">Data da última menstruação</button>
+          <button type="button" class="calc-mode" id="cm-eco" onclick="setCalcMode('eco')">Ecografia do 1.º trimestre (DPPc)</button>
+          <button type="button" class="calc-mode" id="cm-tre" onclick="setCalcMode('tre')">Transferência de embrião</button>
+        </div>
+        <div id="calc-tre-opts" style="display:none;margin-bottom:12px;">
+          <div style="font-size:13px;color:var(--ink-mid);margin-bottom:8px;">Dia do embrião transferido:</div>
+          <div style="display:flex;gap:8px;">
+            <button type="button" class="calc-mode on" id="cd-3" style="flex:1;" onclick="setEmbDay(3)">D3</button>
+            <button type="button" class="calc-mode" id="cd-5" style="flex:1;" onclick="setEmbDay(5)">D5</button>
+          </div>
+        </div>
+        <label id="calc-label" style="font-size:13px;color:var(--ink-mid);display:block;margin-bottom:8px;">Data do 1.º dia da última menstruação:</label>
         <input type="date" id="lmp-date" oninput="calcWeeks()"
           style="width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-family:'Jost',sans-serif;font-size:14px;background:var(--white);color:var(--ink);outline:none;-webkit-appearance:none;appearance:none;margin-bottom:0;">
         <div id="weeks-result" style="display:none;margin-top:12px;background:var(--white);border-radius:10px;padding:14px 16px;text-align:center;border:1px solid var(--border);">
@@ -723,8 +738,8 @@ html,body{height:100%;background:var(--cream3);color:var(--ink);font-family:'Jos
     <div class="prof-card"><div class="prof-name">Dra. Cláudia Rijo</div><div class="prof-local">MedMulher · Centro Médico do Cartaxo · Maternidade Alfredo da Costa</div></div>
     <div class="prof-card"><div class="prof-name">Dra. Ana Carocha</div><div class="prof-local">MedMulher · Maternidade Alfredo da Costa</div></div>
     <div class="prof-card"><div class="prof-name">Dr. Jader Cruz</div><div class="prof-local">MedMulher · Centro Médico do Cartaxo · Maternidade Alfredo da Costa</div></div>
-    <div class="prof-card"><div class="prof-name">Dra. Mariline D'Oliveira</div><div class="prof-local">Centro Médico do Cartaxo · Hospital da Luz de Vila Franca de Xira</div></div>
-    <div class="prof-card"><div class="prof-name">Dr. Bruno Carrilho</div><div class="prof-local">Hospital da Luz de Lisboa · Maternidade Alfredo da Costa</div></div>
+    <div class="prof-card"><div class="prof-name">Dra. Mariline D'Oliveira</div><div class="prof-local">Centro Médico do Cartaxo · Hospital da Luz de Vila Franca de Xira · Hospital Vila Franca de Xira</div></div>
+    <div class="prof-card"><div class="prof-name">Dr. Bruno Carrilho</div><div class="prof-local">Hospital da Luz de Lisboa · Hospital Vila Franca de Xira</div></div>
     <p style="font-size:11px;color:var(--ink-lt);margin-top:14px;font-style:italic;">* Os locais de exercício destes profissionais podem sofrer alterações ao longo do tempo.</p>
     <div style="margin-top:20px;"><button class="btn-outline" onclick="back()" data-pt="Voltar" data-en="Back">Voltar</button></div>
   </div>
@@ -1371,23 +1386,54 @@ document.addEventListener('DOMContentLoaded',function(){
   if(lp) lp.addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
 });
 
-function calcWeeks() {
-  var lmp = document.getElementById('lmp-date').value;
-  if (!lmp) return;
-  var lmpDate = new Date(lmp);
-  var today = new Date();
-  var diffMs = today - lmpDate;
-  var diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  if (diffDays < 0 || diffDays > 300) { document.getElementById('weeks-result').style.display='none'; return; }
-  var weeks = Math.floor(diffDays / 7);
-  var days = diffDays % 7;
-  var dpp = new Date(lmpDate.getTime() + 280 * 24 * 60 * 60 * 1000);
-  var dppStr = dpp.toLocaleDateString('pt-PT', {day:'2-digit', month:'long', year:'numeric'});
-  document.getElementById('weeks-num').textContent = weeks + ' semanas e ' + days + ' dias';
-  document.getElementById('weeks-dpp').textContent = 'Data provável do parto: ' + dppStr;
-  document.getElementById('weeks-result').style.display = 'block';
+var calcMode = 'lmp', embDay = 3;
+var CALC_LABELS = {
+  lmp: 'Data do 1.º dia da última menstruação:',
+  eco: 'Data provável do parto corrigida (DPPc) pela ecografia do 1.º trimestre:',
+  tre: 'Data da transferência de embrião:'
+};
+function setCalcMode(m) {
+  calcMode = m;
+  ['lmp','eco','tre'].forEach(function(k){ document.getElementById('cm-'+k).classList.toggle('on', k===m); });
+  document.getElementById('calc-tre-opts').style.display = (m==='tre') ? 'block' : 'none';
+  document.getElementById('calc-label').textContent = CALC_LABELS[m];
+  document.getElementById('lmp-date').value = '';
+  document.getElementById('weeks-result').style.display = 'none';
 }
-
+function setEmbDay(d) {
+  embDay = d;
+  document.getElementById('cd-3').classList.toggle('on', d===3);
+  document.getElementById('cd-5').classList.toggle('on', d===5);
+  calcWeeks();
+}
+function calcWeeks() {
+  var v = document.getElementById('lmp-date').value;
+  var res = document.getElementById('weeks-result');
+  if (!v) { res.style.display = 'none'; return; }
+  var p = v.split('-');
+  var DAY = 86400000;
+  var input = Date.UTC(+p[0], +p[1]-1, +p[2]);
+  var now = new Date();
+  var today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  // data equivalente ao 1.º dia da última menstruação (idade gestacional 0)
+  var dayZero;
+  if (calcMode === 'lmp') dayZero = input;
+  else if (calcMode === 'eco') dayZero = input - 280 * DAY;
+  else dayZero = input - (14 + embDay) * DAY;
+  var diffDays = Math.round((today - dayZero) / DAY);
+  if (diffDays < 0 || diffDays > 300) {
+    document.getElementById('weeks-num').textContent = 'Data fora do intervalo esperado';
+    document.getElementById('weeks-dpp').textContent = 'Verifique a data introduzida.';
+    res.style.display = 'block';
+    return;
+  }
+  var weeks = Math.floor(diffDays / 7), days = diffDays % 7;
+  var dpp = new Date(dayZero + 280 * DAY);
+  var dppStr = dpp.toLocaleDateString('pt-PT', {day:'2-digit', month:'long', year:'numeric', timeZone:'UTC'});
+  document.getElementById('weeks-num').textContent = weeks + ' semanas e ' + days + ' dias';
+  document.getElementById('weeks-dpp').textContent = (calcMode === 'eco' ? 'DPPc: ' : 'Data provável do parto: ') + dppStr;
+  res.style.display = 'block';
+}
 
 function copyEmail() {
   var addr = 'consulta@marianalourenco.pt';
